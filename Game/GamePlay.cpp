@@ -59,6 +59,7 @@ GamePlay::GamePlay()
 			g_trap[i].spd_y = 0.0f;
 			g_trap[i].state = 1;
 =======
+		}
 		else if (g_map[i / 20][i % 20] == 4)
 		{
 			player->SetPosX((float)(i % 20) * player->GetGrpW());
