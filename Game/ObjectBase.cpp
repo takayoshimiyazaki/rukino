@@ -142,7 +142,24 @@ int  ObjectBase::GetJump()
 	return jump;
 }
 
+void ObjectBase::SetClimb(int s)
+{
+	climb = s;
+}
+int ObjectBase::GetClimb()
+{
+	return climb;
+}
 
+void ObjectBase::SetHold(int s)
+{
+	hold = s;
+}
+int ObjectBase::GetHold()
+{
+
+	return hold;
+}
 
 
 void ObjectBase::UpData()
@@ -157,6 +174,8 @@ void ObjectBase::UpData()
 	GetSpdY();
 	GetState();
 	GetJump();
+	GetClimb();
+	GetHold();
 }
 
 void ObjectBase::Render()

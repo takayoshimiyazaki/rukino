@@ -34,7 +34,7 @@ public:
 	float GetPosY();//Y座標セット
 
 
-	//画像関連（コメントにつかれました...）
+					//画像関連（コメントにつかれました...）
 	void SetGrpX(int x);
 	int GetGrpX();
 
@@ -61,6 +61,12 @@ public:
 
 	void SetJump(int s);//ジャンプ状態セット
 	int GetJump();//ジャンプ状態取得
+
+	void SetClimb(int s);//登り状態セット
+	int GetClimb();//登り状態取得
+
+	void SetHold(int s);//掴み状態セット
+	int GetHold();//掴み状態取得
 
 	void PlayerControl(void);//プレイヤー操作
 };

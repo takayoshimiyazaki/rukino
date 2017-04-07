@@ -49,7 +49,6 @@ GamePlay::GamePlay()
 		{
 			player->SetPosX((float)(i % MAP_W) * player->GetGrpW());
 			player->SetPosY((float)(i / MAP_H) * player->GetGrpH());
-
 		}
 		else
 		{
@@ -76,6 +75,20 @@ void GamePlay::Update()
 {
 
 	////////////////////  更新処理  //////////////////
+	
+	//速度リセット
+	player->SetSpdX(0);
+	if (player->GetJump() == TRUE&& player->GetClimb() == FALSE)
+	{
+		player->SetSpdY(player->GetSpdY() + GRAVITY);
+	}
+	else
+	{
+		player->SetSpdY(0);
+	}
+
+	//床との判定
+	Collisionfloor(player);
 
 	player->UpData();
 
@@ -83,11 +96,11 @@ void GamePlay::Update()
 
 	m_timeCount++;	//	時間のカウント
 
+
 	////////////////////  キー入力  //////////////////	
 
 
-	//床との判定
-	Collisionfloor(player);
+	
 
 	// マウスクリックで
 	//if (g_mouse.leftButton)
@@ -204,12 +217,13 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	map_y = (int)floor(bottom / CHIP_SIZE);
 
 
+	
 	// 床壁だったら
 	if (g_map[map_y][map_x] == 1)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			if (obj->GetJump() == TRUE)
+			if (obj->GetJump() == TRUE|| obj->GetClimb() == TRUE)
 			{
 				// プレイヤーの位置を床の上に移動させる
 				if (obj->GetState() == 1)
@@ -237,15 +251,12 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 		}
 	}
-
-	//	梯子のとき
 	else if (g_map[map_y][map_x] == 6)
 	{
-		obj->SetPosX(220);
-		obj->SetPosY(240);
-
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(0);
 	}
-
 	else
 	{
 		//足元が床で無ければ飛んでいる
@@ -258,16 +269,25 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			// 落とす
-			obj->SetSpdY(20.0f);
-		}
+			{// 落とす
+				obj->SetSpdY(6.0f);
+			}
+		} 
 	}
-
+	if (g_map[map_y][map_x] == 8)
+	{
+		obj->SetJumpPower(0.0f);
+		obj->SetJump(FALSE);
+		obj->SetSpdY(0.0f);
+		obj->SetSpdX(3.0f);
+	}
+	
+	
 
 	map_y = (int)floor(bottom / CHIP_SIZE);
 
 	// プレイヤーの右足の位置
-	map_x = (int)floor(right / CHIP_SIZE);
+	map_x = (int)floor(right / CHIP_SIZE-0.5f);
 	// 床だったら
 	if (g_map[map_y][map_x] == 1)
 	{
@@ -299,6 +319,12 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			obj->SetState(1);
 		}
 	}
+	else if (g_map[map_y][map_x] == 6)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(0);
+	}
 	else
 	{
 		//足元が床で無ければ飛んでいる
@@ -312,34 +338,46 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			// 落とす
-			obj->SetSpdY(20.0f);
+			{// 落とす
+				obj->SetSpdY(6.0f);
+			}
 		}
 	}
+	if (g_map[map_y][map_x] == 8)
+	{
+		obj->SetJumpPower(0.0f);
+		obj->SetJump(FALSE);
+		obj->SetSpdY(0.0f);
+		obj->SetSpdX(3.0f);
+	}
+	
+	
+	
+
 }
 
 //罠とキャラクターの当たり判定
-void  GamePlay::Collisiontrup(ObjectBase* obj)
-{
-	//プレイヤーの左右座標を求める
-	float left = obj->GetPosX() + 0.01f;
-	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
-
-	// プレイヤーの足元の座標を求める
-	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
-	//プレイヤーの頭の判定
-	float head = obj->GetPosY();
-	//プレイヤーの胴体判定
-	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
-	// マップの配列の位置　
-	int map_x, map_y;
-
-	// プレイヤーの左足の位置
-	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
-	map_y = (int)floor(bottom / CHIP_SIZE);
-
-
-}
+//void  GamePlay::Collisiontrup(ObjectBase* obj)
+//{
+//	//プレイヤーの左右座標を求める
+//	float left = obj->GetPosX() + 0.01f;
+//	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
+//
+//	// プレイヤーの足元の座標を求める
+//	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
+//	//プレイヤーの頭の判定
+//	float head = obj->GetPosY();
+//	//プレイヤーの胴体判定
+//	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
+//	// マップの配列の位置　
+//	int map_x, map_y;
+//
+//	// プレイヤーの左足の位置
+//	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
+//	map_y = (int)floor(bottom / CHIP_SIZE);
+//
+//
+//}
 
 GamePlay::~GamePlay()
 {
