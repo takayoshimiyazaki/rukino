@@ -35,7 +35,7 @@ GamePlay::GamePlay()
 	
 	// マップの設定
 
-	importData("map.csv");//マップデータの読み込み
+	importData("map1.csv");//マップデータの読み込み
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -116,10 +116,11 @@ void GamePlay::Render()
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
 				g_tip[i].grp_x + g_tip[i].grp_w,
 				g_tip[i].grp_y + g_tip[i].grp_h };
-
+			float sx = g_tip[i].pos_x - g_ScrollMap_x;
+			float sy = g_tip[i].pos_y - g_ScrollMap_y;
 
 			g_spriteBatch->Draw(g_StageImage->m_pTexture,
-				Vector2(g_tip[i].pos_x, g_tip[i].pos_y),
+				Vector2(sx, sy),
 				&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 		}
 	}
