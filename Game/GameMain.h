@@ -17,7 +17,7 @@
 #define EXTERN
 #endif
 
-#define MAP_H 15*5
+#define MAP_H 15*3
 #define MAP_W 20
 
 #define CHIP_SIZE 32

@@ -122,6 +122,7 @@ void GamePlay::Render()
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
 				g_tip[i].grp_x + g_tip[i].grp_w,
 				g_tip[i].grp_y + g_tip[i].grp_h };
+
 			float sx = g_tip[i].pos_x - g_ScrollMap_x;
 			float sy = g_tip[i].pos_y - g_ScrollMap_y;
 
