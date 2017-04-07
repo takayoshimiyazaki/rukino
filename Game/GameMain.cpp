@@ -181,3 +181,4 @@ void DrawNum(int x, int y, int n)
 }
 
 
+//test
