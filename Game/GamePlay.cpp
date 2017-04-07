@@ -39,10 +39,31 @@ GamePlay::GamePlay()
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-		
+
 		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
+		}
+
+		if (g_map[i / 20][i % 20] == 5)
+		{
+			g_trap[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
+			g_trap[i].grp_y = 0;
+			g_trap[i].grp_w = CHIP_SIZE;
+			g_trap[i].grp_h = CHIP_SIZE;
+			g_trap[i].pos_x = (i % 20) * g_trap[i].grp_w;
+			g_trap[i].pos_y = (i / 20) * g_trap[i].grp_h;
+			g_trap[i].pos_x = (float)(i % 20) * g_trap[i].grp_w;
+			g_trap[i].pos_y = (float)(i / 20) * g_trap[i].grp_h;
+			g_trap[i].spd_x = 0.0f;
+			g_trap[i].spd_y = 0.0f;
+			g_trap[i].state = 1;
+		}
+		else if (g_map[i / 20][i % 20] == 4)
+		{
+			player->SetPosX((float)(i % 20) * player->GetGrpW());
+			player->SetPosY((float)(i / 20) * player->GetGrpH());
+
 		}
 		else
 		{
@@ -58,11 +79,10 @@ GamePlay::GamePlay()
 			g_tip[i].spd_y = 0.0f;
 			g_tip[i].state = 1;
 		}
-	}
-	g_ScrollMap_x = 0;
-	g_ScrollMap_y = 0;
+		}
 
-}
+	}
+
 
 
 //更新
@@ -83,10 +103,10 @@ void GamePlay::Update()
 	Collisionfloor(player);
 
 	// マウスクリックで
-	if (g_mouse.leftButton)
-	{
-		SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
-	}
+	//if (g_mouse.leftButton)
+	//{
+	//	SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
+	//}
 
 	mouseState = g_mouse.leftButton;
 	
@@ -101,8 +121,8 @@ void GamePlay::Render()
 	ShowCursor(FALSE);
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-	//wchar_t buf[256];	// 文字列編集用
-						
+	wchar_t buf[256];	// 文字列編集用						
+	wchar_t buf2[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_BackImage->m_pTexture,
@@ -138,10 +158,11 @@ void GamePlay::Render()
 	player->Render();
 
 	//デバッグ用文字
-	/*swprintf_s(buf, 16, L"", );
-	swprintf_s(buf2, 32, L"", );
+	swprintf_s(buf, 16, L"X ,%d",(int)player->GetPosX());
+	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 32));*/
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
 	
 }
 
@@ -302,6 +323,28 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 }
 
+//罠とキャラクターの当たり判定
+void  GamePlay::Collisiontrup(ObjectBase* obj)
+{
+	//プレイヤーの左右座標を求める
+	float left = obj->GetPosX() + 0.01f;
+	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
+
+	// プレイヤーの足元の座標を求める
+	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
+	//プレイヤーの頭の判定
+	float head = obj->GetPosY();
+	//プレイヤーの胴体判定
+	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
+	// マップの配列の位置　
+	int map_x, map_y;
+
+	// プレイヤーの左足の位置
+	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
+	map_y = (int)floor(bottom / CHIP_SIZE);
+
+
+}
 
 GamePlay::~GamePlay()
 {

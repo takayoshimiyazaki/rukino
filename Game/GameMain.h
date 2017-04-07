@@ -33,14 +33,14 @@
 // 定数の定義 ==============================================================
 
 // ゲームタイトル
-#define GAME_TITLE "SHINE"
+#define GAME_TITLE "AAA"
 
 // ゲーム画面
 #define SCREEN_WIDTH  640    // 幅[pixel]
 #define SCREEN_HEIGHT 480    // 高さ[pixel]
 
 //マップチップの最大数
-#define MAX_TIP 1125
+#define MAX_TIP 1500
 
 //　構造体宣言
 typedef struct tag_object
@@ -110,6 +110,8 @@ EXTERN Texture *g_OverImage;			//クリア画像
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
 EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
+EXTERN OBJECT g_trap[MAX_TIP];		//　マップチップ
+
 
 EXTERN int g_scene;					//シーン管理
 EXTERN int g_NextScene;				//次のシーン
