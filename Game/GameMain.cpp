@@ -68,6 +68,8 @@ void InitializeGame(void)
 	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ロゴ画像
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像
+	g_StateImage = new Texture(L"Resources\\Images\\state.png");//クリア画像
+	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//クリア画像
 
 	//ステージセレクト画像（2つ）
 	g_SerectForestImage = new Texture(L"Resources\\Images\\Serect_Forest.png");

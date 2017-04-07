@@ -101,11 +101,13 @@ EXTERN Texture *g_SerectTowerImage;		//ステージセレクト（塔）画像
 EXTERN Texture *g_ForestStageImage;		//ステージイメージ（森）画像
 EXTERN Texture *g_TowerStageImage;		//ステージイメージ（塔）画像
 
-EXTERN Texture *g_PlayerImage;			//プレイヤー画像		
+EXTERN Texture *g_PlayerImage;			//プレイヤー画像
+EXTERN Texture *g_SBImage;			//ばさみ画像
 EXTERN Texture *g_TitleImage;			// タイトル画面
 EXTERN Texture *g_ClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//クリア画像
 EXTERN Texture *g_OverImage;			//クリア画像
+EXTERN Texture *g_StateImage;			//クリア画像
 
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]

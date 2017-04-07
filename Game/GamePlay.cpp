@@ -156,9 +156,24 @@ void GamePlay::Render()
 	//	 プレイヤー
 	player->Render();
 
+
+	rect = { 0, 0,680,96};
+	g_spriteBatch->Draw(g_StateImage->m_pTexture,
+		Vector2(0, 480-96),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+
+	rect = { 0, 0,64,84 };
+	g_spriteBatch->Draw(g_SBImage->m_pTexture,
+		Vector2(40, 480 - 84),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
+
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
 	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+
+
+
 
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));

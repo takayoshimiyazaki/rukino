@@ -68,6 +68,8 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
+	
+
 	void PlayerControl(void);//プレイヤー操作
 };
 
