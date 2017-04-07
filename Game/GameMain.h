@@ -18,6 +18,7 @@
 #endif
 
 #define MAP_H 15
+#define MAP_H 15*5
 #define MAP_W 20
 
 #define CHIP_SIZE 32
@@ -40,7 +41,7 @@
 #define SCREEN_HEIGHT 480    // 高さ[pixel]
 
 //マップチップの最大数
-#define MAX_TIP 300
+#define MAX_TIP 1125
 
 //　構造体宣言
 typedef struct tag_object
@@ -107,6 +108,7 @@ EXTERN Texture *g_ClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//クリア画像
 EXTERN Texture *g_OverImage;			//クリア画像
 
+<<<<<<< HEAD
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ
 EXTERN OBJECT g_tip[MAX_TIP];			//　マップチップ
 
@@ -114,3 +116,15 @@ EXTERN int g_scene;						//シーン管理
 EXTERN int g_NextScene;					//次のシーン
 EXTERN int g_init;						//初期化管理
 EXTERN int g_mousePoint;
+=======
+EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
+EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
+
+EXTERN int g_scene;					//シーン管理
+EXTERN int g_NextScene;				//次のシーン
+EXTERN int g_init;					//初期化管理
+EXTERN int g_mousePoint;
+
+EXTERN int g_ScrollMap_x; //画面スクロール量（X）
+EXTERN int g_ScrollMap_y;//画面スクロール量（Y）
+>>>>>>> 7eeb1ceae07c87ed1f1386bb0b7ebca3d3b52f1e

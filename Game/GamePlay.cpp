@@ -27,7 +27,7 @@ void Initialize();
 void Update();
 
 
-
+//	コンストラクタ
 GamePlay::GamePlay()
 {
 	//プレイヤー作成
@@ -35,7 +35,7 @@ GamePlay::GamePlay()
 	
 	// マップの設定
 
-	importData("map.csv");//マップデータの読み込み
+	importData("map1.csv");//マップデータの読み込み
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -52,12 +52,15 @@ GamePlay::GamePlay()
 			g_tip[i].grp_h = CHIP_SIZE;
 			g_tip[i].pos_x = (i % 20) * g_tip[i].grp_w;
 			g_tip[i].pos_y = (i / 20) * g_tip[i].grp_h;
+			g_tip[i].pos_x = (float)(i % 20) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (float)(i / 20) * g_tip[i].grp_h;
 			g_tip[i].spd_x = 0.0f;
 			g_tip[i].spd_y = 0.0f;
 			g_tip[i].state = 1;
 		}
 	}
-
+	g_ScrollMap_x = 0;
+	g_ScrollMap_y = 0;
 
 }
 
@@ -71,6 +74,7 @@ void GamePlay::Update()
 
 	player->UpData();
 
+	ScrollMap();
 
 	////////////////////  キー入力  //////////////////	
 
@@ -97,8 +101,8 @@ void GamePlay::Render()
 	ShowCursor(FALSE);
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-						wchar_t buf[256];	// 文字列編集用
-						wchar_t buf2[256];	// 文字列編集用
+	//wchar_t buf[256];	// 文字列編集用
+						
 
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_BackImage->m_pTexture,
@@ -118,10 +122,11 @@ void GamePlay::Render()
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
 				g_tip[i].grp_x + g_tip[i].grp_w,
 				g_tip[i].grp_y + g_tip[i].grp_h };
-
+			float sx = g_tip[i].pos_x - g_ScrollMap_x;
+			float sy = g_tip[i].pos_y - g_ScrollMap_y;
 
 			g_spriteBatch->Draw(g_StageImage->m_pTexture,
-				Vector2(g_tip[i].pos_x, g_tip[i].pos_y),
+				Vector2(sx, sy),
 				&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 		}
 	}
@@ -183,7 +188,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	//プレイヤーの胴体判定
 	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
 	// マップの配列の位置　
-	int map_x, map_y, map_y2;
+	int map_x, map_y;
 
 	// プレイヤーの左足の位置
 	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
@@ -202,16 +207,17 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 				{
 					if (obj->GetGrpH() == 64)
 					{
-						obj->SetPosY((map_y - 1) * CHIP_SIZE - 32);
+						
+						obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 					}
 					else
 					{
-						obj->SetPosY((map_y - 1) * CHIP_SIZE);
+						obj->SetPosY((map_y - 1) * (float)CHIP_SIZE);
 					}
 				}
 				else
 				{
-					obj->SetPosY((map_y - 1) * CHIP_SIZE - 32);
+					obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 				}
 			}
 			// 速度を0にする
@@ -256,18 +262,22 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 				{
 					if (obj->GetGrpH() == 64)
 					{
-						obj->SetPosY((map_y - 1) * CHIP_SIZE - 32);
+						obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 					}
 					else
 					{
-						obj->SetPosY((map_y - 1) * CHIP_SIZE);
+						obj->SetPosY((map_y - 1) * (float)CHIP_SIZE);
 					}
+				}
+				else
+				{
+					obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 				}
 			}
 			// 速度を0にする
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
-			obj->SetJumpPower(0);
+			obj->SetJumpPower(0.0f);
 			obj->SetState(1);
 		}
 	}
@@ -366,7 +376,7 @@ void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float A
 	if (moveFlag == 1)
 	{
 		moveCnt++;
-		if (moveCnt / 60 == Time)
+		if (moveCnt / 60 == Time)//指定時間になったら指定ポジションに強制移動
 		{
 			obj->SetPosX(AposX);
 			obj->SetPosY(AposY);
@@ -374,5 +384,34 @@ void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float A
 	}
 	obj->SetPosX(obj->GetPosX() + obj->GetSpdX());
 	obj->SetPosY(obj->GetPosY() + obj->GetSpdY());
+}
+
+
+//スクロール量検出
+void GamePlay::ScrollMap(void)
+{
+
+	g_ScrollMap_x = player->GetPosX() + player->GetGrpW()/ 2 - SCREEN_WIDTH / 2;
+
+	if (g_ScrollMap_x < 0 )
+	{
+		g_ScrollMap_x = 0;
+	}
+	else if (g_ScrollMap_x >(MAP_W * CHIP_SIZE - SCREEN_WIDTH))
+	{
+		g_ScrollMap_x = (MAP_W * CHIP_SIZE - SCREEN_WIDTH);
+	}
+
+
+	g_ScrollMap_y = player->GetPosY() + player->GetGrpH() / 2 - SCREEN_HEIGHT / 2;
+
+	if (g_ScrollMap_y < 0 )
+	{
+		g_ScrollMap_y = 0;
+	}
+	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT))
+	{
+		g_ScrollMap_y = (MAP_H * CHIP_SIZE - SCREEN_HEIGHT);
+	}
 }
 
