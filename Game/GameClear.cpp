@@ -44,10 +44,10 @@ void GameClear::Update()
 void GameClear::Render()
 {
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-	
-	rect = { 0, 0,640,480 };
-	g_spriteBatch->Draw(g_ClearImage->m_pTexture,
-		Vector2(0, 0));
+
+	//クリア画像の描画
+	rect = { 0, 0,640,480 };	
+	g_spriteBatch->Draw(g_ClearImage->m_pTexture,Vector2(0, 0));
 	
 }
 

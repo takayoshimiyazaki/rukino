@@ -63,6 +63,7 @@ enum SCENE
 {
 	LOGO,
 	TITLE,
+	SERECT,
 	PLAY,
 	CLEAR,
 	OVER
@@ -89,20 +90,27 @@ void DrawNum(int x, int y, int n);
 
 // グローバル変数の定義 ====================================================
 
-EXTERN Texture *g_StageImage;		//　ステージ画像
+EXTERN Texture *g_StageImage;			//　ステージ画像
 EXTERN Texture *g_BlackImage;			// フェード用黒画像
-EXTERN Texture *g_BackImage;				// 背景用画像
+EXTERN Texture *g_BackImage;			// 背景用画像
 
-EXTERN Texture *g_PlayerImage;		//プレイヤー画像		
+// ステージセレクト用画像
+EXTERN Texture *g_SerectForestImage;	//ステージセレクト（森）画像
+EXTERN Texture *g_SerectTowerImage;		//ステージセレクト（塔）画像
+
+EXTERN Texture *g_ForestStageImage;		//ステージイメージ（森）画像
+EXTERN Texture *g_TowerStageImage;		//ステージイメージ（塔）画像
+
+EXTERN Texture *g_PlayerImage;			//プレイヤー画像		
 EXTERN Texture *g_TitleImage;			// タイトル画面
 EXTERN Texture *g_ClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//クリア画像
 EXTERN Texture *g_OverImage;			//クリア画像
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ
-EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
+EXTERN OBJECT g_tip[MAX_TIP];			//　マップチップ
 
-EXTERN int g_scene;					//シーン管理
-EXTERN int g_NextScene;				//次のシーン
-EXTERN int g_init;					//初期化管理
+EXTERN int g_scene;						//シーン管理
+EXTERN int g_NextScene;					//次のシーン
+EXTERN int g_init;						//初期化管理
 EXTERN int g_mousePoint;

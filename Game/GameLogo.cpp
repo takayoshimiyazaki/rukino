@@ -45,6 +45,7 @@ void GameLogo::Render()
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
+	//ロゴ画像の表示
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_LogoImage->m_pTexture,
 		Vector2(0, 0));
