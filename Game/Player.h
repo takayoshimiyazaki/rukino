@@ -7,9 +7,13 @@
 //!
 //! @author Yuhei M	
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
+
+// ヘッダファイルのインクルード
 #include <iostream>
 #include "ObjectBase.h"
 #include "../Texture.h"
+
+// Playerクラス
 class Player :public ObjectBase
 {
 private:

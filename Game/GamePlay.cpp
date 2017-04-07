@@ -39,11 +39,12 @@ GamePlay::GamePlay()
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-		
+	
 		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
 		}
+<<<<<<< HEAD
 		if (g_map[i / 20][i % 20] == 5)
 		{
 			g_trap[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
@@ -57,6 +58,12 @@ GamePlay::GamePlay()
 			g_trap[i].spd_x = 0.0f;
 			g_trap[i].spd_y = 0.0f;
 			g_trap[i].state = 1;
+=======
+		else if (g_map[i / 20][i % 20] == 4)
+		{
+			player->SetPosX((float)(i % 20) * player->GetGrpW());
+			player->SetPosY((float)(i / 20) * player->GetGrpH());
+>>>>>>> b5e561d0cda897367af53279ec30d3a9adef99df
 		}
 		else
 		{
@@ -73,8 +80,7 @@ GamePlay::GamePlay()
 			g_tip[i].state = 1;
 		}
 	}
-	g_ScrollMap_x = 0;
-	g_ScrollMap_y = 0;
+	
 
 }
 
@@ -97,10 +103,10 @@ void GamePlay::Update()
 	Collisionfloor(player);
 
 	// マウスクリックで
-	if (g_mouse.leftButton)
-	{
-		SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
-	}
+	//if (g_mouse.leftButton)
+	//{
+	//	SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
+	//}
 
 	mouseState = g_mouse.leftButton;
 	
@@ -115,8 +121,8 @@ void GamePlay::Render()
 	ShowCursor(FALSE);
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-	//wchar_t buf[256];	// 文字列編集用
-						
+	wchar_t buf[256];	// 文字列編集用						
+	wchar_t buf2[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_BackImage->m_pTexture,
@@ -152,10 +158,11 @@ void GamePlay::Render()
 	player->Render();
 
 	//デバッグ用文字
-	/*swprintf_s(buf, 16, L"", );
-	swprintf_s(buf2, 32, L"", );
+	swprintf_s(buf, 16, L"X ,%d",(int)player->GetPosX());
+	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 32));*/
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
 	
 }
 
