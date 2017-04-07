@@ -27,7 +27,7 @@ void Initialize();
 void Update();
 
 
-
+//	コンストラクタ
 GamePlay::GamePlay()
 {
 	//プレイヤー作成
