@@ -18,16 +18,19 @@ class GamePlay :public GameBase
 private:
 	Player* player;//プレイヤーポインタ
 	bool mouseState = 0;
+	int m_timeCount = 0;	//	カウント
+	int cnt = 0;			//	時間
 public:
 	GamePlay();
 	void Initialize();//初期化
 	void Update();//更新
 	void Render();//描画
 	void importData(std::string f);//マップ読み込み
-	void  Collisionfloor(ObjectBase* obj);//床との判定
+	void Collisionfloor(ObjectBase* obj);//床との判定
 	void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float AposY, float Time);//指定座標移動関数
 	void GamePlay::ScrollMap(void);
 	void Collisiontrup(ObjectBase * obj);
 	//マップスクロール量検出
 	~GamePlay();
+
 };
