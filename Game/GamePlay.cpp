@@ -35,7 +35,7 @@ GamePlay::GamePlay()
 	
 	// マップの設定
 
-	importData("map1.csv");//マップデータの読み込み
+	importData("map2.csv");//マップデータの読み込み
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
