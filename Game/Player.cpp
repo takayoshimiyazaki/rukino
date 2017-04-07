@@ -168,20 +168,32 @@ int  Player::GetJump()
 
 
 
+void Player::SetClimb(int s)
+{
+	climb = s;
+}
+int Player::GetClimb()
+{
+	return climb;
+}
+
+void Player::SetHold(int s)
+{
+	hold = s;
+}
+int Player::GetHold()
+{
+
+	return hold;
+}
+
 
 
 
 void Player::UpData()
 {
-	GetPosX();
-	GetPosY();
-	GetGrpX();
-	GetGrpY();
-	GetGrpW();
-	GetGrpH();
-	GetSpdX();
-	GetSpdY();
-	GetState();
+
+	
 
 	PlayerControl();
 
@@ -193,6 +205,7 @@ void Player::UpData()
 	{
 		m_cnt = 0;
 	}
+	
 }
 
 void Player::Render()
@@ -247,18 +260,9 @@ void Player::Render()
 void Player::PlayerControl(void)
 {
 	float spd = 2.0f;
-	float jumpPower = -16.0f;
+	float jumpPower = -12.0f;
 
-	//速度リセット
-	SetSpdX(0);
-	if (GetJump() == TRUE)
-	{
-		SetSpdY(GetSpdY() + GRAVITY);
-	}
-	else
-	{
-		SetSpdY(0);
-	}
+	
 
 
 
@@ -275,30 +279,28 @@ void Player::PlayerControl(void)
 		if (g_key.Right)//右キー押下
 		{
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
-			if (*mapdata == 0|| *mapdata == 2 || *mapdata == 6)//移動可能マップチップ
+			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 6 || *mapdata == 6)//移動可能マップチップ
 			{
 
-			SetSpdX(spd);
-
+				SetSpdX(spd);
+				SetClimb(FALSE);
 				if (*mapdata == 2)//ゴールのチップ番号指定
 				{
-				g_NextScene = CLEAR;
+					g_NextScene = CLEAR;
 				}
 			}
-
-
-
 		}
 		else if (g_key.Left)//左キー押下
 		{
+
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 
 
-			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 6)//移動可能マップチップ
+			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6)//移動可能マップチップ
 			{
 
 				SetSpdX(-spd);
-
+				SetClimb(FALSE);
 				if (*mapdata == 2)//ゴールのチップ番号指定
 				{
 					g_NextScene = CLEAR;
@@ -306,6 +308,32 @@ void Player::PlayerControl(void)
 			}
 
 		}
+
+
+		if (g_key.Up)//上キー押下
+		{
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			int* mapdata2 = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+			if (*mapdata == 6 || *mapdata2 == 6)//移動可能マップチップ
+			{
+
+				SetSpdY(-spd);
+				SetClimb(TRUE);
+			}
+		}
+		else if (g_key.Down)//上キー押下
+		{
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			int* mapdata2 = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+			if (*mapdata == 6 || *mapdata2 == 6)//移動可能マップチップ
+			{
+
+				SetSpdY(spd);
+				SetClimb(TRUE);
+			}
+		}
+
+	
 
 		//スペースキーでジャンプ
 		if (g_keyTracker->pressed.Space&&GetState() == 1 && GetJump() == FALSE)
@@ -325,6 +353,8 @@ void Player::PlayerControl(void)
 			SetGrpX(32);
 		}
 
+		
+
 		//状態による変更
 		switch (GetState())
 		{
@@ -335,4 +365,10 @@ void Player::PlayerControl(void)
 
 		}
 	}
+
+
+
+	
+
+
 }
