@@ -17,7 +17,7 @@
 class Player :public ObjectBase
 {
 private:
-	
+	int m_cnt;
 public:
 	Player();//コンストラクタ
 	~Player();//デストラクタ

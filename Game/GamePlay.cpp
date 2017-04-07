@@ -39,11 +39,31 @@ GamePlay::GamePlay()
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
 		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
 		}
+<<<<<<< HEAD
+		else if (g_map[i / 20][i % 20] == 1)//	壁
+		{
+			g_tip[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
+			g_tip[i].grp_y = 0;
+			g_tip[i].grp_w = CHIP_SIZE;
+			g_tip[i].grp_h = CHIP_SIZE;
+			g_tip[i].pos_x = (i % 20) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (i / 20) * g_tip[i].grp_h;
+			g_tip[i].pos_x = (float)(i % 20) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (float)(i / 20) * g_tip[i].grp_h;
+			g_tip[i].spd_x = 0.0f;
+			g_tip[i].spd_y = 0.0f;
+			g_tip[i].state = 1;
+		}
+		else if (g_map[i / 20][i % 20] == 6)//	階段
+=======
 
 		if (g_map[i / 20][i % 20] == 5)
 		{
@@ -70,6 +90,7 @@ GamePlay::GamePlay()
 
 		}
 		else
+>>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
 		{
 			g_tip[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
 			g_tip[i].grp_y = 0;
@@ -254,6 +275,15 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			
 		}
 	}
+	
+	//	梯子のとき
+	else if (g_map[map_y][map_x] == 6)
+	{
+		obj->SetPosX(220);
+		obj->SetPosY(240);
+
+	}
+
 	else
 	{
 		//足元が床で無ければ飛んでいる
