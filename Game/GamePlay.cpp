@@ -35,7 +35,7 @@ GamePlay::GamePlay()
 	
 	// マップの設定
 
-	importData("map2.csv");//マップデータの読み込み
+	importData("map1.csv");//マップデータの読み込み
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -43,6 +43,20 @@ GamePlay::GamePlay()
 		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
+		}
+		if (g_map[i / 20][i % 20] == 5)
+		{
+			g_trap[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
+			g_trap[i].grp_y = 0;
+			g_trap[i].grp_w = CHIP_SIZE;
+			g_trap[i].grp_h = CHIP_SIZE;
+			g_trap[i].pos_x = (i % 20) * g_trap[i].grp_w;
+			g_trap[i].pos_y = (i / 20) * g_trap[i].grp_h;
+			g_trap[i].pos_x = (float)(i % 20) * g_trap[i].grp_w;
+			g_trap[i].pos_y = (float)(i / 20) * g_trap[i].grp_h;
+			g_trap[i].spd_x = 0.0f;
+			g_trap[i].spd_y = 0.0f;
+			g_trap[i].state = 1;
 		}
 		else
 		{
@@ -302,6 +316,28 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 }
 
+//罠とキャラクターの当たり判定
+void  GamePlay::Collisiontrup(ObjectBase* obj)
+{
+	//プレイヤーの左右座標を求める
+	float left = obj->GetPosX() + 0.01f;
+	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
+
+	// プレイヤーの足元の座標を求める
+	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
+	//プレイヤーの頭の判定
+	float head = obj->GetPosY();
+	//プレイヤーの胴体判定
+	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
+	// マップの配列の位置　
+	int map_x, map_y;
+
+	// プレイヤーの左足の位置
+	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
+	map_y = (int)floor(bottom / CHIP_SIZE);
+
+
+}
 
 GamePlay::~GamePlay()
 {

@@ -110,6 +110,8 @@ EXTERN Texture *g_OverImage;			//クリア画像
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
 EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
+EXTERN OBJECT g_trap[MAX_TIP];		//　マップチップ
+
 
 EXTERN int g_scene;					//シーン管理
 EXTERN int g_NextScene;				//次のシーン
