@@ -17,7 +17,7 @@
 #define EXTERN
 #endif
 
-#define MAP_H 15
+#define MAP_H 15*5
 #define MAP_W 20
 
 #define CHIP_SIZE 32
@@ -40,7 +40,7 @@
 #define SCREEN_HEIGHT 480    // 高さ[pixel]
 
 //マップチップの最大数
-#define MAX_TIP 300
+#define MAX_TIP 1125
 
 //　構造体宣言
 typedef struct tag_object
