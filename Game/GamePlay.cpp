@@ -58,6 +58,10 @@ GamePlay::GamePlay()
 			g_trap[i].spd_x = 0.0f;
 			g_trap[i].spd_y = 0.0f;
 			g_trap[i].state = 1;
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e0d3cfd763b35a5a3f449b67b1c06bf9adff545f
 		}
 		else if (g_map[i / 20][i % 20] == 4)
 		{
