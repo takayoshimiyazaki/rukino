@@ -239,15 +239,15 @@ void Player::PlayerControl(void)
 		{
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
 
-			if (*mapdata == 0)//移動可能マップチップ
+			if (*mapdata == 0|| *mapdata == 2)//移動可能マップチップ
 			{
 
 			SetSpdX(spd);
 
-				/*if (*mapdata == )//ゴールのチップ番号指定
+				if (*mapdata == 2)//ゴールのチップ番号指定
 				{
 				g_NextScene = CLEAR;
-				}*/
+				}
 			}
 
 
@@ -257,10 +257,17 @@ void Player::PlayerControl(void)
 		{
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 
-			if (*mapdata == 0)
+			if (*mapdata == 0 || *mapdata == 2)//移動可能マップチップ
 			{
+
 				SetSpdX(-spd);
+
+				if (*mapdata == 2)//ゴールのチップ番号指定
+				{
+					g_NextScene = CLEAR;
+				}
 			}
+
 		}
 
 		//スペースキーでジャンプ
