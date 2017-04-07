@@ -195,8 +195,13 @@ void Player::Render()
 		rect = {GetGrpX(),GetGrpY(),GetGrpX() + GetGrpW() ,
 			GetGrpY() + GetGrpH() };
 	}
+	
+	float sx = GetPosX() - g_ScrollMap_x;
+	float sy = GetPosY() - g_ScrollMap_y;
+	
+
 	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
-		Vector2(GetPosX(), GetPosY()),
+		Vector2(sx, sy),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 
 }
