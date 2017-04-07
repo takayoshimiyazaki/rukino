@@ -67,6 +67,7 @@ void GameTitle::Render()
 }
 GameTitle::GameTitle()
 {
+	
 }
 
 GameTitle::~GameTitle()
