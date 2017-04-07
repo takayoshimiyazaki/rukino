@@ -67,12 +67,7 @@ void GameTitle::Render()
 }
 GameTitle::GameTitle()
 {
-<<<<<<< HEAD
-	
-=======
-	//‚â‚Á‚Ù`
-	//‚â‚Á‚Ù[
->>>>>>> 7eeb1ceae07c87ed1f1386bb0b7ebca3d3b52f1e
+
 }
 
 GameTitle::~GameTitle()

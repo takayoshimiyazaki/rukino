@@ -69,9 +69,11 @@ void InitializeGame(void)
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ロゴ画像
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像
 
+	//ステージセレクト画像（2つ）
 	g_SerectForestImage = new Texture(L"Resources\\Images\\Serect_Forest.png");
 	g_SerectTowerImage = new Texture(L"Resources\\Images\\Serect_Tower.png");
 
+	//ステージのセレクト時の右側の画像
 	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");
 	g_TowerStageImage = new Texture(L"Resources\\Images\\TowerStage.png");
 

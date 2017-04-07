@@ -32,10 +32,10 @@ void GameClear::Update()
 	}
 
 
-	// スペースキーでタイトルに遷移
+	// スペースキーが押されたら
 	if (g_keyTracker->pressed.Space)
 	{
-		
+		//タイトルへ行く
 		g_NextScene = TITLE;
 
 	}
