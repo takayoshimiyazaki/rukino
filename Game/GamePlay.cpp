@@ -50,6 +50,8 @@ GamePlay::GamePlay()
 			g_tip[i].grp_y = 0;
 			g_tip[i].grp_w = CHIP_SIZE;
 			g_tip[i].grp_h = CHIP_SIZE;
+			g_tip[i].pos_x = (i % 20) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (i / 20) * g_tip[i].grp_h;
 			g_tip[i].pos_x = (float)(i % 20) * g_tip[i].grp_w;
 			g_tip[i].pos_y = (float)(i / 20) * g_tip[i].grp_h;
 			g_tip[i].spd_x = 0.0f;
@@ -68,8 +70,12 @@ void GamePlay::Update()
 {
 
 	////////////////////  更新処理  //////////////////
+
+
 	player->UpData();
+
 	ScrollMap();
+
 	////////////////////  キー入力  //////////////////	
 
 

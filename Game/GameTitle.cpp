@@ -48,7 +48,7 @@ void GameTitle::Update()
 	// スペースキーでプレイに遷移
 	if (g_keyTracker->pressed.Space)
 	{
-		g_NextScene = PLAY;
+		g_NextScene = SERECT;
 
 	}
 
@@ -67,8 +67,6 @@ void GameTitle::Render()
 }
 GameTitle::GameTitle()
 {
-	//やっほ～
-	//やっほー
 }
 
 GameTitle::~GameTitle()

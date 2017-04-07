@@ -112,7 +112,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 			// fps‚Ì•\¦
-			g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
+			//g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 
 			g_spriteBatch->End();
 

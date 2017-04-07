@@ -23,6 +23,7 @@
 #include"GameOver.h"
 #include"GamePlay.h"
 #include"GameTitle.h"
+#include"GameSerect.h"
 
 #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
@@ -68,7 +69,11 @@ void InitializeGame(void)
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ƒƒS‰æ‘œ
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//ƒNƒŠƒA‰æ‘œ
 
+	g_SerectForestImage = new Texture(L"Resources\\Images\\Serect_Forest.png");
+	g_SerectTowerImage = new Texture(L"Resources\\Images\\Serect_Tower.png");
 
+	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");
+	g_TowerStageImage = new Texture(L"Resources\\Images\\TowerStage.png");
 
 	// ‰¹‚Ì“Ç‚İ‚İ
 	
@@ -105,6 +110,9 @@ void UpdateGame(void)
 			break;
 		case TITLE:
 			base = new GameTitle();
+			break;
+		case SERECT:
+			base = new GameSerect();
 			break;
 		case PLAY:
 			base = new GamePlay();
