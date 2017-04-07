@@ -26,6 +26,8 @@ public:
 	void importData(std::string f);//マップ読み込み
 	void  Collisionfloor(ObjectBase* obj);//床との判定
 	void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float AposY, float Time);//指定座標移動関数
-	void GamePlay::ScrollMap(void);//マップスクロール量検出
+	void GamePlay::ScrollMap(void);
+	void Collisiontrup(ObjectBase * obj);
+	//マップスクロール量検出
 	~GamePlay();
 };

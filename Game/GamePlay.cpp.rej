@@ -1,9 +1,9 @@
 diff a/Game/GamePlay.cpp b/Game/GamePlay.cpp	(rejected hunks)
-@@ -35,7 +35,6 @@
- 	
- 	// �}�b�v�̐ݒ�
- 
--	importData("map.csv");//�}�b�v�f�[�^�̓ǂݍ���
- 	importData("map1.csv");//�}�b�v�f�[�^�̓ǂݍ���
+@@ -39,7 +39,6 @@
  	// �}�b�v�̐ݒ�
  	for (int i = 0; i < MAX_TIP; i++)
+ 	{
+-	
+ 
+ 		if (g_map[i / 20][i % 20] == 0)//�󔒎w��}�b�v�`�b�v
+ 		{
