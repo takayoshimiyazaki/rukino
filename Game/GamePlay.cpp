@@ -39,12 +39,12 @@ GamePlay::GamePlay()
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-	
+
 		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
 		}
-<<<<<<< HEAD
+
 		if (g_map[i / 20][i % 20] == 5)
 		{
 			g_trap[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
@@ -58,12 +58,12 @@ GamePlay::GamePlay()
 			g_trap[i].spd_x = 0.0f;
 			g_trap[i].spd_y = 0.0f;
 			g_trap[i].state = 1;
-=======
+		}
 		else if (g_map[i / 20][i % 20] == 4)
 		{
 			player->SetPosX((float)(i % 20) * player->GetGrpW());
 			player->SetPosY((float)(i / 20) * player->GetGrpH());
->>>>>>> b5e561d0cda897367af53279ec30d3a9adef99df
+
 		}
 		else
 		{
@@ -79,10 +79,10 @@ GamePlay::GamePlay()
 			g_tip[i].spd_y = 0.0f;
 			g_tip[i].state = 1;
 		}
-	}
-	
+		}
 
-}
+	}
+
 
 
 //更新
