@@ -197,7 +197,7 @@ void Player::UpData()
 
 	PlayerControl();
 
-	if (GetSpdX() != 0)
+	if (GetSpdX() != 0 || GetSpdY() != 0)
 	{
 		m_cnt++;
 	}
@@ -212,8 +212,10 @@ void Player::Render()
 {
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
+	//左右に移動している場合
 	if (GetSpdX() != 0)
 	{
+		//左に移動してるなら左に動き、右に移動しているなら右に動く
 		if (GetSpdX() < 0)
 		{
 			SetGrpY(32);
@@ -223,6 +225,7 @@ void Player::Render()
 			SetGrpY(64);
 		}
 
+		//移動してる場合歩く
 		switch (m_cnt / 15 % 4)
 		{
 		case 0:
@@ -238,7 +241,26 @@ void Player::Render()
 		}
 	}
 
+	//上下に動いているなら（ジャンプを除く）
+	if(GetSpdY() != 0 && (g_key.Up || g_key.Down))
+	{
+		SetGrpY(96);
 
+		//移動してる場合歩く
+		switch (m_cnt / 15 % 4)
+		{
+		case 0:
+			SetGrpX(0);
+			break;
+		case 1:
+		case 3:
+			SetGrpX(32);
+			break;
+		case 2:
+			SetGrpX(64);
+			break;
+		}
+	}
 
 	if (GetState() == 1)
 	{
@@ -356,6 +378,7 @@ void Player::PlayerControl(void)
 		SetPosX(GetPosX() + GetSpdX());
 		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 
+		//移動してない場合両手をもとに戻す
 		if (GetSpdX() == 0)
 		{
 			SetGrpX(32);
