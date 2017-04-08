@@ -63,6 +63,7 @@ void InitializeGame(void)
 	g_StageImage = new Texture(L"Resources\\Images\\StageImage.png");//ステージ画像
 	g_BlackImage = new Texture(L"Resources\\Images\\black.png");//フェード用黒画像
 	g_BackImage = new Texture(L"Resources\\Images\\back.png");//背景画像
+	g_BackImage2 = new Texture(L"Resources\\Images\\back2.png");//背景画像
 	g_PlayerImage = new Texture(L"Resources\\Images\\player.png");//プレイヤー画像
 	g_TitleImage = new Texture(L"Resources\\Images\\title.png");//タイトル画像
 	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像

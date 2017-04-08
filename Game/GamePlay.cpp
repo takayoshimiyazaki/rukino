@@ -27,10 +27,10 @@ using namespace std;
 //	コンストラクタ
 GamePlay::GamePlay()
 {
+	//デバッグ用ステージ設定
+	serectMap = 1;//塔
 
-	serectMap = 1;
-
-	/*serectMap = 2;*/
+	//serectMap = 2;//森
 
 	if (g_init == 0)
 	{
@@ -43,7 +43,7 @@ GamePlay::GamePlay()
 	// マップの設定
 	if(serectMap == 1)importData("map1.csv");//マップデータの読み込み
 
-	if (serectMap == 2)importData("map2.csv");//マップデータの読み込み
+	if(serectMap == 2)importData("map2.csv");//マップデータの読み込み
 	
 
 
@@ -75,9 +75,6 @@ GamePlay::GamePlay()
 			g_tip[i].state = 1;
 		}
 	}
-
-
-
 }
 
 
@@ -137,8 +134,18 @@ void GamePlay::Render()
 	wchar_t buf3[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
-	g_spriteBatch->Draw(g_BackImage->m_pTexture,
-		Vector2(0, 0));
+	switch (serectMap)
+	{
+	case 2:
+		g_spriteBatch->Draw(g_BackImage->m_pTexture,
+			Vector2(0, 0));
+		break;
+	case 1:
+		g_spriteBatch->Draw(g_BackImage2->m_pTexture,
+			Vector2(0, 0));
+		break;
+	}
+	
 
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
@@ -383,9 +390,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetSpdX(3.0f);
 	}
 	
-	
-	
-
 }
 
 //罠とキャラクターの当たり判定

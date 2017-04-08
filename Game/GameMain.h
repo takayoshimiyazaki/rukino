@@ -91,6 +91,7 @@ void DrawNum(int x, int y, int n);
 EXTERN Texture *g_StageImage;			//　ステージ画像
 EXTERN Texture *g_BlackImage;			// フェード用黒画像
 EXTERN Texture *g_BackImage;			// 背景用画像
+EXTERN Texture *g_BackImage2;			// 背景用画像
 
 // ステージセレクト用画像
 EXTERN Texture *g_SerectForestImage;	//ステージセレクト（森）画像
