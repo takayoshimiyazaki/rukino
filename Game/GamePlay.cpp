@@ -45,10 +45,8 @@ GamePlay::GamePlay()
 
 	// マップの設定
 	if(serectMap == 1)importData("map1.csv");//マップデータの読み込み
-
 	if(serectMap == 2)importData("map2.csv");//マップデータの読み込み
 	
-
 
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
