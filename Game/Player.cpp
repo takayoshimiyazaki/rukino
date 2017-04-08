@@ -17,6 +17,7 @@
 //#include "..\CueSheet_0.h"
 
 
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
@@ -38,6 +39,7 @@ Player::Player()
 	SetJump(FALSE);
 	SetClimb(FALSE);
 	SetHold(FALSE);
+
 }
 
 
@@ -194,9 +196,6 @@ int Player::GetHold()
 
 void Player::UpData()
 {
-
-	
-
 	PlayerControl();
 
 	if (GetSpdX() != 0 || GetSpdY() != 0)
@@ -244,7 +243,7 @@ void Player::Render()
 	}
 
 	//上下に動いているなら（ジャンプを除く）
-	if(GetClimb()== TRUE)
+	if (GetClimb() == TRUE)
 	{
 		SetGrpY(96);
 
@@ -266,17 +265,56 @@ void Player::Render()
 
 	if (GetState() == 1)
 	{
-		rect = {GetGrpX(),GetGrpY(),GetGrpX() + GetGrpW() ,
-			GetGrpY() + GetGrpH() };
+		rect =
+		{
+			GetGrpX(),
+			GetGrpY(),
+			GetGrpX() + GetGrpW() ,
+			GetGrpY() + GetGrpH()
+		};
 	}
-	
+
 	float sx = GetPosX() - g_ScrollMap_x;
 	float sy = GetPosY() - g_ScrollMap_y;
-	
+
 
 	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
 		Vector2(sx, sy),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+
+	RECT CPrect;
+	if (GetGrpY() == 32 || GetGrpY() == 64)
+	{
+		if (GetGrpY() == 32)
+		{
+			if (g_key.Z)
+			{
+				CPrect = { 0,0,32,32 };
+			}
+			else
+			{
+				CPrect = { 32,0,64,32 };
+			}
+
+		}
+		else
+		{
+			if (g_key.Z)
+			{
+				CPrect = { 0,32,32,64 };
+			}
+			else
+			{
+				CPrect = { 32,32,64,64 };
+			}
+
+		}
+
+
+		g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+			Vector2(sx, sy),
+			&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+	}
 
 }
 
@@ -378,6 +416,8 @@ void Player::PlayerControl(void)
 		//座標変更処理/////////////////////////////
 		SetPosX(GetPosX() + GetSpdX());
 		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
+
+		
 
 		//移動してない場合両手をもとに戻す
 		if (GetSpdX() == 0)

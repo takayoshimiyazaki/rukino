@@ -30,7 +30,7 @@ namespace aush {
 			DirectSound();
 			virtual ~DirectSound();
 			bool create(HWND hWnd);
-			bool creatzePrimaryBuffer(void);
+			bool createPrimaryBuffer(void);
 			bool setPrimaryBufferFormat(int channels, int samplePerSec, int bitPerSample);
 
 			inline const CComPtr<IDirectSound> &getDirectSound(void) const { return ds_; }

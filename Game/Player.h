@@ -12,7 +12,6 @@
 #include <iostream>
 #include "ObjectBase.h"
 #include "../Texture.h"
-
 // PlayerƒNƒ‰ƒX
 class Player :public ObjectBase
 {

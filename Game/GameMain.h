@@ -101,6 +101,7 @@ EXTERN Texture *g_ForestStageImage;		//ステージイメージ（森）画像
 EXTERN Texture *g_TowerStageImage;		//ステージイメージ（塔）画像
 
 EXTERN Texture *g_PlayerImage;			//プレイヤー画像
+EXTERN Texture *g_PlayerClothesPins;	//プレイヤの持つ洗濯ばさみ画像
 EXTERN Texture *g_SBImage;			//ばさみ画像
 EXTERN Texture *g_TitleImage;			// タイトル画面
 EXTERN Texture *g_ClearImage;			//クリア画像
