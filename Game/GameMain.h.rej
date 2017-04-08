@@ -1,9 +1,0 @@
-diff a/Game/GameMain.h b/Game/GameMain.h	(rejected hunks)
-@@ -41,7 +41,6 @@
- #define SCREEN_HEIGHT 480    // ����[pixel]
- 
- //�}�b�v�`�b�v�̍ő吔
--#define MAX_TIP 300
- #define MAX_TIP 1125
- 
- //�@�\���̐錾
