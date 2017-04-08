@@ -25,6 +25,8 @@
 #include"GameTitle.h"
 #include"GameSerect.h"
 
+#include"DirectSound.h"
+
 #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
 using namespace DirectX::SimpleMath;
