@@ -36,6 +36,8 @@ Player::Player()
 	SetSpdY(0.0f);
 	SetState(1);
 	SetJump(FALSE);
+	SetClimb(FALSE);
+	SetHold(FALSE);
 }
 
 
@@ -242,7 +244,7 @@ void Player::Render()
 	}
 
 	//上下に動いているなら（ジャンプを除く）
-	if(GetSpdY() != 0 && (g_key.Up || g_key.Down))
+	if(GetClimb()== TRUE)
 	{
 		SetGrpY(96);
 

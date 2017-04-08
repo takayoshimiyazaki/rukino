@@ -126,7 +126,7 @@ void GamePlay::Update()
 void GamePlay::Render()
 {
 	//マウスカーソル隠し
-	ShowCursor(FALSE);
+	/*ShowCursor(FALSE);*/
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 	wchar_t buf[256];	// 文字列編集用						
