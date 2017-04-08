@@ -18,6 +18,7 @@
 //#include "..ADX2Le.h"
 //#include "..\CueSheet_0.h"
 
+#include <time.h>
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -89,18 +90,12 @@ void GamePlay::Update()
 	//床との判定
 	Collisionfloor(player);
 
-
 	player->UpData();
-
-	
-
-
-	
-
 
 	ScrollMap();
 
-	
+	m_timeCount++;	//	時間のカウント
+
 
 	////////////////////  キー入力  //////////////////	
 
@@ -127,6 +122,7 @@ void GamePlay::Render()
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 	wchar_t buf[256];	// 文字列編集用						
 	wchar_t buf2[256];	// 文字列編集用
+	wchar_t buf3[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_BackImage->m_pTexture,
@@ -135,7 +131,6 @@ void GamePlay::Render()
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-		
 		if (g_tip[i].state)
 		{
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
@@ -151,11 +146,10 @@ void GamePlay::Render()
 		}
 	}
 
-
-
 	//	 プレイヤー
 	player->Render();
 
+<<<<<<< .merge_file_a02492
 
 	rect = { 0, 0,680,96};
 	g_spriteBatch->Draw(g_StateImage->m_pTexture,
@@ -167,16 +161,25 @@ void GamePlay::Render()
 		Vector2(40, 480 - 84),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
+=======
+	//	時間表示
+	if (m_timeCount % 60 == 1)
+	{
+		cnt++;
+	}
+>>>>>>> .merge_file_a02232
 
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
 	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	swprintf_s(buf3, 16, L"T ,%d", cnt);
 
 
 
 
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));
 
 }
 
@@ -232,7 +235,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 
 	
-
 	// 床壁だったら
 	if (g_map[map_y][map_x] == 1)
 	{
@@ -347,7 +349,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 
 
-
 	map_y = (int)floor(head / CHIP_SIZE);
 	// 天井だったら
 	if (g_map[map_y][map_x] == 1)
@@ -404,8 +405,6 @@ void GamePlay::Initialize()
 {
 
 }
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////
