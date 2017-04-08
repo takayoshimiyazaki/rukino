@@ -298,8 +298,8 @@ void Player::Render()
 			if (GetJump() == true)
 			{
 				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
-					Vector2(sx - 10, sy),
-					&CPrect, Colors::White, 45.0f, Vector2(0, 0), 1.0f);
+					Vector2(sx - 10 + 48, sy),
+					&CPrect, Colors::White, 90.0f, Vector2(0, 0), 1.0f);
 			}
 			else
 			{
@@ -323,8 +323,8 @@ void Player::Render()
 			if (GetJump() == true)
 			{
 				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
-					Vector2(sx + 10, sy),
-					&CPrect, Colors::White, -45.0f, Vector2(0, 0), 1.0f);
+					Vector2(sx + 10, sy +32),
+					&CPrect, Colors::White, -90.0f, Vector2(0, 0), 1.0f);
 			}
 			else
 			{
