@@ -145,9 +145,6 @@ void GamePlay::Update()
 		}
 	}
 	
-
-
-
 	lift->UpData();
 
 	ScrollMap();
@@ -166,7 +163,6 @@ void GamePlay::Update()
 
 	mouseState = g_mouse.leftButton;
 }
-
 
 
 //描画
@@ -217,9 +213,6 @@ void GamePlay::Render()
 	//	 プレイヤー
 	player->Render();
 
-
-
-
 	rect = { 0, 0,680,96};
 	g_spriteBatch->Draw(g_StateImage->m_pTexture,
 		Vector2(0, 480-96),
@@ -240,9 +233,6 @@ void GamePlay::Render()
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
 	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
 	swprintf_s(buf3, 16, L"T ,%d", cnt);
-
-
-
 
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
@@ -302,7 +292,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 	
 	// 床壁だったら
-	if (g_map[map_y][map_x] == 1)
+	if (g_map[map_y][map_x] == 1||g_map[map_y][map_x] == 9)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
@@ -340,6 +330,12 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetJump(TRUE);
 		obj->SetJumpPower(0);
 	}
+	else if (g_map[map_y][map_x] == 10)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(20.0f);
+	}
 	else
 	{
 		//足元が床で無ければ飛んでいる
@@ -374,7 +370,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	// プレイヤーの右足の位置
 	map_x = (int)floor(right / CHIP_SIZE-0.5f);
 	// 床だったら
-	if (g_map[map_y][map_x] == 1)
+	if (g_map[map_y][map_x] == 1|| g_map[map_y][map_x] == 9)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
@@ -410,6 +406,12 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetJump(TRUE);
 		obj->SetJumpPower(0);
 	}
+	else if (g_map[map_y][map_x] == 10)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(20.0f);
+	}
 	else
 	{
 		//足元が床で無ければ飛んでいる
@@ -438,8 +440,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetSpdX(3.0f);
 	}
 	
-
-
 }
 
 //罠とキャラクターの当たり判定
@@ -461,8 +461,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 //	// プレイヤーの左足の位置
 //	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
 //	map_y = (int)floor(bottom / CHIP_SIZE);
-//
-//
 //}
 
 GamePlay::~GamePlay()
