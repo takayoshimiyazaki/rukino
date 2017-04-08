@@ -146,10 +146,10 @@ void GamePlay::Render()
 		}
 	}
 
+
 	//	 プレイヤー
 	player->Render();
 
-<<<<<<< .merge_file_a02492
 
 	rect = { 0, 0,680,96};
 	g_spriteBatch->Draw(g_StateImage->m_pTexture,
@@ -161,13 +161,12 @@ void GamePlay::Render()
 		Vector2(40, 480 - 84),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
-=======
 	//	時間表示
 	if (m_timeCount % 60 == 1)
 	{
 		cnt++;
 	}
->>>>>>> .merge_file_a02232
+
 
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
@@ -287,11 +286,13 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
 			{// 落とす
-				obj->SetSpdY(6.0f);
+				obj->SetJumpPower(0.0f);
+				obj->SetSpdY(10.0f);
 			}
 		} 
 	}
-	if (g_map[map_y][map_x] == 8)
+	//頭上にロープかつ掴み状態
+	if (g_map[map_y][map_x] == 8 && player->GetHold() == TRUE)
 	{
 		obj->SetJumpPower(0.0f);
 		obj->SetJump(FALSE);
@@ -356,11 +357,13 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
 			{// 落とす
-				obj->SetSpdY(6.0f);
+				obj->SetJumpPower(0.0f);
+				obj->SetSpdY(10.0f);
 			}
 		}
 	}
-	if (g_map[map_y][map_x] == 8)
+	//頭上にロープかつ掴み状態
+	if (g_map[map_y][map_x] == 8&&player->GetHold()==TRUE)
 	{
 		obj->SetJumpPower(0.0f);
 		obj->SetJump(FALSE);

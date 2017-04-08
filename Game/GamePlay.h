@@ -30,7 +30,7 @@ public:
 	void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float AposY, float Time);//指定座標移動関数
 	void GamePlay::ScrollMap(void);
 	/*void Collisiontrup(ObjectBase * obj);*/
-	//マップスクロール量検出!
+	//マップスクロール量検出
 	~GamePlay();
 
 };

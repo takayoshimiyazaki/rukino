@@ -262,9 +262,6 @@ void Player::PlayerControl(void)
 	float spd = 2.0f;
 	float jumpPower = -12.0f;
 
-	
-
-
 
 	//キー入力
 
@@ -309,7 +306,7 @@ void Player::PlayerControl(void)
 
 		}
 
-
+		//梯子昇降
 		if (g_key.Up)//上キー押下
 		{
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
@@ -333,6 +330,17 @@ void Player::PlayerControl(void)
 			}
 		}
 
+		if (g_key.Z)//Zキー押下時
+		{
+			//はさみ状態にする
+			SetHold(TRUE);
+
+		}
+		else//離したら
+		{
+			//はさみ状態解除
+			SetHold(FALSE);
+		}
 	
 
 		//スペースキーでジャンプ
