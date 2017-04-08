@@ -359,7 +359,7 @@ void Player::PlayerControl(void)
 		if (g_key.Right)//右キー押下
 		{
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
-			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 6 || *mapdata == 8)//移動可能マップチップ
+			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8)//移動可能マップチップ
 			{
 
 				SetSpdX(spd);
