@@ -120,5 +120,7 @@ EXTERN int g_NextScene;				//次のシーン
 EXTERN int g_init;					//初期化管理
 EXTERN int g_mousePoint;
 
+EXTERN int serectMap;
+
 EXTERN int g_ScrollMap_x; //画面スクロール量（X）
 EXTERN int g_ScrollMap_y;//画面スクロール量（Y）

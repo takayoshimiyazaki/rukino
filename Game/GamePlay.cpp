@@ -35,8 +35,20 @@ GamePlay::GamePlay()
 	player = new Player;
 
 	// マップの設定
-
-	importData("map1.csv");//マップデータの読み込み
+	switch (serectMap)
+	{
+	case 1:
+		importData("map1.csv");//マップデータの読み込み
+		break;
+	case 2:
+		importData("map2.csv");//マップデータの読み込み
+		break;
+	default:
+		serectMap = 1;
+		importData("map1.csv");//マップデータの読み込み
+		break;
+	}
+	
 						   // マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -488,7 +500,7 @@ void GamePlay::ScrollMap(void)
 
 	g_ScrollMap_x = player->GetPosX() + player->GetGrpW() / 2 - SCREEN_WIDTH / 2;
 
-	if (g_ScrollMap_x < 0)
+	if (g_ScrollMap_x < 0|| serectMap == 1)
 	{
 		g_ScrollMap_x = 0;
 	}
@@ -500,7 +512,7 @@ void GamePlay::ScrollMap(void)
 
 	g_ScrollMap_y = player->GetPosY() + player->GetGrpH() / 2 - SCREEN_HEIGHT / 2;
 
-	if (g_ScrollMap_y < 0)
+	if (g_ScrollMap_y < 0 ||serectMap == 2)
 	{
 		g_ScrollMap_y = 0;
 	}
