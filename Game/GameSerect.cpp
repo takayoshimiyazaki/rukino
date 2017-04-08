@@ -67,15 +67,16 @@ void GameSerect::Update()
 		//左クリックをしてる時
 		if (g_mouse.leftButton)
 		{
-			//マウスとステージセレクト（森）が当たってたら
-			if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
+
+			//マウスとステージセレクト（塔）が当たったら
+			if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
 			{
 				serectMap = 1;
 				//プレイシーンへ移動
 				serectCheck = true;
 			}
-			//マウスとステージセレクト（塔）が当たったら
-			else if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
+			//マウスとステージセレクト（森）が当たってたら
+			else if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
 			{
 				serectMap = 2;
 				//プレイシーンへ移動
@@ -83,7 +84,7 @@ void GameSerect::Update()
 			}
 		}
 	}
-	
+
 }
 
 void GameSerect::Render()
@@ -106,8 +107,8 @@ void GameSerect::Render()
 		&forestRect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
 	//ステージセレクト（塔）の描画
-	g_spriteBatch->Draw(g_SerectTowerImage->m_pTexture, SerectTowerPos, 
-		&towerRect, Colors::White,0.0f, Vector2(0, 0), Vector2(1, 1));
+	g_spriteBatch->Draw(g_SerectTowerImage->m_pTexture, SerectTowerPos,
+		&towerRect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 }
 
 bool GameSerect::CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse)

@@ -24,32 +24,30 @@ using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
-void Initialize();
-void Update();
-
-
 //	コンストラクタ
 GamePlay::GamePlay()
 {
+
+	serectMap = 1;
+
+	/*serectMap = 2;*/
+
+	if (g_init == 0)
+	{
+		g_init = 1;
+	}
+
 	//プレイヤー作成
 	player = new Player;
 
 	// マップの設定
-	switch (serectMap)
-	{
-	case 1:
-		importData("map1.csv");//マップデータの読み込み
-		break;
-	case 2:
-		importData("map2.csv");//マップデータの読み込み
-		break;
-	default:
-		serectMap = 1;
-		importData("map1.csv");//マップデータの読み込み
-		break;
-	}
+	if(serectMap == 1)importData("map1.csv");//マップデータの読み込み
+
+	if (serectMap == 2)importData("map2.csv");//マップデータの読み込み
 	
-						   // マップの設定
+
+
+	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
 
@@ -77,6 +75,8 @@ GamePlay::GamePlay()
 			g_tip[i].state = 1;
 		}
 	}
+
+
 
 }
 
@@ -413,12 +413,14 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 GamePlay::~GamePlay()
 {
-	//delete player;
+	delete player;
 }
 
 void GamePlay::Initialize()
 {
+	
 
+	
 }
 
 
@@ -512,11 +514,11 @@ void GamePlay::ScrollMap(void)
 
 	g_ScrollMap_y = player->GetPosY() + player->GetGrpH() / 2 - SCREEN_HEIGHT / 2;
 
-	if (g_ScrollMap_y < 0 ||serectMap == 2)
+	if (g_ScrollMap_y < 0 )
 	{
 		g_ScrollMap_y = 0;
 	}
-	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT))
+	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) || serectMap == 2)
 	{
 		g_ScrollMap_y = (MAP_H * CHIP_SIZE - SCREEN_HEIGHT);
 	}

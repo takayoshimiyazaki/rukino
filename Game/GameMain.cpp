@@ -82,9 +82,6 @@ void InitializeGame(void)
 	// ‰¹‚Ì“Ç‚İ‚İ
 	
 	
-
-	
-	g_NextScene = LOGO;
 	g_NextScene = g_scene;//ƒV[ƒ“‘JˆÚ
 	g_init = 0;
 }

@@ -70,7 +70,6 @@ enum SCENE
 };
 
 // 関数の宣言 ==============================================================
-
 // ゲームの初期化処理
 void InitializeGame(void);
 
@@ -88,8 +87,7 @@ void DrawNum(int x, int y, int n);
 
 
 
-// グローバル変数の定義 ====================================================
-
+// グローバル変数の定義 ===================================================
 EXTERN Texture *g_StageImage;			//　ステージ画像
 EXTERN Texture *g_BlackImage;			// フェード用黒画像
 EXTERN Texture *g_BackImage;			// 背景用画像
@@ -114,13 +112,11 @@ EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
 EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
 EXTERN OBJECT g_trap[MAX_TIP];		//　マップチップ
 
-
 EXTERN int g_scene;					//シーン管理
 EXTERN int g_NextScene;				//次のシーン
 EXTERN int g_init;					//初期化管理
 EXTERN int g_mousePoint;
 
 EXTERN int serectMap;
-
 EXTERN int g_ScrollMap_x; //画面スクロール量（X）
 EXTERN int g_ScrollMap_y;//画面スクロール量（Y）
