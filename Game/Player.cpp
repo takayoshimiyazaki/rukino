@@ -295,10 +295,19 @@ void Player::Render()
 			{
 				CPrect = { 32,0,64,32 };
 			}
+			if (GetJump() == true)
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx - 10, sy),
+					&CPrect, Colors::White, 45.0f, Vector2(0, 0), 1.0f);
+			}
+			else
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx - 10, sy),
+					&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+			}
 
-			g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
-				Vector2(sx - 10, sy),
-				&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 		}
 		else
 		{
@@ -311,9 +320,18 @@ void Player::Render()
 				CPrect = { 32,32,64,64 };
 			}
 
-			g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
-				Vector2(sx + 10, sy),
-				&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+			if (GetJump() == true)
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx + 10, sy),
+					&CPrect, Colors::White, -45.0f, Vector2(0, 0), 1.0f);
+			}
+			else
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx + 10, sy),
+					&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+			}
 
 		}
 	}
