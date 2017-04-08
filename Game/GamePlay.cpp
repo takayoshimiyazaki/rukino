@@ -28,9 +28,9 @@ using namespace std;
 GamePlay::GamePlay()
 {
 	//デバッグ用ステージ設定
-	serectMap = 1;//塔
+	//serectMap = 1;//塔
 
-	//serectMap = 2;//森
+	serectMap = 2;//森
 
 	if (g_init == 0)
 	{
@@ -572,7 +572,8 @@ void GamePlay::ScrollMap(void)
 	{
 		g_ScrollMap_y = 0;
 	}
-	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) || serectMap == 2)
+	//else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) || serectMap == 2)
+	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) )
 	{
 		g_ScrollMap_y = (MAP_H * CHIP_SIZE - SCREEN_HEIGHT);
 	}

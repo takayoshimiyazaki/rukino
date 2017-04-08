@@ -342,7 +342,8 @@ void Player::Render()
 void Player::PlayerControl(void)
 {
 	float spd = 2.0f;
-	float jumpPower = -12.0f;
+	//float jumpPower = -12.0f;
+	float jumpPower = -49.0f;
 
 
 	//ƒL[“ü—Í
