@@ -67,6 +67,7 @@
       <Filter>ゲーム</Filter>
     </ClCompile>
     <ClCompile Include="Game\DirectSound.cpp">
+    <ClCompile Include="Gimmik.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
   </ItemGroup>

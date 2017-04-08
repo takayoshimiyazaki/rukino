@@ -40,6 +40,9 @@ GamePlay::GamePlay()
 	//プレイヤー作成
 	player = new Player;
 
+	//リフト（ギミック）作成
+	lift = new Gimmik;
+
 	// マップの設定
 	if(serectMap == 1)importData("map1.csv");//マップデータの読み込み
 
@@ -55,10 +58,23 @@ GamePlay::GamePlay()
 		{
 			g_tip[i].state = 0;
 		}
+		else if (g_map[i / MAP_H][i % MAP_W] == 3)
+		{
+			lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
+			gimmikPosAX = lift->GetPosX();
+
+			lift->SetPosY((float)(i / MAP_H) * lift->GetGrpH());
+			gimmikPosAY = lift->GetPosY();
+		}
 		else if (g_map[i / MAP_H][i % MAP_W] == 4)
 		{
 			player->SetPosX((float)(i % MAP_W) * player->GetGrpW());
 			player->SetPosY((float)(i / MAP_H) * player->GetGrpH());
+		}
+		else if (g_map[i / MAP_H][i % MAP_W] == 5)
+		{
+			gimmikPosBX = (i % MAP_W)* lift->GetGrpW();
+			gimmikPosBY = (i / MAP_H)* lift->GetGrpH();
 		}
 		else
 		{
@@ -99,7 +115,42 @@ void GamePlay::Update()
 	//床との判定
 	Collisionfloor(player);
 
+	if (Collision(player, lift)&&player->GetHold()==TRUE)
+	{
+		player->SetJump(FALSE);
+		player->SetJumpPower(0.0f);
+		player->SetPosX(lift->GetPosX()+player->GetGrpW());
+		player->SetPosY(lift->GetPosY());
+	}
+
 	player->UpData();
+
+	if (gimmikFlag == 0)
+	{
+		gimmikCnt++;
+		SetSpeadToAsaaignedPosition(lift, gimmikPosAX, gimmikPosAY, 2.0f);
+		if (gimmikCnt == 180)
+		{
+			gimmikCnt = 0;
+			gimmikFlag = 1;
+		}
+	}
+
+	if (gimmikFlag == 1)
+	{
+		gimmikCnt++;
+		SetSpeadToAsaaignedPosition(lift, gimmikPosBX, gimmikPosBY, 2.0f);
+		if (gimmikCnt == 180)
+		{
+			gimmikCnt = 0;
+			gimmikFlag = 0;
+		}
+	}
+	
+
+
+
+	lift->UpData();
 
 	ScrollMap();
 
@@ -108,8 +159,6 @@ void GamePlay::Update()
 
 	////////////////////  キー入力  //////////////////	
 
-
-	
 
 	// マウスクリックで
 	//if (g_mouse.leftButton)
@@ -165,9 +214,12 @@ void GamePlay::Render()
 		}
 	}
 
+	lift->Render();
 
 	//	 プレイヤー
 	player->Render();
+
+
 
 
 	rect = { 0, 0,680,96};
@@ -186,7 +238,6 @@ void GamePlay::Render()
 		cnt++;
 	}
 
-
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
 	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
@@ -198,7 +249,6 @@ void GamePlay::Render()
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));
-
 }
 
 //マップの読み込み
@@ -311,7 +361,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		} 
 	}
 	//頭上にロープかつ掴み状態
-	if (g_map[map_y][map_x] == 8 && player->GetHold() == TRUE)
+	if (g_map[map_y][map_x] == 7 && player->GetHold() == TRUE)
 	{
 		obj->SetJumpPower(0.0f);
 		obj->SetJump(FALSE);
@@ -382,7 +432,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		}
 	}
 	//頭上にロープかつ掴み状態
-	if (g_map[map_y][map_x] == 8&&player->GetHold()==TRUE)
+	if (g_map[map_y][map_x] == 7&&player->GetHold()==TRUE)
 	{
 		obj->SetJumpPower(0.0f);
 		obj->SetJump(FALSE);
@@ -390,6 +440,8 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetSpdX(3.0f);
 	}
 	
+
+
 }
 
 //罠とキャラクターの当たり判定
@@ -528,3 +580,18 @@ void GamePlay::ScrollMap(void)
 	}
 }
 
+bool GamePlay::Collision(ObjectBase* obj1, ObjectBase*obj2)
+{
+	/*四角形の当たり判定*/
+	if ((obj1->GetPosX() /*- g_ScrollMap_x */ <= (obj2->GetPosX() + obj2->GetGrpW())) &&
+		((obj1->GetPosX() /*- g_ScrollMap_x */+ obj1->GetGrpW()) >= obj2->GetPosX()) &&
+		(obj1->GetPosY() <= (obj2->GetPosY() + obj2->GetGrpH())) &&
+		((obj1->GetPosY() + obj1->GetGrpH() >= obj2->GetPosY())))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
