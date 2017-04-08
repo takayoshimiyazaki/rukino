@@ -334,7 +334,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	{
 		obj->SetSpdY(0.0f);
 		obj->SetJump(TRUE);
-		obj->SetJumpPower(20.0f);
+		obj->SetJumpPower(-20.0f);
 	}
 	else
 	{
@@ -410,7 +410,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	{
 		obj->SetSpdY(0.0f);
 		obj->SetJump(TRUE);
-		obj->SetJumpPower(20.0f);
+		obj->SetJumpPower(-20.0f);
 	}
 	else
 	{
