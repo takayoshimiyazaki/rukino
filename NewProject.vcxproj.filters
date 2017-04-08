@@ -66,6 +66,9 @@
     <ClCompile Include="Game\GameSerect.cpp">
       <Filter>ゲーム</Filter>
     </ClCompile>
+    <ClCompile Include="Game\DirectSound.cpp">
+      <Filter>ゲーム</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImaseLib\FPSTimer.h">
@@ -108,6 +111,9 @@
       <Filter>ゲーム</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameSerect.h">
+      <Filter>ゲーム</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DirectSound.h">
       <Filter>ゲーム</Filter>
     </ClInclude>
   </ItemGroup>
