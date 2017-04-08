@@ -337,7 +337,6 @@ void Player::PlayerControl(void)
 			int* mapdata2 = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 			if (*mapdata == 6 || *mapdata2 == 6)//移動可能マップチップ
 			{
-
 				SetSpdY(-spd);
 				SetClimb(TRUE);
 			}
