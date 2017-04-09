@@ -11,8 +11,8 @@
 // ヘッダファイルの読み込み ================================================
 #include "GameMain.h"
 #include "GameClear.h"
-//#include "..\ADX2Le.h"
-//#include "..\CueSheet_0.h"
+
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 

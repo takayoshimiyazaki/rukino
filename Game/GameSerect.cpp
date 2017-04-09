@@ -11,7 +11,8 @@
 // ヘッダファイルの読み込み ================================================
 #include "GameMain.h"
 #include "GameSerect.h"
-#include "Player.h"
+
+
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -43,8 +44,8 @@ void GameSerect::Update()
 	if (serectCheck == true)
 	{
 		m_cnt++;
-		SerectForestPos.x += 8;
-		SerectTowerPos.x += 8;
+		/*SerectForestPos.x += 8;
+		SerectTowerPos.x += 8;*/
 
 		if (m_cnt == 120)
 		{
@@ -69,14 +70,14 @@ void GameSerect::Update()
 		{
 
 			//マウスとステージセレクト（塔）が当たったら
-			if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
+			if (towerCheck == true)
 			{
 				serectMap = 1;
 				//プレイシーンへ移動
 				serectCheck = true;
 			}
 			//マウスとステージセレクト（森）が当たってたら
-			else if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
+			else if (forestCheck == true)
 			{
 				serectMap = 2;
 				//プレイシーンへ移動
@@ -85,11 +86,28 @@ void GameSerect::Update()
 		}
 	}
 
+
+	/*if (g_keyTracker->pressed.A)
+	{
+		serectMap = 1;
+		g_NextScene = PLAY;
+	}
+
+	if (g_keyTracker->pressed.B)
+	{
+		serectMap = 2;
+		g_NextScene = PLAY;
+	}*/
+
 }
 
 void GameSerect::Render()
 {
 	RECT rect = { 0,0,320,480 };
+
+	wchar_t buf[256];	// 文字列編集用						
+	wchar_t buf2[256];	// 文字列編集用
+	wchar_t buf3[256];	// 文字列編集用
 
 	//	チェック（森）が入ってるとき
 	if (forestCheck == true)
@@ -109,6 +127,17 @@ void GameSerect::Render()
 	//ステージセレクト（塔）の描画
 	g_spriteBatch->Draw(g_SerectTowerImage->m_pTexture, SerectTowerPos,
 		&towerRect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+
+
+
+	swprintf_s(buf, 16, L"X ,%d", serectMap);
+	/*swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	swprintf_s(buf3, 16, L"T ,%d", cnt);*/
+
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
+	/*g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));*/
+
 }
 
 bool GameSerect::CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse)

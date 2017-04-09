@@ -15,7 +15,6 @@ class GameSerect :public GameBase
 private:
 	int m_cnt;
 	bool serectCheck;
-	
 
 	bool forestCheck;
 	bool towerCheck;

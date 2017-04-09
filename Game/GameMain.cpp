@@ -11,13 +11,6 @@
 // ヘッダファイルの読み込み ================================================
 #define _GAMEMAIN_
 #include "GameMain.h"
-
-#include<fstream>
-#include<iostream>
-#include<string>
-#include<sstream>
-//#include "..\ADX2Le.h"
-//#include "..\CueSheet_0.h"
 #include"GameClear.h"
 #include"GameLogo.h"
 #include"GameOver.h"
@@ -25,9 +18,14 @@
 #include"GameTitle.h"
 #include"GameSerect.h"
 
-#include"DirectSound.h"
+#include<fstream>
+#include<iostream>
+#include<string>
+#include<sstream>
 
-#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+
+
+
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -58,7 +56,7 @@ GameBase* base;
 //----------------------------------------------------------------------
 void InitializeGame(void)
 {
-	base = new GamePlay();
+	base = new GameTitle();
 	
 
 	// 画像の読み込み 
@@ -86,7 +84,7 @@ void InitializeGame(void)
 	// 音の読み込み
 	
 	
-	g_NextScene = g_scene;//シーン遷移
+	//g_NextScene = g_scene;//シーン遷移
 	g_init = 0;
 }
 

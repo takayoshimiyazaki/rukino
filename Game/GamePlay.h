@@ -12,8 +12,6 @@
 #include "ObjectBase.h"
 #include "../Game/Player.h"
 #include "../Game/Gimmik.h"
-
-
 #include <string>
 class GamePlay :public GameBase
 {

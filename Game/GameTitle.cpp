@@ -52,6 +52,10 @@ void GameTitle::Update()
 
 	}
 
+
+	
+
+
 }
 void GameTitle::Render()
 {

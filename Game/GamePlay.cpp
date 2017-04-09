@@ -15,10 +15,6 @@
 #include<sstream>
 #include<fstream>
 #include<iostream>
-//#include "..ADX2Le.h"
-//#include "..\CueSheet_0.h"
-
-#include <time.h>
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -30,24 +26,28 @@ GamePlay::GamePlay()
 	//デバッグ用ステージ設定
 	//serectMap = 1;//塔
 
-	serectMap = 2;//森
+	//serectMap = 2;//森
 
 	if (g_init == 0)
 	{
 		g_init = 1;
 	}
 
+	// マップの設定
+	if (serectMap == 1)
+	{
+		importData("map1.csv");//マップデータの読み込み
+	}
+	else if (serectMap == 2)
+	{
+		importData("map2.csv");//マップデータの読み込み
+	}
+
 	//プレイヤー作成
 	player = new Player;
-
 	//リフト（ギミック）作成
 	lift = new Gimmik;
-
-	// マップの設定
-	if(serectMap == 1)importData("map1.csv");//マップデータの読み込み
-	if(serectMap == 2)importData("map2.csv");//マップデータの読み込み
 	
-
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -58,11 +58,11 @@ GamePlay::GamePlay()
 		}
 		else if (g_map[i / MAP_H][i % MAP_W] == 3)
 		{
-			lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
+			/*lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
 			gimmikPosAX = lift->GetPosX();
 
 			lift->SetPosY((float)(i / MAP_H) * lift->GetGrpH());
-			gimmikPosAY = lift->GetPosY();
+			gimmikPosAY = lift->GetPosY();*/
 		}
 		else if (g_map[i / MAP_H][i % MAP_W] == 4)
 		{
@@ -91,14 +91,18 @@ GamePlay::GamePlay()
 	}
 }
 
+void GamePlay::Initialize()
+{
+
+
+
+}
 
 
 //更新
 void GamePlay::Update()
 {
-
 	////////////////////  更新処理  //////////////////
-	
 	//速度リセット
 	player->SetSpdX(0);
 	if (player->GetJump() == TRUE&& player->GetClimb() == FALSE)
@@ -113,39 +117,43 @@ void GamePlay::Update()
 	//床との判定
 	Collisionfloor(player);
 
-	if (Collision(player, lift)&&player->GetHold()==TRUE)
+
+	if (lift != nullptr)
 	{
-		player->SetJump(FALSE);
-		player->SetJumpPower(0.0f);
-		player->SetPosX(lift->GetPosX()+player->GetGrpW());
-		player->SetPosY(lift->GetPosY());
+		if (Collision(player, lift) && player->GetHold() == TRUE)
+		{
+			player->SetJump(FALSE);
+			player->SetJumpPower(0.0f);
+			player->SetPosX(lift->GetPosX() + player->GetGrpW());
+			player->SetPosY(lift->GetPosY());
+		}
+
+		if (gimmikFlag == 0)
+		{
+			gimmikCnt++;
+			SetSpeadToAsaaignedPosition(lift, gimmikPosAX, gimmikPosAY, 2.0f);
+			if (gimmikCnt == 180)
+			{
+				gimmikCnt = 0;
+				gimmikFlag = 1;
+			}
+		}
+
+		if (gimmikFlag == 1)
+		{
+			gimmikCnt++;
+			SetSpeadToAsaaignedPosition(lift, gimmikPosBX, gimmikPosBY, 2.0f);
+			if (gimmikCnt == 180)
+			{
+				gimmikCnt = 0;
+				gimmikFlag = 0;
+			}
+		}
+
+		lift->UpData();
 	}
 
 	player->UpData();
-
-	if (gimmikFlag == 0)
-	{
-		gimmikCnt++;
-		SetSpeadToAsaaignedPosition(lift, gimmikPosAX, gimmikPosAY, 2.0f);
-		if (gimmikCnt == 180)
-		{
-			gimmikCnt = 0;
-			gimmikFlag = 1;
-		}
-	}
-
-	if (gimmikFlag == 1)
-	{
-		gimmikCnt++;
-		SetSpeadToAsaaignedPosition(lift, gimmikPosBX, gimmikPosBY, 2.0f);
-		if (gimmikCnt == 180)
-		{
-			gimmikCnt = 0;
-			gimmikFlag = 0;
-		}
-	}
-	
-	lift->UpData();
 
 	ScrollMap();
 
@@ -153,8 +161,6 @@ void GamePlay::Update()
 
 
 	////////////////////  キー入力  //////////////////	
-
-
 	// マウスクリックで
 	//if (g_mouse.leftButton)
 	//{
@@ -179,17 +185,17 @@ void GamePlay::Render()
 	rect = { 0, 0,640,480 };
 	switch (serectMap)
 	{
-	case 2:
-		g_spriteBatch->Draw(g_BackImage->m_pTexture,
-			Vector2(0, 0));
-		break;
 	case 1:
 		g_spriteBatch->Draw(g_BackImage2->m_pTexture,
 			Vector2(0, 0));
 		break;
+
+	case 2:
+		g_spriteBatch->Draw(g_BackImage->m_pTexture,
+			Vector2(0, 0));
+		break;
 	}
 	
-
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -255,7 +261,8 @@ void GamePlay::importData(string filename)
 	}
 
 	i = 0;
-	while (getline(ifs, str)) {
+	while (getline(ifs, str)) 
+	{
 		string token;
 		istringstream stream(str);
 
@@ -442,38 +449,15 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	
 }
 
-//罠とキャラクターの当たり判定
-//void  GamePlay::Collisiontrup(ObjectBase* obj)
-//{
-//	//プレイヤーの左右座標を求める
-//	float left = obj->GetPosX() + 0.01f;
-//	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
-//
-//	// プレイヤーの足元の座標を求める
-//	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
-//	//プレイヤーの頭の判定
-//	float head = obj->GetPosY();
-//	//プレイヤーの胴体判定
-//	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
-//	// マップの配列の位置　
-//	int map_x, map_y;
-//
-//	// プレイヤーの左足の位置
-//	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
-//	map_y = (int)floor(bottom / CHIP_SIZE);
-//}
+
 
 GamePlay::~GamePlay()
 {
-	delete player;
+	if(player != nullptr)delete player;
+	if(lift != nullptr)delete lift;
 }
 
-void GamePlay::Initialize()
-{
-	
 
-	
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -517,7 +501,6 @@ void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float A
 	if (disY != 0.0f)
 	{
 		obj->SetSpdY(disY / Time / 60.0f);
-
 	}
 	else if (disY == 0.0f)
 	{
@@ -554,7 +537,7 @@ void GamePlay::ScrollMap(void)
 
 	g_ScrollMap_x = player->GetPosX() + player->GetGrpW() / 2 - SCREEN_WIDTH / 2;
 
-	if (g_ScrollMap_x < 0|| serectMap == 1)
+	if (g_ScrollMap_x < 0 || serectMap == 1)
 	{
 		g_ScrollMap_x = 0;
 	}

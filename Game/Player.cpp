@@ -7,8 +7,8 @@
 //!
 //! @author Yuhei M	
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-#include "Player.h"
 #include"GameMain.h"
+#include "Player.h"
 #include<string>
 #include<sstream>
 #include<fstream>
@@ -39,7 +39,6 @@ Player::Player()
 	SetJump(FALSE);
 	SetClimb(FALSE);
 	SetHold(FALSE);
-
 }
 
 

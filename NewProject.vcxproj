@@ -87,7 +87,6 @@
   <ItemGroup>
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectXTK.cpp" />
-    <ClCompile Include="Game\DirectSound.cpp" />
     <ClCompile Include="Game\GameClear.cpp" />
     <ClCompile Include="Game\GameLogo.cpp" />
     <ClCompile Include="Game\GameMain.cpp" />
@@ -105,7 +104,6 @@
   <ItemGroup>
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectXTK.h" />
-    <ClInclude Include="Game\DirectSound.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />
     <ClInclude Include="Game\GameLogo.h" />
