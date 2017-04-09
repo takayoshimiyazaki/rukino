@@ -122,7 +122,7 @@ void GamePlay::Update()
 	}
 
 	enemy->SetSpdX(0);
-	if (enemy->GetJump() == TRUE&& enemy->GetClimb() == FALSE)
+	if (enemy->GetJump() == TRUE&&serectMap == 1)
 	{
 		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
 	}
@@ -191,7 +191,8 @@ void GamePlay::Update()
 			}
 			else
 			{
-				//ダメージ判定処理
+				//ダメージ判定
+			
 			}
 		}
 		enemy->UpData();
@@ -488,6 +489,8 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	
 }
 
+
+//時間制限
 void GamePlay::timeOver()
 {
 	//	時間表示
