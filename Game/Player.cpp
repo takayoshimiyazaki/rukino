@@ -293,6 +293,7 @@ void Player::Render()
 	float sy = GetPosY() - g_ScrollMap_y;
 
 
+
 	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
 		Vector2(sx, sy),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
@@ -373,7 +374,12 @@ void Player::PlayerControl(void)
 	{
 		if (g_key.Right)//右キー押下
 		{
+
 			if (GetHold() == FALSE)
+
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
+
+
 			{
 				SetDir(RIGHT);
 			}
@@ -397,6 +403,7 @@ void Player::PlayerControl(void)
 				SetDir(LEFT);
 			}
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+
 			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 ||* mapdata == 8 || *mapdata == 13)//移動可能マップチップ
 			{
 
