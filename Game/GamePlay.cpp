@@ -125,12 +125,14 @@ void GamePlay::Update()
 			player->SetJump(FALSE);
 			player->SetJumpPower(0.0f);
 
-			if (player->GetDir() == LEFT)
+			if (player->GetDir() == LEFT  )
 			{
+				
 				player->SetPosX(lift->GetPosX() + player->GetGrpW()-2.0f);
 			}
 			else if (player->GetDir() == RIGHT)
 			{
+				
 				player->SetPosX(lift->GetPosX() - player->GetGrpW()+2.0f);
 			}
 			player->SetPosY(lift->GetPosY());

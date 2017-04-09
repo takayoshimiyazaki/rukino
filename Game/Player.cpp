@@ -223,19 +223,24 @@ void Player::Render()
 {
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
+
+	//左に移動してるなら左に動き、右に移動しているなら右に動く
+
+	switch (GetDir())
+	{
+	case LEFT:
+		SetGrpY(32);
+		break;
+	case RIGHT:
+		SetGrpY(64);
+		break;
+	}
+	
+
+
 	//左右に移動している場合
 	if (GetSpdX() != 0)
 	{
-		//左に移動してるなら左に動き、右に移動しているなら右に動く
-		if (GetSpdX() < 0)
-		{
-			SetGrpY(32);
-		}
-		else
-		{
-			SetGrpY(64);
-		}
-
 		//移動してる場合歩く
 		switch (m_cnt / 15 % 4)
 		{
@@ -368,7 +373,11 @@ void Player::PlayerControl(void)
 	{
 		if (g_key.Right)//右キー押下
 		{
-			SetDir(RIGHT);
+			if (GetHold() == FALSE)
+			{
+				SetDir(RIGHT);
+			}
+			
 
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
 			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8)//移動可能マップチップ
@@ -383,8 +392,10 @@ void Player::PlayerControl(void)
 		}
 		else if (g_key.Left)//左キー押下
 		{
-			SetDir(LEFT);
-
+			if (GetHold() == FALSE)
+			{
+				SetDir(LEFT);
+			}
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 ||* mapdata == 8)//移動可能マップチップ
 			{
