@@ -365,11 +365,8 @@ void Player::PlayerControl(void)
 	//キー入力
 
 	int index_x = (int)GetPosX() / CHIP_SIZE;//マップに対するプレイヤーのX座標
-	
 	int index_y = ((int)GetPosY() + (int)GetGrpH()) / CHIP_SIZE;//マップに対するプレイヤーのY座標
 	
-	
-
 	if (GetState() != 0)
 	{
 		if (g_key.Right)//右キー押下
@@ -378,13 +375,9 @@ void Player::PlayerControl(void)
 			if (GetHold() == FALSE)
 
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
-
-
 			{
 				SetDir(RIGHT);
 			}
-			
-
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
 			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
 			{
