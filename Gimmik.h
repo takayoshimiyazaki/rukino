@@ -24,7 +24,7 @@ public:
 	float GetPosY();//Y座標セット
 
 
-					//画像関連（コメントにつかれました...）
+	//画像関連（コメントにつかれました...）
 	void SetGrpX(int x);
 	int GetGrpX();
 

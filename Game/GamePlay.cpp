@@ -365,11 +365,10 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	if (g_map[map_y][map_x] == 7 && player->GetHold() == TRUE)
 	{
 		obj->SetJumpPower(0.0f);
-		obj->SetJump(FALSE);
+		obj->SetJump(TRUE);
 		obj->SetSpdY(0.0f);
 		obj->SetSpdX(3.0f);
 	}
-	
 	
 
 	map_y = (int)floor(bottom / CHIP_SIZE);
@@ -442,7 +441,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	if (g_map[map_y][map_x] == 7&&player->GetHold()==TRUE)
 	{
 		obj->SetJumpPower(0.0f);
-		obj->SetJump(FALSE);
+		obj->SetJump(TRUE);
 		obj->SetSpdY(0.0f);
 		obj->SetSpdX(3.0f);
 	}

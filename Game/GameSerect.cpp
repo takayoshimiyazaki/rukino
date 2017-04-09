@@ -13,7 +13,6 @@
 #include "GameSerect.h"
 
 
-
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
@@ -85,19 +84,6 @@ void GameSerect::Update()
 			}
 		}
 	}
-
-
-	/*if (g_keyTracker->pressed.A)
-	{
-		serectMap = 1;
-		g_NextScene = PLAY;
-	}
-
-	if (g_keyTracker->pressed.B)
-	{
-		serectMap = 2;
-		g_NextScene = PLAY;
-	}*/
 
 }
 
