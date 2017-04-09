@@ -122,7 +122,7 @@ void GamePlay::Update()
 	}
 
 	enemy->SetSpdX(0);
-	if (enemy->GetJump() == TRUE&& enemy->GetClimb() == FALSE)
+	if (enemy->GetJump() == TRUE&&serectMap == 1)
 	{
 		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
 	}
@@ -134,7 +134,7 @@ void GamePlay::Update()
 
 	//°‚Æ‚Ì”»’è
 	Collisionfloor(player);
-	Collisionfloor(enemy);
+	
 
 	if (lift != nullptr)
 	{
@@ -202,7 +202,6 @@ void GamePlay::Update()
 	ScrollMap();
 
 	m_timeCount++;	//	ŠÔ‚ÌƒJƒEƒ“ƒg
-
 
 	
 }
