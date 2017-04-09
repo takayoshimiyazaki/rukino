@@ -161,6 +161,15 @@ int ObjectBase::GetHold()
 	return hold;
 }
 
+void ObjectBase::SetDir(int s)
+{
+	dir = s;
+}
+int ObjectBase::GetDir()
+{
+	return dir;
+}
+
 
 void ObjectBase::UpData()
 {
@@ -175,6 +184,7 @@ void ObjectBase::UpData()
 	GetState();
 	GetJump();
 	GetClimb();
+	GetHold();
 	GetHold();
 }
 

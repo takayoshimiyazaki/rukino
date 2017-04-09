@@ -56,7 +56,7 @@ GameBase* base;
 //----------------------------------------------------------------------
 void InitializeGame(void)
 {
-	base = new GameTitle();
+	base = new GameLogo();
 	
 
 	// ‰æ‘œ‚Ì“Ç‚İ‚İ 
