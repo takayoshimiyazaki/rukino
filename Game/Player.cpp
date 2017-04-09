@@ -480,9 +480,4 @@ void Player::PlayerControl(void)
 		}
 	}
 
-
-
-	
-
-
 }

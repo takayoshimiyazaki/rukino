@@ -122,7 +122,7 @@ void GamePlay::Update()
 	}
 
 	enemy->SetSpdX(0);
-	if (enemy->GetJump() == TRUE&& enemy->GetClimb() == FALSE)
+	if (enemy->GetJump() == TRUE&&serectMap == 1)
 	{
 		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
 	}
