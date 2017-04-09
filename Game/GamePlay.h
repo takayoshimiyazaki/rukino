@@ -20,7 +20,7 @@ private:
 	Player* player;//プレイヤーポインタ
 	Gimmik* lift;//リフトポインタ
 
-	Enemy* enemy;//敵ポインタ
+	Enemy* enemy[15];//敵ポインタ
 
 	float gimmikPosAX = 0;//ギミック可動範囲AX座標
 	float gimmikPosAY = 0;//ギミック可動範囲AY座標
@@ -28,6 +28,8 @@ private:
 	float gimmikPosBX = 0;//ギミック可動範囲BX座標
 	float gimmikPosBY = 0;//ギミック可動範囲BY座標
 
+	int enemyCnt = 0;
+	int enemyNum = 0;
 	int gimmikFlag = 0;
 	int gimmikCnt = 0;
 	bool mouseState = 0;
