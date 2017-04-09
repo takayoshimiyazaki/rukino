@@ -40,5 +40,5 @@ public:
 
 private:
 
-	bool CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse);
+	//bool CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse);
 };

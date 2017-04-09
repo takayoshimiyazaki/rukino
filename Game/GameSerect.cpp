@@ -54,20 +54,25 @@ void GameSerect::Update()
 	else
 	{
 		//マウスとステージセレクト（森）が当たってたら
-		if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
+		//if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
+		//	左キーが押されたら
+		if(g_key.Left)
 			forestCheck = true;
 		else forestCheck = false;
 
 		//マウスとステージセレクト（塔）が当たったら
-		if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
+		//if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
+		//	右キーが押されたら
+		if(g_key.Right)
 			towerCheck = true;
 		else towerCheck = false;
 
 
 		//左クリックをしてる時
-		if (g_mouse.leftButton)
+		//if (g_mouse.leftButton)
+		//	スペースキーが押されたら
+		if (g_keyTracker->pressed.Space)
 		{
-
 			//マウスとステージセレクト（塔）が当たったら
 			if (towerCheck == true)
 			{
@@ -125,16 +130,16 @@ void GameSerect::Render()
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));*/
 
 }
-
-bool GameSerect::CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse)
-{
-	if ((mouse.x > pos.x && mouse.x < pos.x + rect.right) &&
-		(mouse.y > pos.y && mouse.y < pos.y + rect.bottom))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+//
+//bool GameSerect::CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse)
+//{
+//	if ((mouse.x > pos.x && mouse.x < pos.x + rect.right) &&
+//		(mouse.y > pos.y && mouse.y < pos.y + rect.bottom))
+//	{
+//		return true;
+//	}
+//	else
+//	{
+//		return false;
+//	}
+//}
