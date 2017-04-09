@@ -134,7 +134,7 @@ void GamePlay::Update()
 
 	//è∞Ç∆ÇÃîªíË
 	Collisionfloor(player);
-	Collisionfloor(enemy);
+	
 
 	if (lift != nullptr)
 	{
