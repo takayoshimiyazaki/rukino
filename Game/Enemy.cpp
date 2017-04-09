@@ -24,7 +24,7 @@ using namespace std;
 
 Enemy::Enemy()
 {
-	SetHandle(g_PlayerImage);
+	SetHandle(g_Spider);
 	SetGrpX(0);
 	SetGrpY(0);
 	SetGrpW(32);
@@ -203,14 +203,6 @@ void Enemy::UpData()
 {
 	Control();
 
-	if (GetSpdX() != 0 || GetSpdY() != 0)
-	{
-		m_cnt++;
-	}
-	else
-	{
-		m_cnt = 0;
-	}
 
 }
 
@@ -223,10 +215,10 @@ void Enemy::Render()
 	switch (GetDir())
 	{
 	case LEFT:
-		SetGrpY(32);
+		SetGrpY(0);
 		break;
 	case RIGHT:
-		SetGrpY(64);
+		SetGrpY(32);
 		break;
 	}
 
@@ -285,7 +277,8 @@ void Enemy::Render()
 		float sx = GetPosX() - g_ScrollMap_x;
 		float sy = GetPosY() - g_ScrollMap_y;
 
-		g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
+
+		g_spriteBatch->Draw(g_Spider->m_pTexture,
 			Vector2(sx, sy),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 
@@ -305,7 +298,7 @@ void Enemy::Control(void)
 	
 	if (serectMap == 2)
 	{
-		spd = 4.0f;
+		spd = 2.0f;
 	}
 	
 
@@ -326,7 +319,7 @@ void Enemy::Control(void)
 				SetSpdX(spd);
 			}
 		}
-		else 
+		else
 		{
 			SetDir(LEFT);
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
@@ -337,22 +330,30 @@ void Enemy::Control(void)
 			}
 		}
 
+		if (actCnt <= 90)
+		{
+			SetSpdX(spd);
+		}
+		else
+		{
+			SetSpdX(-spd);
+		}
+
 		if (actCnt >= 190)
 		{
 			actCnt = 0;
 		}
 
-	}
-	//座標変更処理/////////////////////////////
-	SetPosX(GetPosX() + GetSpdX());
-	SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
+		//座標変更処理/////////////////////////////
+		SetPosX(GetPosX() + GetSpdX());
+		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 
 
-	//移動してない場合両手をもとに戻す
-	if (GetSpdX() == 0)
-	{
-		SetGrpX(32);
-	}
+		//移動してない場合両手をもとに戻す
+		if (GetSpdX() == 0)
+		{
+			SetGrpX(32);
+		}
 
 		//状態による変更
 		switch (GetState())
@@ -363,4 +364,5 @@ void Enemy::Control(void)
 			break;
 
 		}
+	}
 }

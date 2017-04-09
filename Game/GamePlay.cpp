@@ -27,6 +27,7 @@ GamePlay::GamePlay()
 	//serectMap = 1;//塔
 
 	//serectMap = 2;//森
+	enemyCnt = 0;
 
 	if (g_init == 0)
 	{
@@ -36,10 +37,13 @@ GamePlay::GamePlay()
 	// マップの設定
 	if (serectMap == 1)
 	{
+		enemyNum = 12;
 		importData("map1.csv");//マップデータの読み込み
+
 	}
 	else if (serectMap == 2)
 	{
+		enemyNum = 1;
 		importData("map2.csv");//マップデータの読み込み
 	}
 
@@ -48,8 +52,10 @@ GamePlay::GamePlay()
 	//リフト（ギミック）作成
 	lift = new Gimmik;
 	//敵作成
-	enemy = new Enemy;
-	
+	for (int i = 0; i < enemyNum; i++)
+	{
+		enemy[i] = new Enemy;
+	}
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
@@ -78,8 +84,9 @@ GamePlay::GamePlay()
 		}
 		else if(g_map[i / MAP_H][i % MAP_W] == 13)
 		{
-			enemy->SetPosX((float)(i % MAP_W) * enemy->GetGrpW());
-			enemy->SetPosY((float)(i / MAP_H) * enemy->GetGrpH());
+			enemy[enemyCnt]->SetPosX((float)(i % MAP_W) * enemy[enemyCnt]->GetGrpW());
+			enemy[enemyCnt]->SetPosY((float)(i / MAP_H) * enemy[enemyCnt]->GetGrpH());
+			enemyCnt++;
 		}
 		else
 		{
@@ -121,16 +128,18 @@ void GamePlay::Update()
 		player->SetSpdY(0);
 	}
 
-	enemy->SetSpdX(0);
-	if (enemy->GetJump() == TRUE&&serectMap == 1)
+	for (int i = 0; i < enemyCnt; i++)
 	{
-		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
+		enemy[i]->SetSpdX(0);
+		if (enemy[i]->GetJump() == TRUE&&serectMap == 1)
+		{
+			enemy[i]->SetSpdY(enemy[i]->GetSpdY() + GRAVITY);
+		}
+		else
+		{
+			enemy[i]->SetSpdY(0);
+		}
 	}
-	else
-	{
-		enemy->SetSpdY(0);
-	}
-
 
 	//床との判定
 	Collisionfloor(player);
@@ -181,22 +190,26 @@ void GamePlay::Update()
 		lift->UpData();
 	}
 
-	if (enemy->GetState() == 1)
+
+	for (int i = 0; i < enemyCnt; i++)
 	{
-		if (Collision(player, enemy) == TRUE)
+		if (enemy[i]->GetState() == 1)
 		{
-			if (player->GetHold() == TRUE)
+			if (Collision(player, enemy[i]) == TRUE)
 			{
-				enemy->SetState(0);
+				if (player->GetHold() == TRUE)
+				{
+					enemy[i]->SetState(0);
+				}
+				else
+				{
+					//ダメージ判定処理
+				}
 			}
-			else
-			{
-				//ダメージ判定
-			
-			}
+			enemy[i]->UpData();
 		}
-		enemy->UpData();
 	}
+
 
 	player->UpData();
 	
@@ -256,11 +269,13 @@ void GamePlay::Render()
 	//	 プレイヤー
 	player->Render();
 
-	if (enemy->GetState() == 1)
+	for (int i = 0; i < enemyCnt; i++)
 	{
-		enemy->Render();
+		if (enemy[i]->GetState() == 1)
+		{
+			enemy[i]->Render();
+		}
 	}
-
 
 	rect = { 0, 0,680,96};
 	g_spriteBatch->Draw(g_StateImage->m_pTexture,
@@ -489,8 +504,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	
 }
 
-
-//時間制限
 void GamePlay::timeOver()
 {
 	//	時間表示
@@ -513,6 +526,15 @@ GamePlay::~GamePlay()
 {
 	if(player != nullptr)delete player;
 	if(lift != nullptr)delete lift;
+	
+	for (int i = 0; i < enemyCnt; i++)
+	{
+		if (enemy[i] != nullptr)
+		{
+			delete enemy[i];
+		}
+	}
+	
 }
 
 
