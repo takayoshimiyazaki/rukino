@@ -32,7 +32,7 @@ private:
 	int gimmikCnt = 0;
 	bool mouseState = 0;
 	int m_timeCount = 0;	//	カウント
-	int cnt = 0;			//	時間
+	int cnt = 40;			//	時間
 public:
 	GamePlay();
 	void Initialize();//初期化
@@ -40,6 +40,7 @@ public:
 	void Render();//描画
 	void importData(std::string f);//マップ読み込み
 	void Collisionfloor(ObjectBase* obj);//床との判定
+	void timeOver();//	制限時間
 	void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float AposY, float Time);//指定座標移動関数
 	void GamePlay::ScrollMap(void);
 	bool GamePlay::Collision(ObjectBase* obj1, ObjectBase*obj2);

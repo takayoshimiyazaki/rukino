@@ -273,15 +273,9 @@ void GamePlay::Render()
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
 
+	timeOver();	//	時間制限カウント
 
-
-
-
-	//	時間表示
-	if (m_timeCount % 60 == 1)
-	{
-		cnt++;
-	}
+	
 
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
@@ -493,6 +487,22 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		obj->SetSpdX(3.0f);
 	}
 	
+}
+
+void GamePlay::timeOver()
+{
+	//	時間表示
+	if (m_timeCount % 60 == 1)
+	{
+		cnt--;
+
+		//	カウントが０未満になったら
+		if (cnt < 0)
+		{
+			g_NextScene = OVER;	//	ゲームオーバーする
+		}
+	}
+
 }
 
 
