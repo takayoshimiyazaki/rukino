@@ -24,7 +24,7 @@ using namespace std;
 
 Enemy::Enemy()
 {
-	SetHandle(g_PlayerImage);
+	SetHandle(g_Spider);
 	SetGrpX(0);
 	SetGrpY(0);
 	SetGrpW(32);
@@ -203,14 +203,6 @@ void Enemy::UpData()
 {
 	Control();
 
-	if (GetSpdX() != 0 || GetSpdY() != 0)
-	{
-		m_cnt++;
-	}
-	else
-	{
-		m_cnt = 0;
-	}
 
 }
 
@@ -223,10 +215,10 @@ void Enemy::Render()
 	switch (GetDir())
 	{
 	case LEFT:
-		SetGrpY(32);
+		SetGrpY(0);
 		break;
 	case RIGHT:
-		SetGrpY(64);
+		SetGrpY(32);
 		break;
 	}
 
@@ -287,7 +279,7 @@ void Enemy::Render()
 		float sy = GetPosY() - g_ScrollMap_y;
 
 
-		g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
+		g_spriteBatch->Draw(g_Spider->m_pTexture,
 			Vector2(sx, sy),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 
