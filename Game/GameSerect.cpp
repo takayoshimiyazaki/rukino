@@ -84,7 +84,7 @@ void GameSerect::Update()
 			}
 		}
 	}
-
+	
 }
 
 void GameSerect::Render()

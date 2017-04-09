@@ -12,6 +12,7 @@
 #include "ObjectBase.h"
 #include "../Game/Player.h"
 #include "../Game/Gimmik.h"
+#include "../Game/Enemy.h"
 #include <string>
 class GamePlay :public GameBase
 {
@@ -19,7 +20,7 @@ private:
 	Player* player;//プレイヤーポインタ
 	Gimmik* lift;//リフトポインタ
 
-	
+	Enemy* enemy;//敵ポインタ
 
 	float gimmikPosAX = 0;//ギミック可動範囲AX座標
 	float gimmikPosAY = 0;//ギミック可動範囲AY座標
