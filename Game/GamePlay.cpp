@@ -47,6 +47,8 @@ GamePlay::GamePlay()
 	player = new Player;
 	//リフト（ギミック）作成
 	lift = new Gimmik;
+	//敵作成
+	enemy = new Enemy;
 	
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
@@ -73,6 +75,11 @@ GamePlay::GamePlay()
 		{
 			gimmikPosBX = (i % MAP_W)* lift->GetGrpW();
 			gimmikPosBY = (i / MAP_H)* lift->GetGrpH();
+		}
+		else if(g_map[i / MAP_H][i % MAP_W] == 13)
+		{
+			enemy->SetPosX((float)(i % MAP_W) * enemy->GetGrpW());
+			enemy->SetPosY((float)(i / MAP_H) * enemy->GetGrpH());
 		}
 		else
 		{
@@ -114,9 +121,20 @@ void GamePlay::Update()
 		player->SetSpdY(0);
 	}
 
+	enemy->SetSpdX(0);
+	if (enemy->GetJump() == TRUE&& enemy->GetClimb() == FALSE)
+	{
+		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
+	}
+	else
+	{
+		enemy->SetSpdY(0);
+	}
+
+
 	//床との判定
 	Collisionfloor(player);
-
+	Collisionfloor(enemy);
 
 	if (lift != nullptr)
 	{
@@ -163,21 +181,30 @@ void GamePlay::Update()
 		lift->UpData();
 	}
 
-	player->UpData();
+	if (enemy->GetState() == 1)
+	{
+		if (Collision(player, enemy) == TRUE)
+		{
+			if (player->GetHold() == TRUE)
+			{
+				enemy->SetState(0);
+			}
+			else
+			{
+				//ダメージ判定処理
+			}
+		}
+		enemy->UpData();
+	}
 
+	player->UpData();
+	
 	ScrollMap();
 
 	m_timeCount++;	//	時間のカウント
 
 
-	////////////////////  キー入力  //////////////////	
-	// マウスクリックで
-	//if (g_mouse.leftButton)
-	//{
-	//	SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
-	//}
-
-	mouseState = g_mouse.leftButton;
+	
 }
 
 
@@ -229,6 +256,12 @@ void GamePlay::Render()
 	//	 プレイヤー
 	player->Render();
 
+	if (enemy->GetState() == 1)
+	{
+		enemy->Render();
+	}
+
+
 	rect = { 0, 0,680,96};
 	g_spriteBatch->Draw(g_StateImage->m_pTexture,
 		Vector2(0, 480-96),
@@ -238,6 +271,11 @@ void GamePlay::Render()
 	g_spriteBatch->Draw(g_SBImage->m_pTexture,
 		Vector2(40, 480 - 84),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
+
+
+
+
 
 	//	時間表示
 	if (m_timeCount % 60 == 1)
@@ -337,7 +375,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0);
-			obj->SetState(1);
+			
 
 		}
 	}
@@ -413,7 +451,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0.0f);
-			obj->SetState(1);
 		}
 	}
 	else if (g_map[map_y][map_x] == 6)
