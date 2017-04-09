@@ -24,7 +24,7 @@ public:
 	float GetPosY();//Y座標セット
 
 
-					//画像関連（コメントにつかれました...）
+	//画像関連（コメントにつかれました...）
 	void SetGrpX(int x);
 	int GetGrpX();
 
@@ -58,8 +58,6 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
-
-
-	void PlayerControl(void);//プレイヤー操作
+	void GimmikControl(void);//プレイヤー操作
 };
 

@@ -23,8 +23,6 @@
 #define CHIP_SIZE 32
 #define GRAVITY 0.98
 
-
-
 #include <windows.h>
 #include <d3d11.h>
 #include <SimpleMath.h>
