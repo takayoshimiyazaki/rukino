@@ -276,11 +276,11 @@ void Player::PlayerControl(void)
 		{
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
 
-<<<<<<< HEAD
+
 			if (*mapdata == 0 || *mapdata == 6)//移動可能マップチップ
-=======
+
 			if (*mapdata == 0|| *mapdata == 2)//移動可能マップチップ
->>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
+
 			{
 
 			SetSpdX(spd);
@@ -298,11 +298,10 @@ void Player::PlayerControl(void)
 		{
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 
-<<<<<<< HEAD
 			if (*mapdata == 0 || *mapdata == 6)
-=======
+
 			if (*mapdata == 0 || *mapdata == 2)//移動可能マップチップ
->>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
+
 			{
 
 				SetSpdX(-spd);
