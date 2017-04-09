@@ -58,11 +58,11 @@ GamePlay::GamePlay()
 		}
 		else if (g_map[i / MAP_H][i % MAP_W] == 3)
 		{
-			/*lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
+			lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
 			gimmikPosAX = lift->GetPosX();
 
 			lift->SetPosY((float)(i / MAP_H) * lift->GetGrpH());
-			gimmikPosAY = lift->GetPosY();*/
+			gimmikPosAY = lift->GetPosY();
 		}
 		else if (g_map[i / MAP_H][i % MAP_W] == 4)
 		{
@@ -124,7 +124,15 @@ void GamePlay::Update()
 		{
 			player->SetJump(FALSE);
 			player->SetJumpPower(0.0f);
-			player->SetPosX(lift->GetPosX() + player->GetGrpW());
+
+			if (player->GetDir() == LEFT)
+			{
+				player->SetPosX(lift->GetPosX() + player->GetGrpW()-2.0f);
+			}
+			else if (player->GetDir() == RIGHT)
+			{
+				player->SetPosX(lift->GetPosX() - player->GetGrpW()+2.0f);
+			}
 			player->SetPosY(lift->GetPosY());
 		}
 

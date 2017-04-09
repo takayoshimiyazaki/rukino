@@ -17,11 +17,17 @@ class Player :public ObjectBase
 {
 private:
 	int m_cnt;
+
+	int dir;
+	
 public:
 	Player();//コンストラクタ
 	~Player();//デストラクタ
 	void UpData();//更新
 	void Render();//描画
+
+
+
 
 	void SetHandle(Texture* h);//画像セット
 	Texture* GetHandle();//画像取得
@@ -67,6 +73,8 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
+	void SetDir(int s);
+	int GetDir();
 	
 
 	void PlayerControl(void);//プレイヤー操作

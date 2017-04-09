@@ -192,6 +192,17 @@ int Player::GetHold()
 
 
 
+void Player::SetDir(int s)
+{
+	dir = s;
+}
+int Player::GetDir()
+{
+	return dir;
+}
+
+
+
 
 void Player::UpData()
 {
@@ -357,10 +368,11 @@ void Player::PlayerControl(void)
 	{
 		if (g_key.Right)//右キー押下
 		{
+			SetDir(RIGHT);
+
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
 			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8)//移動可能マップチップ
 			{
-
 				SetSpdX(spd);
 				SetClimb(FALSE);
 				if (*mapdata == 2)//ゴールのチップ番号指定
@@ -371,10 +383,9 @@ void Player::PlayerControl(void)
 		}
 		else if (g_key.Left)//左キー押下
 		{
+			SetDir(LEFT);
 
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
-
-
 			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 ||* mapdata == 8)//移動可能マップチップ
 			{
 

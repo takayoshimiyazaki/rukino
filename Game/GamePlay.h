@@ -19,6 +19,7 @@ private:
 	Player* player;//プレイヤーポインタ
 	Gimmik* lift;//リフトポインタ
 
+	
 
 	float gimmikPosAX = 0;//ギミック可動範囲AX座標
 	float gimmikPosAY = 0;//ギミック可動範囲AY座標
