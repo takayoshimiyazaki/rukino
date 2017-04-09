@@ -33,7 +33,7 @@ void GameLogo::Update()
 {
 
 	m_cnt++;
-
+	
 	// ƒƒS•\Ž¦
 	if (m_cnt > 180)
 	{

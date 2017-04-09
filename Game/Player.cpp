@@ -216,7 +216,19 @@ void Player::UpData()
 	{
 		m_cnt = 0;
 	}
+
+	if (GetState() == 2)
+	{
+		m_actCnt++;
+	}
 	
+	if (m_actCnt > 60)
+	{
+		SetState(1);
+		m_actCnt = 0;
+	}
+
+
 }
 
 void Player::Render()
@@ -278,8 +290,7 @@ void Player::Render()
 		}
 	}
 
-	if (GetState() == 1)
-	{
+	
 		rect =
 		{
 			GetGrpX(),
@@ -287,7 +298,7 @@ void Player::Render()
 			GetGrpX() + GetGrpW() ,
 			GetGrpY() + GetGrpH()
 		};
-	}
+	
 
 	float sx = GetPosX() - g_ScrollMap_x;
 	float sy = GetPosY() - g_ScrollMap_y;

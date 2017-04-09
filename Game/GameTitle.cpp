@@ -48,10 +48,6 @@ void GameTitle::Update()
 
 	}
 
-
-	
-
-
 }
 void GameTitle::Render()
 {
@@ -61,8 +57,6 @@ void GameTitle::Render()
 	// ƒ^ƒCƒgƒ‹‰æ‘œ
 	rect = { 0,0,640,480 };
 	g_spriteBatch->Draw(g_TitleImage->m_pTexture, Vector2(0, 0));
-
-	
 
 }
 GameTitle::GameTitle()

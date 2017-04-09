@@ -60,7 +60,7 @@ GamePlay::GamePlay()
 	for (int i = 0; i < MAX_TIP; i++)
 	{
 
-		if (g_map[i / MAP_H][i % MAP_W] == 0)//空白指定マップチップ
+		if (g_map[i / MAP_H][i % MAP_W] == 0  ||g_map[i / MAP_H][i % MAP_W] == 20)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
 		}
@@ -84,6 +84,7 @@ GamePlay::GamePlay()
 		}
 		else if(g_map[i / MAP_H][i % MAP_W] == 13)
 		{
+			g_tip[i].state = 0;
 			enemy[enemyCnt]->SetPosX((float)(i % MAP_W) * enemy[enemyCnt]->GetGrpW());
 			enemy[enemyCnt]->SetPosY((float)(i / MAP_H) * enemy[enemyCnt]->GetGrpH());
 			enemyCnt++;
@@ -193,7 +194,7 @@ void GamePlay::Update()
 
 	for (int i = 0; i < enemyCnt; i++)
 	{
-		if (enemy[i]->GetState() == 1)
+		if (enemy[i]->GetState() == 1&&player->GetState()==1)
 		{
 			if (Collision(player, enemy[i]) == TRUE)
 			{
@@ -204,6 +205,8 @@ void GamePlay::Update()
 				else
 				{
 					//ダメージ判定処理
+					player->SetState(2);
+					cnt -= 2;
 				}
 			}
 			enemy[i]->UpData();
@@ -249,6 +252,16 @@ void GamePlay::Render()
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
 	{
+
+
+		
+		if (g_map[i / MAP_H][i % MAP_W] == 1 && serectMap == 2)
+		{
+			g_tip[i].grp_x = 32;
+			g_tip[i].grp_y = 32;
+			g_tip[i].grp_w = CHIP_SIZE;
+			g_tip[i].grp_h = CHIP_SIZE;
+		}
 		if (g_tip[i].state)
 		{
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
@@ -267,7 +280,14 @@ void GamePlay::Render()
 	lift->Render();
 
 	//	 プレイヤー
-	player->Render();
+	if (player->GetState() == 1)
+	{
+		player->Render();
+	}
+	else if ((player->GetState() == 2) && (m_timeCount % 3 == 1))
+	{
+		player->Render();
+	}
 
 	for (int i = 0; i < enemyCnt; i++)
 	{
@@ -287,6 +307,11 @@ void GamePlay::Render()
 		Vector2(40, 480 - 84),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
+	rect = { 0, 0,96,96 };
+	g_spriteBatch->Draw(g_FaceImage->m_pTexture,
+		Vector2(550, 480 - 84),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
 
 	timeOver();	//	時間制限カウント
 
@@ -295,11 +320,11 @@ void GamePlay::Render()
 	//デバッグ用文字
 	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
 	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
-	swprintf_s(buf3, 16, L"T ,%d", cnt);
+	swprintf_s(buf3, 16, L"TIME ,%d", cnt);
 
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(300 ,400));
 }
 
 //マップの読み込み
@@ -453,8 +478,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-
-
 			if(g_map[map_y][map_x] == 14)
 			{
 				switch (obj->GetDir())

@@ -118,6 +118,9 @@ EXTERN Texture *g_LogoImage;			//クリア画像
 EXTERN Texture *g_OverImage;			//クリア画像
 EXTERN Texture *g_StateImage;			//クリア画像
 
+EXTERN Texture *g_FaceImage;			//クリア画像
+
+
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
 EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ
