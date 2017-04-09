@@ -282,20 +282,14 @@ void Enemy::Render()
 			GetGrpY() + GetGrpH()
 		};
 
-
 		float sx = GetPosX() - g_ScrollMap_x;
 		float sy = GetPosY() - g_ScrollMap_y;
-
 
 		g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
 			Vector2(sx, sy),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 
 	}
-
-			
-
-		
 	
 
 }
@@ -309,16 +303,15 @@ void Enemy::Control(void)
 	//カウントで簡易操作
 	actCnt++;
 	
+	if (serectMap == 2)
+	{
+		spd = 4.0f;
+	}
 	
-	
-
-
-
 
 	int index_x = (int)GetPosX() / CHIP_SIZE;//マップに対するプレイヤーのX座標
 
 	int index_y = ((int)GetPosY() + (int)GetGrpH()) / CHIP_SIZE;//マップに対するプレイヤーのY座標
-
 
 
 	if (GetState() != 0)
@@ -327,12 +320,10 @@ void Enemy::Control(void)
 		{
 			SetDir(RIGHT);
 
-
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
 			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
 			{
 				SetSpdX(spd);
-
 			}
 		}
 		else 
@@ -357,14 +348,11 @@ void Enemy::Control(void)
 	SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 
 
-
 	//移動してない場合両手をもとに戻す
 	if (GetSpdX() == 0)
 	{
 		SetGrpX(32);
 	}
-
-
 
 		//状態による変更
 		switch (GetState())
