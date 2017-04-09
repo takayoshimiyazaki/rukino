@@ -27,6 +27,7 @@ Gimmik::Gimmik()
 	SetJump(FALSE);
 	SetClimb(FALSE);
 	SetHold(FALSE);
+
 }
 
 
@@ -184,6 +185,16 @@ int Gimmik::GetHold()
 {
 
 	return hold;
+}
+
+void Gimmik::SetDir(int s)
+{
+	dir = s;
+}
+
+int Gimmik::GetDir()
+{
+	return dir;
 }
 
 void Gimmik::Render()

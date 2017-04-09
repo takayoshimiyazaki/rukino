@@ -377,8 +377,6 @@ void Player::PlayerControl(void)
 
 
 			if (GetHold() == FALSE)
-
-
 			{
 				SetDir(RIGHT);
 			}

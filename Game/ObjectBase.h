@@ -64,9 +64,8 @@ public:
 	virtual void SetHold(int s) = 0;
 	virtual int GetHold() = 0;
 
-	void SetDir(int s);
-
-	int GetDir();
+	virtual void SetDir(int s) = 0;
+	virtual int GetDir() = 0;
 	
 
 

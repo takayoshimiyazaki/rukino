@@ -185,7 +185,7 @@ void ObjectBase::UpData()
 	GetJump();
 	GetClimb();
 	GetHold();
-	GetHold();
+	GetDir();
 }
 
 void ObjectBase::Render()

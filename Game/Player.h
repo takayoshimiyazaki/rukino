@@ -18,8 +18,6 @@ class Player :public ObjectBase
 private:
 	int m_cnt;
 
-	int dir;
-	
 public:
 	Player();//コンストラクタ
 	~Player();//デストラクタ
