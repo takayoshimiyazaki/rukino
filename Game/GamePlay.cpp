@@ -191,7 +191,8 @@ void GamePlay::Update()
 			}
 			else
 			{
-				//ダメージ判定処理
+				//ダメージ判定
+			
 			}
 		}
 		enemy->UpData();
@@ -489,6 +490,8 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	
 }
 
+
+//時間制限
 void GamePlay::timeOver()
 {
 	//	時間表示
