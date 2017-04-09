@@ -373,7 +373,7 @@ void Player::PlayerControl(void)
 	{
 		if (g_key.Right)//右キー押下
 		{
-<<<<<<< HEAD
+
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
 
 
@@ -381,9 +381,9 @@ void Player::PlayerControl(void)
 
 			if (*mapdata == 0|| *mapdata == 2)//移動可能マップチップ
 
-=======
+
 			if (GetHold() == FALSE)
->>>>>>> 2af7d267e7d8a2e57b38b3ec2772bb6dcfb3b369
+
 			{
 				SetDir(RIGHT);
 			}
@@ -407,15 +407,12 @@ void Player::PlayerControl(void)
 				SetDir(LEFT);
 			}
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
-<<<<<<< HEAD
 
 			if (*mapdata == 0 || *mapdata == 6)
 
 			if (*mapdata == 0 || *mapdata == 2)//移動可能マップチップ
 
-=======
 			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 ||* mapdata == 8)//移動可能マップチップ
->>>>>>> 2af7d267e7d8a2e57b38b3ec2772bb6dcfb3b369
 			{
 
 				SetSpdX(-spd);
