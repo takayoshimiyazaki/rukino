@@ -1,33 +1,18 @@
-//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-//! @file   player.h
-//!
-//! @brief  プレイヤー関連のヘッダファイル
-//!
-//! @date   2017/4/5
-//!
-//! @author Yuhei M	
-//__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-
-// ヘッダファイルのインクルード
+#pragma once
 #include <iostream>
-#include "ObjectBase.h"
-#include "../Texture.h"
-// Playerクラス
-class Player :public ObjectBase
+#include "Game\ObjectBase.h"
+#include "Texture.h"
+
+class Gimmik :public ObjectBase
 {
 private:
-	int m_cnt;
 
-	int dir;
-	
+
 public:
-	Player();//コンストラクタ
-	~Player();//デストラクタ
+	Gimmik();
+	~Gimmik();
 	void UpData();//更新
 	void Render();//描画
-
-
-
 
 	void SetHandle(Texture* h);//画像セット
 	Texture* GetHandle();//画像取得
@@ -39,7 +24,7 @@ public:
 	float GetPosY();//Y座標セット
 
 
-					//画像関連（コメントにつかれました...）
+	//画像関連（コメントにつかれました...）
 	void SetGrpX(int x);
 	int GetGrpX();
 
@@ -73,10 +58,6 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
-	void SetDir(int s);
-	int GetDir();
-	
-
-	void PlayerControl(void);//プレイヤー操作
+	void GimmikControl(void);//プレイヤー操作
 };
 

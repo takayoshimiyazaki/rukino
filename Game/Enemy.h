@@ -1,3 +1,4 @@
+#pragma once
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
 //! @file   player.h
 //!
@@ -13,16 +14,18 @@
 #include "ObjectBase.h"
 #include "../Texture.h"
 // Playerクラス
-class Player :public ObjectBase
+class Enemy :public ObjectBase
 {
 private:
 	int m_cnt;
 
+	int actCnt;
+
 	int dir;
-	
+
 public:
-	Player();//コンストラクタ
-	~Player();//デストラクタ
+	Enemy();//コンストラクタ
+	~Enemy();//デストラクタ
 	void UpData();//更新
 	void Render();//描画
 
@@ -39,7 +42,7 @@ public:
 	float GetPosY();//Y座標セット
 
 
-					//画像関連（コメントにつかれました...）
+    //画像関連（コメントにつかれました...）
 	void SetGrpX(int x);
 	int GetGrpX();
 
@@ -73,10 +76,11 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
-	void SetDir(int s);
-	int GetDir();
-	
 
-	void PlayerControl(void);//プレイヤー操作
+	void SetDir(int s);//向き設定
+	int GetDir();//向き検出
+
+	void Control(void);//操作
 };
+
 

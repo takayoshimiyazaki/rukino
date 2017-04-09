@@ -11,13 +11,6 @@
 // ヘッダファイルの読み込み ================================================
 #define _GAMEMAIN_
 #include "GameMain.h"
-
-#include<fstream>
-#include<iostream>
-#include<string>
-#include<sstream>
-//#include "..\ADX2Le.h"
-//#include "..\CueSheet_0.h"
 #include"GameClear.h"
 #include"GameLogo.h"
 #include"GameOver.h"
@@ -25,7 +18,14 @@
 #include"GameTitle.h"
 #include"GameSerect.h"
 
-#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+#include<fstream>
+#include<iostream>
+#include<string>
+#include<sstream>
+
+
+
+
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -56,18 +56,22 @@ GameBase* base;
 //----------------------------------------------------------------------
 void InitializeGame(void)
 {
-	base = new GamePlay();
+	base = new GameTitle();
 	
 
 	// 画像の読み込み 
-	g_StageImage = new Texture(L"Resources\\Images\\StageImage1.png");//ステージ画像
+	g_StageImage = new Texture(L"Resources\\Images\\StageImage.png");//ステージ画像
 	g_BlackImage = new Texture(L"Resources\\Images\\black.png");//フェード用黒画像
 	g_BackImage = new Texture(L"Resources\\Images\\back.png");//背景画像
+	g_BackImage2 = new Texture(L"Resources\\Images\\back2.png");//背景画像
 	g_PlayerImage = new Texture(L"Resources\\Images\\player.png");//プレイヤー画像
+	g_PlayerClothesPins = new Texture(L"Resources\\Images\\Clothes_pins.png");//プレイヤの洗濯ばさみ画像
 	g_TitleImage = new Texture(L"Resources\\Images\\title.png");//タイトル画像
 	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ロゴ画像
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像
+	g_StateImage = new Texture(L"Resources\\Images\\state.png");//クリア画像
+	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//クリア画像
 
 	//ステージセレクト画像（2つ）
 	g_SerectForestImage = new Texture(L"Resources\\Images\\Serect_Forest.png");
@@ -80,10 +84,7 @@ void InitializeGame(void)
 	// 音の読み込み
 	
 	
-
-	
-	g_NextScene = LOGO;
-	g_NextScene = g_scene;//シーン遷移
+	//g_NextScene = g_scene;//シーン遷移
 	g_init = 0;
 }
 

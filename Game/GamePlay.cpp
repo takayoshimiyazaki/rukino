@@ -15,153 +15,227 @@
 #include<sstream>
 #include<fstream>
 #include<iostream>
-//#include "..ADX2Le.h"
-//#include "..\CueSheet_0.h"
-
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
-void Initialize();
-void Update();
-
-
 //	コンストラクタ
 GamePlay::GamePlay()
 {
+	//デバッグ用ステージ設定
+	//serectMap = 1;//塔
+
+	//serectMap = 2;//森
+
+	if (g_init == 0)
+	{
+		g_init = 1;
+	}
+
+	// マップの設定
+	if (serectMap == 1)
+	{
+		importData("map1.csv");//マップデータの読み込み
+	}
+	else if (serectMap == 2)
+	{
+		importData("map2.csv");//マップデータの読み込み
+	}
+
 	//プレイヤー作成
 	player = new Player;
+	//リフト（ギミック）作成
+	lift = new Gimmik;
+	//敵作成
+	enemy = new Enemy;
 	
-	// マップの設定
-
-	importData("map1.csv");//マップデータの読み込み
 	// マップの設定
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-<<<<<<< HEAD
-=======
 
->>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
-		if (g_map[i / 20][i % 20] == 0)//空白指定マップチップ
+		if (g_map[i / MAP_H][i % MAP_W] == 0)//空白指定マップチップ
 		{
 			g_tip[i].state = 0;
 		}
-<<<<<<< HEAD
-		else if (g_map[i / 20][i % 20] == 1)//	壁
+		else if (g_map[i / MAP_H][i % MAP_W] == 3)
 		{
-			g_tip[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
-			g_tip[i].grp_y = 0;
-			g_tip[i].grp_w = CHIP_SIZE;
-			g_tip[i].grp_h = CHIP_SIZE;
-			g_tip[i].pos_x = (i % 20) * g_tip[i].grp_w;
-			g_tip[i].pos_y = (i / 20) * g_tip[i].grp_h;
-			g_tip[i].pos_x = (float)(i % 20) * g_tip[i].grp_w;
-			g_tip[i].pos_y = (float)(i / 20) * g_tip[i].grp_h;
-			g_tip[i].spd_x = 0.0f;
-			g_tip[i].spd_y = 0.0f;
-			g_tip[i].state = 1;
-		}
-		else if (g_map[i / 20][i % 20] == 6)//	階段
-=======
+			lift->SetPosX((float)(i % MAP_W) * lift->GetGrpW());
+			gimmikPosAX = lift->GetPosX();
 
-		if (g_map[i / 20][i % 20] == 5)
-		{
-			g_trap[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
-			g_trap[i].grp_y = 0;
-			g_trap[i].grp_w = CHIP_SIZE;
-			g_trap[i].grp_h = CHIP_SIZE;
-			g_trap[i].pos_x = (i % 20) * g_trap[i].grp_w;
-			g_trap[i].pos_y = (i / 20) * g_trap[i].grp_h;
-			g_trap[i].pos_x = (float)(i % 20) * g_trap[i].grp_w;
-			g_trap[i].pos_y = (float)(i / 20) * g_trap[i].grp_h;
-			g_trap[i].spd_x = 0.0f;
-			g_trap[i].spd_y = 0.0f;
-			g_trap[i].state = 1;
-<<<<<<< HEAD
-=======
-=======
->>>>>>> e0d3cfd763b35a5a3f449b67b1c06bf9adff545f
+			lift->SetPosY((float)(i / MAP_H) * lift->GetGrpH());
+			gimmikPosAY = lift->GetPosY();
 		}
-		else if (g_map[i / 20][i % 20] == 4)
+		else if (g_map[i / MAP_H][i % MAP_W] == 4)
 		{
-			player->SetPosX((float)(i % 20) * player->GetGrpW());
-			player->SetPosY((float)(i / 20) * player->GetGrpH());
-
+			player->SetPosX((float)(i % MAP_W) * player->GetGrpW());
+			player->SetPosY((float)(i / MAP_H) * player->GetGrpH());
+		}
+		else if (g_map[i / MAP_H][i % MAP_W] == 5)
+		{
+			gimmikPosBX = (i % MAP_W)* lift->GetGrpW();
+			gimmikPosBY = (i / MAP_H)* lift->GetGrpH();
+		}
+		else if(g_map[i / MAP_H][i % MAP_W] == 13)
+		{
+			enemy->SetPosX((float)(i % MAP_W) * enemy->GetGrpW());
+			enemy->SetPosY((float)(i / MAP_H) * enemy->GetGrpH());
 		}
 		else
->>>>>>> 1ca2bbfa3ad182cfdd091dcf728becd6bb2433d5
 		{
-			g_tip[i].grp_x = CHIP_SIZE * g_map[i / 20][i % 20];
+			g_tip[i].grp_x = CHIP_SIZE * g_map[i / MAP_H][i %MAP_W];
 			g_tip[i].grp_y = 0;
 			g_tip[i].grp_w = CHIP_SIZE;
 			g_tip[i].grp_h = CHIP_SIZE;
-			g_tip[i].pos_x = (i % 20) * g_tip[i].grp_w;
-			g_tip[i].pos_y = (i / 20) * g_tip[i].grp_h;
-			g_tip[i].pos_x = (float)(i % 20) * g_tip[i].grp_w;
-			g_tip[i].pos_y = (float)(i / 20) * g_tip[i].grp_h;
+			g_tip[i].pos_x = (i % MAP_W) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (i / MAP_H) * g_tip[i].grp_h;
+			g_tip[i].pos_x = (float)(i % MAP_W) * g_tip[i].grp_w;
+			g_tip[i].pos_y = (float)(i / MAP_H) * g_tip[i].grp_h;
 			g_tip[i].spd_x = 0.0f;
 			g_tip[i].spd_y = 0.0f;
 			g_tip[i].state = 1;
 		}
-		}
-
 	}
+}
 
+void GamePlay::Initialize()
+{
+
+
+
+}
 
 
 //更新
 void GamePlay::Update()
 {
-
 	////////////////////  更新処理  //////////////////
+	//速度リセット
+	player->SetSpdX(0);
+	if (player->GetJump() == TRUE&& player->GetClimb() == FALSE)
+	{
+		player->SetSpdY(player->GetSpdY() + GRAVITY);
+	}
+	else
+	{
+		player->SetSpdY(0);
+	}
 
-
-	player->UpData();
-
-	ScrollMap();
-
-	////////////////////  キー入力  //////////////////	
+	enemy->SetSpdX(0);
+	if (enemy->GetJump() == TRUE&& enemy->GetClimb() == FALSE)
+	{
+		enemy->SetSpdY(enemy->GetSpdY() + GRAVITY);
+	}
+	else
+	{
+		enemy->SetSpdY(0);
+	}
 
 
 	//床との判定
 	Collisionfloor(player);
+	Collisionfloor(enemy);
 
-	// マウスクリックで
-	//if (g_mouse.leftButton)
-	//{
-	//	SetSpeadToAsaaignedPosition(player, 200.0f, 200.0f, 3.0f);//指定位置に移動関数テスト
-	//}
+	if (lift != nullptr)
+	{
+		if (Collision(player, lift) && player->GetHold() == TRUE)
+		{
+			player->SetJump(FALSE);
+			player->SetJumpPower(0.0f);
 
-	mouseState = g_mouse.leftButton;
+			if (player->GetDir() == LEFT  )
+			{
+				
+				player->SetPosX(lift->GetPosX() + player->GetGrpW()-2.0f);
+			}
+			else if (player->GetDir() == RIGHT)
+			{
+				
+				player->SetPosX(lift->GetPosX() - player->GetGrpW()+2.0f);
+			}
+			player->SetPosY(lift->GetPosY());
+		}
+
+		if (gimmikFlag == 0)
+		{
+			gimmikCnt++;
+			SetSpeadToAsaaignedPosition(lift, gimmikPosAX, gimmikPosAY, 2.0f);
+			if (gimmikCnt == 180)
+			{
+				gimmikCnt = 0;
+				gimmikFlag = 1;
+			}
+		}
+
+		if (gimmikFlag == 1)
+		{
+			gimmikCnt++;
+			SetSpeadToAsaaignedPosition(lift, gimmikPosBX, gimmikPosBY, 2.0f);
+			if (gimmikCnt == 180)
+			{
+				gimmikCnt = 0;
+				gimmikFlag = 0;
+			}
+		}
+
+		lift->UpData();
+	}
+
+	if (enemy->GetState() == 1)
+	{
+		if (Collision(player, enemy) == TRUE)
+		{
+			if (player->GetHold() == TRUE)
+			{
+				enemy->SetState(0);
+			}
+			else
+			{
+				//ダメージ判定処理
+			}
+		}
+		enemy->UpData();
+	}
+
+	player->UpData();
+	
+	ScrollMap();
+
+	m_timeCount++;	//	時間のカウント
+
+
 	
 }
-
 
 
 //描画
 void GamePlay::Render()
 {
 	//マウスカーソル隠し
-	ShowCursor(FALSE);
+	/*ShowCursor(FALSE);*/
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 	wchar_t buf[256];	// 文字列編集用						
 	wchar_t buf2[256];	// 文字列編集用
+	wchar_t buf3[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
-	g_spriteBatch->Draw(g_BackImage->m_pTexture,
-		Vector2(0, 0));
+	switch (serectMap)
+	{
+	case 1:
+		g_spriteBatch->Draw(g_BackImage2->m_pTexture,
+			Vector2(0, 0));
+		break;
 
+	case 2:
+		g_spriteBatch->Draw(g_BackImage->m_pTexture,
+			Vector2(0, 0));
+		break;
+	}
+	
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
 	{
-		//マップチップ毎の設定
-		/*if (g_map[i / 20][i % 20] == 1)
-		{
-		
-		}*/
-
 		if (g_tip[i].state)
 		{
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,
@@ -177,18 +251,40 @@ void GamePlay::Render()
 		}
 	}
 
-
+	lift->Render();
 
 	//	 プレイヤー
 	player->Render();
 
-	//デバッグ用文字
-	swprintf_s(buf, 16, L"X ,%d",(int)player->GetPosX());
-	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	if (enemy->GetState() == 1)
+	{
+		enemy->Render();
+	}
+
+
+	rect = { 0, 0,680,96};
+	g_spriteBatch->Draw(g_StateImage->m_pTexture,
+		Vector2(0, 480-96),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+
+	rect = { 0, 0,64,84 };
+	g_spriteBatch->Draw(g_SBImage->m_pTexture,
+		Vector2(40, 480 - 84),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
+
+	timeOver();	//	時間制限カウント
+
 	
+
+	//デバッグ用文字
+	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
+	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	swprintf_s(buf3, 16, L"T ,%d", cnt);
+
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
-	
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));
 }
 
 //マップの読み込み
@@ -201,13 +297,14 @@ void GamePlay::importData(string filename)
 	if (!ifs) {
 		for (i = 0; i < MAX_TIP; i++)
 		{
-			g_map[i / 20][i % 20] = 0;
+			g_map[i / MAP_H][i % MAP_W] = 0;
 		}
 		return;
 	}
 
 	i = 0;
-	while (getline(ifs, str)) {
+	while (getline(ifs, str)) 
+	{
 		string token;
 		istringstream stream(str);
 
@@ -215,7 +312,7 @@ void GamePlay::importData(string filename)
 		while (getline(stream, token, ',')) {
 			// すべて文字列として読み込まれるため
 			// 数値は変換が必要
-			g_map[i / 20][i % 20] = atoi(token.c_str());
+			g_map[i / MAP_H][i % MAP_W] = atoi(token.c_str());
 			i++;
 		}
 	}
@@ -242,19 +339,20 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	map_y = (int)floor(bottom / CHIP_SIZE);
 
 
+	
 	// 床壁だったら
-	if (g_map[map_y][map_x] == 1 )
+	if (g_map[map_y][map_x] == 1||g_map[map_y][map_x] == 9)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			if (obj->GetJump() == TRUE)
+			if (obj->GetJump() == TRUE|| obj->GetClimb() == TRUE)
 			{
 				// プレイヤーの位置を床の上に移動させる
 				if (obj->GetState() == 1)
 				{
 					if (obj->GetGrpH() == 64)
 					{
-						
+
 						obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 					}
 					else
@@ -271,19 +369,22 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0);
-			obj->SetState(1);
 			
+
 		}
 	}
-	
-	//	梯子のとき
 	else if (g_map[map_y][map_x] == 6)
 	{
-		obj->SetPosX(220);
-		obj->SetPosY(240);
-
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(0);
 	}
-
+	else if (g_map[map_y][map_x] == 10)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(-20.0f);
+	}
 	else
 	{
 		//足元が床で無ければ飛んでいる
@@ -292,22 +393,32 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 	map_y = (int)floor(head / CHIP_SIZE);
 	// 天井だったら
-	if (g_map[map_y][map_x] == 1  )
+	if (g_map[map_y][map_x] == 1)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			// 落とす
-			obj->SetSpdY(10.0f);
-		}
+			{// 落とす
+				obj->SetJumpPower(0.0f);
+				obj->SetSpdY(10.0f);
+			}
+		} 
 	}
-
+	//頭上にロープかつ掴み状態
+	if (g_map[map_y][map_x] == 7 && player->GetHold() == TRUE)
+	{
+		obj->SetJumpPower(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetSpdY(0.0f);
+		obj->SetSpdX(3.0f);
+	}
+	
 
 	map_y = (int)floor(bottom / CHIP_SIZE);
 
 	// プレイヤーの右足の位置
-	map_x = (int)floor(right / CHIP_SIZE);
+	map_x = (int)floor(right / CHIP_SIZE-0.5f);
 	// 床だったら
-	if (g_map[map_y][map_x] == 1)
+	if (g_map[map_y][map_x] == 1|| g_map[map_y][map_x] == 9)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
@@ -334,8 +445,19 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0.0f);
-			obj->SetState(1);
 		}
+	}
+	else if (g_map[map_y][map_x] == 6)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(0);
+	}
+	else if (g_map[map_y][map_x] == 10)
+	{
+		obj->SetSpdY(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetJumpPower(-20.0f);
 	}
 	else
 	{
@@ -344,50 +466,51 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 
 
-
 	map_y = (int)floor(head / CHIP_SIZE);
 	// 天井だったら
 	if (g_map[map_y][map_x] == 1)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
-			// 落とす
-			obj->SetSpdY(10.0f);
+			{// 落とす
+				obj->SetJumpPower(0.0f);
+				obj->SetSpdY(10.0f);
+			}
 		}
 	}
+	//頭上にロープかつ掴み状態
+	if (g_map[map_y][map_x] == 7&&player->GetHold()==TRUE)
+	{
+		obj->SetJumpPower(0.0f);
+		obj->SetJump(TRUE);
+		obj->SetSpdY(0.0f);
+		obj->SetSpdX(3.0f);
+	}
+	
 }
 
-//罠とキャラクターの当たり判定
-void  GamePlay::Collisiontrup(ObjectBase* obj)
+void GamePlay::timeOver()
 {
-	//プレイヤーの左右座標を求める
-	float left = obj->GetPosX() + 0.01f;
-	float right = obj->GetPosX() + (obj->GetGrpW() - 0.01f);
+	//	時間表示
+	if (m_timeCount % 60 == 1)
+	{
+		cnt--;
 
-	// プレイヤーの足元の座標を求める
-	float bottom = obj->GetPosY() + (obj->GetGrpH() + 0.01f);
-	//プレイヤーの頭の判定
-	float head = obj->GetPosY();
-	//プレイヤーの胴体判定
-	float body = obj->GetPosY() + (obj->GetGrpH() / 2);
-	// マップの配列の位置　
-	int map_x, map_y;
-
-	// プレイヤーの左足の位置
-	map_x = (int)floor(left / CHIP_SIZE + 0.5f);
-	map_y = (int)floor(bottom / CHIP_SIZE);
-
+		//	カウントが０未満になったら
+		if (cnt < 0)
+		{
+			g_NextScene = OVER;	//	ゲームオーバーする
+		}
+	}
 
 }
+
+
 
 GamePlay::~GamePlay()
 {
-	//delete player;
-}
-
-void GamePlay::Initialize()
-{
-	
+	if(player != nullptr)delete player;
+	if(lift != nullptr)delete lift;
 }
 
 
@@ -434,7 +557,6 @@ void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float A
 	if (disY != 0.0f)
 	{
 		obj->SetSpdY(disY / Time / 60.0f);
-
 	}
 	else if (disY == 0.0f)
 	{
@@ -469,9 +591,9 @@ void GamePlay::SetSpeadToAsaaignedPosition(ObjectBase* obj, float AposX, float A
 void GamePlay::ScrollMap(void)
 {
 
-	g_ScrollMap_x = player->GetPosX() + player->GetGrpW()/ 2 - SCREEN_WIDTH / 2;
+	g_ScrollMap_x = player->GetPosX() + player->GetGrpW() / 2 - SCREEN_WIDTH / 2;
 
-	if (g_ScrollMap_x < 0 )
+	if (g_ScrollMap_x < 0 || serectMap == 1)
 	{
 		g_ScrollMap_x = 0;
 	}
@@ -487,9 +609,25 @@ void GamePlay::ScrollMap(void)
 	{
 		g_ScrollMap_y = 0;
 	}
-	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT))
+	//else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) || serectMap == 2)
+	else if (g_ScrollMap_y >(MAP_H  * CHIP_SIZE - SCREEN_HEIGHT) )
 	{
 		g_ScrollMap_y = (MAP_H * CHIP_SIZE - SCREEN_HEIGHT);
 	}
 }
 
+bool GamePlay::Collision(ObjectBase* obj1, ObjectBase*obj2)
+{
+	/*四角形の当たり判定*/
+	if ((obj1->GetPosX() /*- g_ScrollMap_x */ <= (obj2->GetPosX() + obj2->GetGrpW())) &&
+		((obj1->GetPosX() /*- g_ScrollMap_x */+ obj1->GetGrpW()) >= obj2->GetPosX()) &&
+		(obj1->GetPosY() <= (obj2->GetPosY() + obj2->GetGrpH())) &&
+		((obj1->GetPosY() + obj1->GetGrpH() >= obj2->GetPosY())))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}

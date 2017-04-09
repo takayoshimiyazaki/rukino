@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectXTK.cpp" />
+    <ClCompile Include="Game\Enemy.cpp" />
     <ClCompile Include="Game\GameClear.cpp" />
     <ClCompile Include="Game\GameLogo.cpp" />
     <ClCompile Include="Game\GameMain.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Game\GameTitle.cpp" />
     <ClCompile Include="Game\ObjectBase.cpp" />
     <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Gimmik.cpp" />
     <ClCompile Include="ImaseLib\FPSTimer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -103,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectXTK.h" />
+    <ClInclude Include="Game\Enemy.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />
     <ClInclude Include="Game\GameLogo.h" />
@@ -113,6 +116,7 @@
     <ClInclude Include="Game\GameTitle.h" />
     <ClInclude Include="Game\ObjectBase.h" />
     <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Gimmik.h" />
     <ClInclude Include="ImaseLib\FPSTimer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>

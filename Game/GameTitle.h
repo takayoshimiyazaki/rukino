@@ -12,6 +12,7 @@
 class GameTitle:public GameBase
 {
 private:
+	int flag;
 	int m_cnt;		// ƒJƒEƒ“ƒ^
 public:
 	GameTitle();

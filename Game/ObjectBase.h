@@ -58,6 +58,13 @@ public:
 	virtual void SetJump(int s) = 0;
 	virtual int GetJump() = 0;
 
+	virtual void SetClimb(int s) = 0;
+	virtual int GetClimb() = 0;
+
+	virtual void SetHold(int s) = 0;
+	virtual int GetHold() = 0;
+
+
 
 	
 protected:
@@ -75,5 +82,6 @@ protected:
 	float jumpPower;//ジャンプ力
 	int state;//状態
 	int jump;//飛んでるか？
-	
+	int climb;//梯子登っているか？
+	int hold;//挟んでいるか？
 };

@@ -7,14 +7,15 @@
 //!
 //! @author Yuhei M	
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-#include "Player.h"
 #include"GameMain.h"
+#include "Player.h"
 #include<string>
 #include<sstream>
 #include<fstream>
 #include<iostream>
 //#include "..ADX2Le.h"
 //#include "..\CueSheet_0.h"
+
 
 
 using namespace DirectX::SimpleMath;
@@ -36,6 +37,8 @@ Player::Player()
 	SetSpdY(0.0f);
 	SetState(1);
 	SetJump(FALSE);
+	SetClimb(FALSE);
+	SetHold(FALSE);
 }
 
 
@@ -168,24 +171,44 @@ int  Player::GetJump()
 
 
 
+void Player::SetClimb(int s)
+{
+	climb = s;
+}
+int Player::GetClimb()
+{
+	return climb;
+}
+
+void Player::SetHold(int s)
+{
+	hold = s;
+}
+int Player::GetHold()
+{
+
+	return hold;
+}
+
+
+
+void Player::SetDir(int s)
+{
+	dir = s;
+}
+int Player::GetDir()
+{
+	return dir;
+}
+
 
 
 
 void Player::UpData()
 {
-	GetPosX();
-	GetPosY();
-	GetGrpX();
-	GetGrpY();
-	GetGrpW();
-	GetGrpH();
-	GetSpdX();
-	GetSpdY();
-	GetState();
-
 	PlayerControl();
 
-	if (GetSpdX() != 0)
+	if (GetSpdX() != 0 || GetSpdY() != 0)
 	{
 		m_cnt++;
 	}
@@ -193,23 +216,32 @@ void Player::UpData()
 	{
 		m_cnt = 0;
 	}
+	
 }
 
 void Player::Render()
 {
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
+
+	//左に移動してるなら左に動き、右に移動しているなら右に動く
+
+	switch (GetDir())
+	{
+	case LEFT:
+		SetGrpY(32);
+		break;
+	case RIGHT:
+		SetGrpY(64);
+		break;
+	}
+	
+
+
+	//左右に移動している場合
 	if (GetSpdX() != 0)
 	{
-		if (GetSpdX() < 0)
-		{
-			SetGrpY(32);
-		}
-		else
-		{
-			SetGrpY(64);
-		}
-
+		//移動してる場合歩く
 		switch (m_cnt / 15 % 4)
 		{
 		case 0:
@@ -225,21 +257,99 @@ void Player::Render()
 		}
 	}
 
+	//上下に動いているなら（ジャンプを除く）
+	if (GetClimb() == TRUE)
+	{
+		SetGrpY(96);
 
+		//移動してる場合歩く
+		switch (m_cnt / 15 % 4)
+		{
+		case 0:
+			SetGrpX(0);
+			break;
+		case 1:
+		case 3:
+			SetGrpX(32);
+			break;
+		case 2:
+			SetGrpX(64);
+			break;
+		}
+	}
 
 	if (GetState() == 1)
 	{
-		rect = {GetGrpX(),GetGrpY(),GetGrpX() + GetGrpW() ,
-			GetGrpY() + GetGrpH() };
+		rect =
+		{
+			GetGrpX(),
+			GetGrpY(),
+			GetGrpX() + GetGrpW() ,
+			GetGrpY() + GetGrpH()
+		};
 	}
-	
+
 	float sx = GetPosX() - g_ScrollMap_x;
 	float sy = GetPosY() - g_ScrollMap_y;
-	
+
 
 	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
 		Vector2(sx, sy),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+
+	RECT CPrect;
+	if (GetGrpY() == 32 || GetGrpY() == 64)
+	{
+		if (GetGrpY() == 32)
+		{
+			if (g_key.Z)
+			{
+				CPrect = { 0,0,32,32 };
+			}
+			else
+			{
+				CPrect = { 32,0,64,32 };
+			}
+			if (GetJump() == true)
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx - 10 + 48, sy),
+					&CPrect, Colors::White, 90.0f, Vector2(0, 0), 1.0f);
+			}
+			else
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx - 10, sy),
+					&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+			}
+
+		}
+		else
+		{
+			if (g_key.Z)
+			{
+				CPrect = { 0,32,32,64 };
+			}
+			else
+			{
+				CPrect = { 32,32,64,64 };
+			}
+
+			if (GetJump() == true)
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx + 10, sy +32),
+					&CPrect, Colors::White, -90.0f, Vector2(0, 0), 1.0f);
+			}
+			else
+			{
+				g_spriteBatch->Draw(g_PlayerClothesPins->m_pTexture,
+					Vector2(sx + 10, sy),
+					&CPrect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+			}
+
+		}
+	}
 
 }
 
@@ -247,19 +357,8 @@ void Player::Render()
 void Player::PlayerControl(void)
 {
 	float spd = 2.0f;
-	float jumpPower = -16.0f;
-
-	//速度リセット
-	SetSpdX(0);
-	if (GetJump() == TRUE)
-	{
-		SetSpdY(GetSpdY() + GRAVITY);
-	}
-	else
-	{
-		SetSpdY(0);
-	}
-
+	float jumpPower = -12.0f;
+	//float jumpPower = -49.0f;
 
 
 	//キー入力
@@ -274,6 +373,7 @@ void Player::PlayerControl(void)
 	{
 		if (g_key.Right)//右キー押下
 		{
+<<<<<<< HEAD
 			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ判定
 
 
@@ -281,31 +381,45 @@ void Player::PlayerControl(void)
 
 			if (*mapdata == 0|| *mapdata == 2)//移動可能マップチップ
 
+=======
+			if (GetHold() == FALSE)
+>>>>>>> 2af7d267e7d8a2e57b38b3ec2772bb6dcfb3b369
 			{
+				SetDir(RIGHT);
+			}
+			
 
-			SetSpdX(spd);
-
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8)//移動可能マップチップ
+			{
+				SetSpdX(spd);
+				SetClimb(FALSE);
 				if (*mapdata == 2)//ゴールのチップ番号指定
 				{
-				g_NextScene = CLEAR;
+					g_NextScene = CLEAR;
 				}
 			}
-
-
-
 		}
 		else if (g_key.Left)//左キー押下
 		{
+			if (GetHold() == FALSE)
+			{
+				SetDir(LEFT);
+			}
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+<<<<<<< HEAD
 
 			if (*mapdata == 0 || *mapdata == 6)
 
 			if (*mapdata == 0 || *mapdata == 2)//移動可能マップチップ
 
+=======
+			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 ||* mapdata == 8)//移動可能マップチップ
+>>>>>>> 2af7d267e7d8a2e57b38b3ec2772bb6dcfb3b369
 			{
 
 				SetSpdX(-spd);
-
+				SetClimb(FALSE);
 				if (*mapdata == 2)//ゴールのチップ番号指定
 				{
 					g_NextScene = CLEAR;
@@ -313,6 +427,42 @@ void Player::PlayerControl(void)
 			}
 
 		}
+
+		//梯子昇降
+		if (g_key.Up)//上キー押下
+		{
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			int* mapdata2 = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+			if (*mapdata == 6 || *mapdata2 == 6)//移動可能マップチップ
+			{
+				SetSpdY(-spd);
+				SetClimb(TRUE);
+			}
+		}
+		else if (g_key.Down)//上キー押下
+		{
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			int* mapdata2 = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+			if (*mapdata == 6 || *mapdata2 == 6)//移動可能マップチップ
+			{
+
+				SetSpdY(spd);
+				SetClimb(TRUE);
+			}
+		}
+
+		if (g_key.Z)//Zキー押下時
+		{
+			//はさみ状態にする
+			SetHold(TRUE);
+
+		}
+		else//離したら
+		{
+			//はさみ状態解除
+			SetHold(FALSE);
+		}
+	
 
 		//スペースキーでジャンプ
 		if (g_keyTracker->pressed.Space&&GetState() == 1 && GetJump() == FALSE)
@@ -327,10 +477,15 @@ void Player::PlayerControl(void)
 		SetPosX(GetPosX() + GetSpdX());
 		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 
+		
+
+		//移動してない場合両手をもとに戻す
 		if (GetSpdX() == 0)
 		{
 			SetGrpX(32);
 		}
+
+		
 
 		//状態による変更
 		switch (GetState())
@@ -342,4 +497,10 @@ void Player::PlayerControl(void)
 
 		}
 	}
+
+
+
+	
+
+
 }

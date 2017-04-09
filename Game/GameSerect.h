@@ -15,7 +15,6 @@ class GameSerect :public GameBase
 private:
 	int m_cnt;
 	bool serectCheck;
-	int serectMap;
 
 	bool forestCheck;
 	bool towerCheck;
@@ -41,5 +40,5 @@ public:
 
 private:
 
-	bool CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse);
+	//bool CheckVecMouse(DirectX::SimpleMath::Vector2 pos, RECT rect, DirectX::Mouse::State mouse);
 };
