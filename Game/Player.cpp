@@ -387,7 +387,7 @@ void Player::PlayerControl(void)
 			{
 				SetSpdX(spd);
 				SetClimb(FALSE);
-				if (*mapdata == 2)//ゴールのチップ番号指定
+				if (*mapdata == 2|| *mapdata == 12)//ゴールのチップ番号指定
 				{
 					g_NextScene = CLEAR;
 				}
@@ -408,7 +408,7 @@ void Player::PlayerControl(void)
 
 				SetSpdX(-spd);
 				SetClimb(FALSE);
-				if (*mapdata == 2)//ゴールのチップ番号指定
+				if (*mapdata == 2 || *mapdata == 12)//ゴールのチップ番号指定
 				{
 					g_NextScene = CLEAR;
 				}

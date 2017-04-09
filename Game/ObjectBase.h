@@ -64,6 +64,10 @@ public:
 	virtual void SetHold(int s) = 0;
 	virtual int GetHold() = 0;
 
+	void SetDir(int s);
+
+	int GetDir();
+	
 
 
 	
@@ -84,4 +88,6 @@ protected:
 	int jump;//飛んでるか？
 	int climb;//梯子登っているか？
 	int hold;//挟んでいるか？
+	int dir;//向き
+
 };

@@ -356,7 +356,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 
 	
 	// 床壁だったら
-	if (g_map[map_y][map_x] == 1||g_map[map_y][map_x] == 9)
+	if (g_map[map_y][map_x] == 1||g_map[map_y][map_x] == 9 || g_map[map_y][map_x] == 14)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
@@ -381,6 +381,17 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 				}
 			}
 			// 速度を0にする
+			if (g_map[map_y][map_x] == 14)
+			{
+				if (obj->GetDir() == LEFT)
+				{
+					obj->SetSpdX(-2.0f);
+				}
+				else if (obj->GetDir() == RIGHT)
+				{
+					obj->SetSpdX(2.0f);
+				}
+			}
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0);
@@ -433,7 +444,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	// プレイヤーの右足の位置
 	map_x = (int)floor(right / CHIP_SIZE-0.5f);
 	// 床だったら
-	if (g_map[map_y][map_x] == 1|| g_map[map_y][map_x] == 9)
+	if (g_map[map_y][map_x] == 1|| g_map[map_y][map_x] == 9 || g_map[map_y][map_x] == 14)
 	{
 		if (bottom > -map_y * CHIP_SIZE + obj->GetGrpH())
 		{
@@ -457,6 +468,17 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 				}
 			}
 			// 速度を0にする
+			if (g_map[map_y][map_x] == 14)
+			{
+				if (obj->GetDir() == LEFT)
+				{
+					obj->SetSpdX(-2.0f);
+				}
+				else if (obj->GetDir() == RIGHT)
+				{
+					obj->SetSpdX(2.0f);
+				}
+			}
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0.0f);
