@@ -203,7 +203,6 @@ void GamePlay::Update()
 
 	m_timeCount++;	//	ŠÔ‚ÌƒJƒEƒ“ƒg
 
-
 	
 }
 
