@@ -19,6 +19,8 @@ class Enemy :public ObjectBase
 private:
 	int m_cnt;
 
+	int actCnt;
+
 	int dir;
 
 public:

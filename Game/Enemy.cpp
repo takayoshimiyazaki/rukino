@@ -300,23 +300,39 @@ void Enemy::Render()
 
 }
 
-//プレイヤー操作
+//エネミー操作
 void Enemy::Control(void)
 {
-	float spd = 2.0f;
+	float spd = 1.0f;
 	float jumpPower = -12.0f;
 	
-		//座標変更処理/////////////////////////////
-		SetPosX(GetPosX() + GetSpdX());
-		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
+	//カウントで簡易操作
+	actCnt++;
+	if (actCnt <= 90)
+	{
+		SetSpdX(spd);
+	}
+	else
+	{
+		SetSpdX(-spd);
+	}
+
+	if (actCnt >= 190)
+	{
+		actCnt=0;
+	}
+
+	//座標変更処理/////////////////////////////
+	SetPosX(GetPosX() + GetSpdX());
+	SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 
 
 
-		//移動してない場合両手をもとに戻す
-		if (GetSpdX() == 0)
-		{
-			SetGrpX(32);
-		}
+	//移動してない場合両手をもとに戻す
+	if (GetSpdX() == 0)
+	{
+		SetGrpX(32);
+	}
 
 
 

@@ -43,8 +43,8 @@ void GameSerect::Update()
 	if (serectCheck == true)
 	{
 		m_cnt++;
-		/*SerectForestPos.x += 8;
-		SerectTowerPos.x += 8;*/
+		SerectForestPos.x += 8;
+		SerectTowerPos.x += 8;
 
 		if (m_cnt == 120)
 		{
@@ -56,17 +56,20 @@ void GameSerect::Update()
 		//マウスとステージセレクト（森）が当たってたら
 		//if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
 		//	左キーが押されたら
-		if(g_key.Left)
+		if (g_keyTracker->pressed.Left)
+		{
 			forestCheck = true;
-		else forestCheck = false;
+			towerCheck = false;
+		}
 
 		//マウスとステージセレクト（塔）が当たったら
 		//if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
 		//	右キーが押されたら
-		if(g_key.Right)
+		if (g_keyTracker->pressed.Right)
+		{
 			towerCheck = true;
-		else towerCheck = false;
-
+			forestCheck = false;
+		}
 
 		//左クリックをしてる時
 		//if (g_mouse.leftButton)
