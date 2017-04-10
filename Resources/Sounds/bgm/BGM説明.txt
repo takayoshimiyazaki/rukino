@@ -1,0 +1,15 @@
+＜BGM＞
+・BGM(塔)
+tower_bgm.mp3
+
+・BGM(森)
+bgm_wood.mp3
+
+・タイトルBGM
+bgm_title.mp3
+
+・クリアーBGM
+bgm_clear.mp3
+
+・オーバーBGM
+bgm_over.mp3
