@@ -76,13 +76,12 @@ void InitializeGame(void)
 	g_StateImage = new Texture(L"Resources\\Images\\state.png");//クリア画像
 	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//クリア画像
 	g_FaceImage = new Texture(L"Resources\\Images\\Face.png");
-	//ステージセレクト画像（2つ）
-	g_SerectForestImage = new Texture(L"Resources\\Images\\Serect_Forest.png");
-	g_SerectTowerImage = new Texture(L"Resources\\Images\\Serect_Tower.png");
 
-	//ステージのセレクト時の右側の画像
+	//ステージのセレクト時の画像
 	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");
 	g_TowerStageImage = new Texture(L"Resources\\Images\\TowerStage.png");
+
+	g_StageSerect = new Texture(L"Resources\\Images\\StageSerect.png");
 
 	// 音の読み込み
 	

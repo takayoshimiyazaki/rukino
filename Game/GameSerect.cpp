@@ -42,14 +42,12 @@ void GameSerect::Update()
 	//ステージを決定していないとき
 	if (serectCheck == true)
 	{
-		m_cnt++;
-		SerectForestPos.x += 8;
-		SerectTowerPos.x += 8;
-
 		if (m_cnt == 120)
 		{
 			g_NextScene = PLAY;
 		}
+
+		m_cnt++;
 	}
 	else
 	{
@@ -103,25 +101,25 @@ void GameSerect::Render()
 	wchar_t buf2[256];	// 文字列編集用
 	wchar_t buf3[256];	// 文字列編集用
 
-	//	チェック（森）が入ってるとき
-	if (forestCheck == true)
-		g_spriteBatch->Draw(g_ForestStageImage->m_pTexture, Vector2(320 + (m_cnt * 4), 0),
+	//森選択の描画
+		g_spriteBatch->Draw(g_ForestStageImage->m_pTexture, Vector2(0, m_cnt * -4),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
-	//チェック（塔）が入ってるとき
-	if (towerCheck == true)
-		g_spriteBatch->Draw(g_TowerStageImage->m_pTexture, Vector2(320 + (m_cnt * 4), 0),
+	//塔選択の描画
+		g_spriteBatch->Draw(g_TowerStageImage->m_pTexture, Vector2(320, m_cnt * -4),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
+		if (forestCheck == true)
+		{
+			g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, m_cnt * -4),
+				&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+		}
+		else
+		{
+			g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, m_cnt * -4),
+				&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
-	//ステージセレクト（森）の描画
-	g_spriteBatch->Draw(g_SerectForestImage->m_pTexture, SerectForestPos,
-		&forestRect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
-
-	//ステージセレクト（塔）の描画
-	g_spriteBatch->Draw(g_SerectTowerImage->m_pTexture, SerectTowerPos,
-		&towerRect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
-
+		}
 
 
 	swprintf_s(buf, 16, L"X ,%d", serectMap);
