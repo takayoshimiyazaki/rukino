@@ -29,6 +29,7 @@
 #include "..\DirectXTK.h"
 #include "..\Texture.h"
 
+<<<<<<< HEAD
 #include "..\ADX2Le.h"
 #include "CueSheet_0.h"
 
@@ -36,6 +37,8 @@
 
 
 
+=======
+>>>>>>> 7e6031fac0ee50ec1295eb02d13cf132befcf0b9
 // 定数の定義 ==============================================================
 
 // ゲームタイトル

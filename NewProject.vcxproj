@@ -43,7 +43,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\cri\pc\include;C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
+<<<<<<< HEAD
     <LibraryPath>C:\cri\pc\libs\x86;C:\DirectXTK\Bin\Desktop_2015\Win32\Debug;C:\DirectXTK\Bin\Desktop_2015\Win32\Release;$(LibraryPath)</LibraryPath>
+=======
+>>>>>>> 7e6031fac0ee50ec1295eb02d13cf132befcf0b9
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
