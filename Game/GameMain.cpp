@@ -81,9 +81,6 @@ void InitializeGame(void)
 
 
 
-
-
-
 	g_init = 0;
 }
 
@@ -160,7 +157,7 @@ void RenderGame(void)
 //----------------------------------------------------------------------
 void FinalizeGame(void)
 {
-	/*ADX2Le::Finalize();*/
+	
 }
 
 
