@@ -16,13 +16,20 @@
 #include<fstream>
 #include<iostream>
 
+#include "..\ADX2Le.h"
+#include "CueSheet_0.h"
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
+#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+
+
 //	コンストラクタ
 GamePlay::GamePlay()
 {
+
 	//デバッグ用ステージ設定
 	//serectMap = 1;//塔
 
