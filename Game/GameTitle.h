@@ -14,6 +14,8 @@ class GameTitle:public GameBase
 private:
 	int flag;
 	int m_cnt;		// カウンタ
+	bool FlashCheck;//点滅
+	bool m_Serect;//選択
 public:
 	GameTitle();
 	void Update();

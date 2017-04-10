@@ -1,0 +1,9 @@
+diff a/Game/GameMain.h b/Game/GameMain.h	(rejected hunks)
+@@ -122,6 +122,7 @@
+ =======
+ EXTERN Texture *g_RopeImage;        //���[�v
+ EXTERN Texture *g_TitleImage;			// �^�C�g�����
++>>>>>>> cdd1ea6fccd12a837b7051056b4520afebded686
+ EXTERN Texture *g_ClearImage;			//�N���A�摜
+ EXTERN Texture *g_LogoImage;			//���S�摜
+ EXTERN Texture *g_OverImage;			//�I�[�o�[�摜

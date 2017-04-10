@@ -102,23 +102,29 @@ void GameSerect::Render()
 	wchar_t buf3[256];	// •¶Žš—ñ•ÒW—p
 
 	//X‘I‘ð‚Ì•`‰æ
-		g_spriteBatch->Draw(g_ForestStageImage->m_pTexture, Vector2(0, m_cnt * -4),
+		g_spriteBatch->Draw(g_ForestStageImage->m_pTexture, Vector2(0,0),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
 	//“ƒ‘I‘ð‚Ì•`‰æ
-		g_spriteBatch->Draw(g_TowerStageImage->m_pTexture, Vector2(320, m_cnt * -4),
+		g_spriteBatch->Draw(g_TowerStageImage->m_pTexture, Vector2(320, 0),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
 
 		if (forestCheck == true)
 		{
-			g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, m_cnt * -4),
-				&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+			if (serectCheck == false || ((m_cnt / 10) % 2 == 0))
+			{
+				g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, 0),
+					&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+			}
+
 		}
 		else
 		{
-			g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, m_cnt * -4),
-				&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
-
+			if (serectCheck == false || ((m_cnt / 10) % 2 == 0))
+			{
+				g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, 0),
+					&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+			}
 		}
 
 
