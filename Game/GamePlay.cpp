@@ -16,14 +16,13 @@
 #include<fstream>
 #include<iostream>
 
-#include "..\ADX2Le.h"
-#include "CueSheet_0.h"
+#include "../ADX2Le.h"
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
-#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+
 
 
 //	コンストラクタ
@@ -40,10 +39,12 @@ GamePlay::GamePlay()
 	{
 		g_init = 1;
 	}
+	
 
 	// マップの設定
 	if (serectMap == 1)
 	{
+		ADX2Le::Play(TOWER_BGM);
 		cnt = 60;//塔ステージ制限時間の設定
 		enemyNum = 12;
 		importData("map1.csv");//マップデータの読み込み
@@ -51,6 +52,7 @@ GamePlay::GamePlay()
 	}
 	else if (serectMap == 2)
 	{
+		ADX2Le::Play(BGM_WOOD);
 		cnt = 40;//森ステージの制限時間の設定
 		enemyNum = 1;
 		importData("map2.csv");//マップデータの読み込み
@@ -217,6 +219,7 @@ void GamePlay::Update()
 				else
 				{
 					//ダメージ判定処理
+					ADX2Le::Play(Hit);
 					player->SetState(2);
 					cnt -= 2;
 				}
@@ -358,6 +361,12 @@ void GamePlay::Render()
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
 
+	rect = { 0, 0,cnt*(serectMap+1),16};
+	g_spriteBatch->Draw(g_TimeImage->m_pTexture,
+		Vector2(420, 424),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
+
 	timeOver();	//	時間制限カウント
 
 	
@@ -373,11 +382,11 @@ void GamePlay::Render()
 	
 	if (player->GetState() == 1)
 	{
-		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 430), Color(0, 0, 0));
+		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 440), Color(0, 0, 0));
 	}
 	else if (player->GetState() == 2)
 	{
-		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 430), Color(255, 0, 0));
+		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 440), Color(255, 0, 0));
 	}
 }
 
@@ -440,6 +449,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 		{
 			if (g_map[map_y][map_x] == 14)
 			{
+				
 				switch (obj->GetDir())
 				{
 				case LEFT:
@@ -490,6 +500,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 	else if (g_map[map_y][map_x] == 10)
 	{
+		ADX2Le::Play(HiJump);
 		obj->SetSpdY(0.0f);
 		obj->SetJump(TRUE);
 		obj->SetJumpPower(-20.0f);
@@ -583,6 +594,7 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	}
 	else if (g_map[map_y][map_x] == 10)
 	{
+		ADX2Le::Play(HiJump);
 		obj->SetSpdY(0.0f);
 		obj->SetJump(TRUE);
 		obj->SetJumpPower(-20.0f);

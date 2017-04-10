@@ -13,7 +13,9 @@
 class GameOver :public GameBase
 {
 private:
-	int cnt;		// カウンタ
+	int m_cnt;		// カウンタ
+	float m_fade;
+	int m_flag;
 public:
 	GameOver();
 	void Update();

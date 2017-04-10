@@ -1,9 +1,7 @@
 #include "Gimmik.h"
-#include"Game\GameMain.h"
-#include<string>
+#include "Game\GameMain.h"
+#include <string>
 
-//#include "..ADX2Le.h"
-//#include "..\CueSheet_0.h"
 
 
 using namespace DirectX::SimpleMath;

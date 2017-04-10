@@ -12,27 +12,43 @@
 #include "GameMain.h"
 #include "GameOver.h"
 
+#include "..\ADX2Le.h"
+#include "..\CueSheet_0.h"
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
 
 GameOver::GameOver()
 {
+	ADX2Le::Stop();
+	m_cnt = 0;
+	m_fade = 0;
+	m_flag = 0;
+	ADX2Le::Play(BGM_OVER);
 }
 
 void GameOver::Update()
 {
-	if (g_init == 0)
-	{
-		g_init = 1;
-	
-	}
-
 	// スペースキーでタイトルに遷移
 	if (g_keyTracker->pressed.Space)
 	{
+		m_flag = 1;
+		
+	}
+
+
+	if (m_flag == 1)
+	{
+		m_cnt++;
+		m_fade += 0.01f;
+	}
+
+	if (m_cnt >= 120)
+	{
 		g_NextScene = TITLE;
 	}
+
 }
 
 void GameOver::Render()
@@ -44,6 +60,11 @@ void GameOver::Render()
 	rect = { 0, 0,640,480 };
 	g_spriteBatch->Draw(g_OverImage->m_pTexture,
 		Vector2(0, 0));
+
+	//暗転用黒背景
+	g_spriteBatch->Draw(g_BlackImage->m_pTexture, Vector2(0, 0), Vector4(255, 255, 255, m_fade));
+
+
 }
 
 GameOver::~GameOver()

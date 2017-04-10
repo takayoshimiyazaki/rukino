@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include "Game\ObjectBase.h"
-#include "Texture.h"
+#include "../Game/ObjectBase.h"
+#include "../Texture.h"
 
 class Gimmik :public ObjectBase
 {
@@ -58,9 +58,9 @@ public:
 	void SetHold(int s);//掴み状態セット
 	int GetHold();//掴み状態取得
 
-	void SetDir(int s);
-	int GetDir() ;
+	void SetDir(int s);//向きセット
+	int GetDir() ;//向き取得
 
-	void GimmikControl(void);//プレイヤー操作
+	void GimmikControl(void);//敵の動作
 };
 

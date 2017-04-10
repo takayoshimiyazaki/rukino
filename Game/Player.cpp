@@ -13,8 +13,7 @@
 #include<sstream>
 #include<fstream>
 #include<iostream>
-//#include "..ADX2Le.h"
-//#include "..\CueSheet_0.h"
+#include "../ADX2Le.h"
 
 
 
@@ -369,8 +368,6 @@ void Player::PlayerControl(void)
 {
 	float spd = 2.0f;
 	float jumpPower = -12.0f;
-	//float jumpPower = -49.0f;
-
 
 	//キー入力
 
@@ -447,10 +444,15 @@ void Player::PlayerControl(void)
 				SetClimb(TRUE);
 			}
 		}
+		if (g_keyTracker->pressed.Z)
+		{
+			ADX2Le::Play(SAND);
+		}
 
 		if (g_key.Z)//Zキー押下時
 		{
 			//はさみ状態にする
+			
 			SetHold(TRUE);
 
 		}
@@ -464,6 +466,7 @@ void Player::PlayerControl(void)
 		//スペースキーでジャンプ
 		if (g_keyTracker->pressed.Space&&GetState() == 1 && GetJump() == FALSE)
 		{
+			ADX2Le::Play(Jump);
 			SetJump(TRUE);
 			SetJumpPower(jumpPower);
 		}

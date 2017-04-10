@@ -21,8 +21,6 @@ private:
 
 	int actCnt;
 
-	int dir;
-
 public:
 	Enemy();//コンストラクタ
 	~Enemy();//デストラクタ
@@ -70,16 +68,17 @@ public:
 	void SetJump(int s);//ジャンプ状態セット
 	int GetJump();//ジャンプ状態取得
 
-	void SetClimb(int s);//登り状態セット
-	int GetClimb();//登り状態取得
 
-	void SetHold(int s);//掴み状態セット
-	int GetHold();//掴み状態取得
+	void SetClimb(int s);
+	int GetClimb();
 
+	void SetHold(int s);
+	int GetHold();
 
-	void SetDir(int s);//向き設定
-	int GetDir();//向き検出
+	void SetDir(int s);
+	int GetDir();
 
+	
 	void Control(void);//操作
 };
 

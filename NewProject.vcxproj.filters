@@ -105,8 +105,8 @@
     <ClInclude Include="ADX2Le.h">
       <Filter>ヘッダファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CueSheet_0.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="CueSheet_0.h">
+      <Filter>ヘッダファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

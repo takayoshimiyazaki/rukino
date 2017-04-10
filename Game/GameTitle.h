@@ -14,6 +14,9 @@ class GameTitle:public GameBase
 private:
 	int flag;
 	int m_cnt;		// カウンタ
+	float m_fade;
+	float m_anime;
+	int m_animeFlag;
 	bool FlashCheck;//点滅
 	bool m_Serect;//選択
 public:

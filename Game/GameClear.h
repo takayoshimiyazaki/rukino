@@ -14,6 +14,8 @@ class GameClear :public GameBase
 {
 private:
 	int m_cnt;		// ƒJƒEƒ“ƒ^
+	float m_fade;
+	int m_flag;
 public:
 	GameClear();
 	void Update();

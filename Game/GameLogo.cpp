@@ -12,6 +12,9 @@
 #include "GameMain.h"
 #include "GameLogo.h"
 
+#include "..\ADX2Le.h"
+#include "..\CueSheet_0.h"
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
@@ -26,17 +29,25 @@ using namespace DirectX;
 //! @return ‚È‚µ
 //----------------------------------------------------------------------
 GameLogo::GameLogo()
-	:m_cnt(0)
+	:m_cnt(0),m_fade(1)
 {
 }
 void GameLogo::Update()
 {
 
 	m_cnt++;
-	
+	if (m_cnt <= 90)
+	{
+		m_fade -= 0.01f;
+	}
+	else
+	{
+		m_fade += 0.01f;
+	}
 	// ƒƒS•\Ž¦
 	if (m_cnt > 180)
 	{
+
 		g_NextScene = TITLE;
 	}
 }

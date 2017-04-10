@@ -14,6 +14,8 @@ class GameSerect :public GameBase
 {
 private:
 	int m_cnt;
+	int m_flashCnt;
+	float m_fade;
 	bool serectCheck;
 
 	bool forestCheck;

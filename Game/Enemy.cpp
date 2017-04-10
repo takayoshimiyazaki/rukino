@@ -1,7 +1,7 @@
 //__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/__/
-//! @file   Enemy.cpp
+//! @file   player.cpp
 //!
-//! @brief  敵関連のソースファイル
+//! @brief  プレイヤー関連のソースファイル
 //!
 //! @date   2017/4/5
 //!
@@ -17,14 +17,16 @@
 //#include "..\CueSheet_0.h"
 
 
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
 
+
 Enemy::Enemy()
 {
-	SetHandle(g_Spider);
+	SetHandle(g_PlayerImage);
 	SetGrpX(0);
 	SetGrpY(0);
 	SetGrpW(32);
@@ -35,7 +37,8 @@ Enemy::Enemy()
 	SetSpdY(0.0f);
 	SetState(1);
 	SetJump(FALSE);
-	
+	SetClimb(FALSE);
+	SetHold(FALSE);
 }
 
 
@@ -166,52 +169,105 @@ int  Enemy::GetJump()
 	return jump;
 }
 
-void Enemy::SetClimb(int s)
+void  Enemy::Control()
 {
-	climb = s;
+	
+
+
+	float spd = 1.0f;
+	float jumpPower = -12.0f;
+
+	//カウントで簡易操作
+	actCnt++;
+
+	if (serectMap == 2)
+	{
+		spd = 2.0f;
+	}
+
+
+	int index_x = (int)GetPosX() / CHIP_SIZE;//マップに対するプレイヤーのX座標
+
+	int index_y = ((int)GetPosY() + (int)GetGrpH()) / CHIP_SIZE;//マップに対するプレイヤーのY座標
+
+
+	if (GetState() != 0)
+	{
+		if (actCnt <= 90)
+		{
+			SetDir(RIGHT);
+
+			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
+			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
+			{
+				SetSpdX(spd);
+			}
+		}
+		else
+		{
+			SetDir(LEFT);
+			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
+			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
+			{
+
+				SetSpdX(-spd);
+			}
+		}
+
+		if (actCnt <= 90)
+		{
+			SetSpdX(spd);
+		}
+		else
+		{
+			SetSpdX(-spd);
+		}
+
+		if (actCnt >= 190)
+		{
+			actCnt = 0;
+		}
+
+		//座標変更処理/////////////////////////////
+		SetPosX(GetPosX() + GetSpdX());
+		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
+
+
+		//移動してない場合両手をもとに戻す
+		if (GetSpdX() == 0)
+		{
+			SetGrpX(32);
+		}
+
+		//状態による変更
+		switch (GetState())
+		{
+		case 1:
+			break;
+		default:
+			break;
+
+		}
+	}
+
+
+
+
 }
-int Enemy::GetClimb()
-{
-	return climb;
-}
-
-void Enemy::SetHold(int s)
-{
-	hold = s;
-}
-int Enemy::GetHold()
-{
-
-	return hold;
-}
-
-
-
-void Enemy::SetDir(int s)
-{
-	dir = s;
-}
-int Enemy::GetDir()
-{
-	return dir;
-}
-
-
-
 
 void Enemy::UpData()
 {
+
 	Control();
-
-
 }
+
 
 void Enemy::Render()
 {
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
 
-	//方向検出
+						//方向検出
 	switch (GetDir())
 	{
 	case LEFT:
@@ -283,86 +339,37 @@ void Enemy::Render()
 			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 
 	}
-	
+
 
 }
 
-//エネミー操作
-void Enemy::Control(void)
+
+void Enemy::SetClimb(int s)
 {
-	float spd = 1.0f;
-	float jumpPower = -12.0f;
-	
-	//カウントで簡易操作
-	actCnt++;
-	
-	if (serectMap == 2)
-	{
-		spd = 2.0f;
-	}
-	
+	climb = s;
+}
+int Enemy::GetClimb()
+{
+	return climb;
+}
 
-	int index_x = (int)GetPosX() / CHIP_SIZE;//マップに対するプレイヤーのX座標
+void Enemy::SetHold(int s)
+{
+	hold = s;
+}
+int Enemy::GetHold()
+{
 
-	int index_y = ((int)GetPosY() + (int)GetGrpH()) / CHIP_SIZE;//マップに対するプレイヤーのY座標
-
-
-	if (GetState() != 0)
-	{
-		if (actCnt <= 90)
-		{
-			SetDir(RIGHT);
-
-			int* mapdata = &g_map[index_y - 1][index_x + 1];//プレイヤーの右側のマップチップ
-			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
-			{
-				SetSpdX(spd);
-			}
-		}
-		else
-		{
-			SetDir(LEFT);
-			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
-			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 13)//移動可能マップチップ
-			{
-
-				SetSpdX(-spd);
-			}
-		}
-
-		if (actCnt <= 90)
-		{
-			SetSpdX(spd);
-		}
-		else
-		{
-			SetSpdX(-spd);
-		}
-
-		if (actCnt >= 190)
-		{
-			actCnt = 0;
-		}
-
-		//座標変更処理/////////////////////////////
-		SetPosX(GetPosX() + GetSpdX());
-		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
+	return hold;
+}
 
 
-		//移動してない場合両手をもとに戻す
-		if (GetSpdX() == 0)
-		{
-			SetGrpX(32);
-		}
 
-		//状態による変更
-		switch (GetState())
-		{
-		case 1:
-			break;
-		default:
-			break;
-
-		}
-	}
+void Enemy::SetDir(int s)
+{
+	dir = s;
+}
+int Enemy::GetDir()
+{
+	return dir;
 }

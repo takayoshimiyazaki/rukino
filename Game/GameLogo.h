@@ -14,6 +14,7 @@ class GameLogo :public GameBase
 {
 private:
 	int m_cnt;		// ƒJƒEƒ“ƒ^
+	float m_fade;
 public:
 	GameLogo();
 	void Update();
