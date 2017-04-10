@@ -27,25 +27,23 @@ Gimmik::Gimmik()
 	SetJump(FALSE);
 	SetClimb(FALSE);
 	SetHold(FALSE);
-
 }
 
 
 Gimmik::~Gimmik()
 {
+
 }
 
 
 void Gimmik::SetHandle(Texture* h)
 {
 	handle = h;
-
 }
 
 Texture* Gimmik::GetHandle()
 {
 	return handle;
-
 }
 
 
@@ -199,29 +197,38 @@ int Gimmik::GetDir()
 
 void Gimmik::Render()
 {
-	RECT rect;			// 絵の左上の座標と右下の座標編集用
+		// 絵の左上の座標と右下の座標編集用
+	RECT rect;
 
-
-	if (GetState() == 1)
+	rect =
 	{
-		rect = { GetGrpX(),GetGrpY(),GetGrpX() + GetGrpW() ,
-			GetGrpY() + GetGrpH() };
-	}
+		GetGrpX(),
+		GetGrpY(),
+		GetGrpX() + GetGrpW() ,
+		GetGrpY() + GetGrpH()
+	};
 
 	float sx = GetPosX() - g_ScrollMap_x;
 	float sy = GetPosY() - g_ScrollMap_y;
 
-
-	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
-		Vector2(sx, sy),
-		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+	switch (serectMap)
+	{
+	case 1:
+		g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
+			Vector2(sx, sy),
+			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+		break;
+	case 2:
+		g_spriteBatch->Draw(g_RopeImage->m_pTexture, Vector2(sx, sy -298));
+		break;
+	}
+	
 
 }
 
 //プレイヤー操作
 void Gimmik::GimmikControl()
 {
-
 	if (GetState() != 0)
 	{
 		//座標変更処理/////////////////////////////
@@ -229,5 +236,3 @@ void Gimmik::GimmikControl()
 		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 	}
 }
-
-
