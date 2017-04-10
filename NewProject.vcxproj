@@ -42,8 +42,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\DirectXTK\Bin\Desktop_2015\Win32\Debug;C:\DirectXTK\Bin\Desktop_2015\Win32\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\cri\pc\include;C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

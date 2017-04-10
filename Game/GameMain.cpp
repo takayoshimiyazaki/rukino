@@ -23,15 +23,9 @@
 #include<string>
 #include<sstream>
 
-
-
-
-
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
-
-
 
 // プロトタイプ宣言 ====================================================
 void importData(string filename);
@@ -86,8 +80,9 @@ void InitializeGame(void)
 	g_StageSerect = new Texture(L"Resources\\Images\\StageSerect.png");
 
 	// 音の読み込み
-	
-	
+
+
+
 	//g_NextScene = g_scene;//シーン遷移
 	g_init = 0;
 }
@@ -165,7 +160,7 @@ void RenderGame(void)
 //----------------------------------------------------------------------
 void FinalizeGame(void)
 {
-	/*ADX2Le::Finalize();*/
+	
 }
 
 
