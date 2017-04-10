@@ -47,12 +47,16 @@ void GameTitle::Update()
 		}
 	}
 
-	// スペースキーでプレイに遷移
-	if (g_keyTracker->pressed.Space)
+	if (m_Serect == false)
 	{
-		m_Serect = true;
-		m_cnt = 0;
+		// スペースキーでプレイに遷移
+		if (g_keyTracker->pressed.Space)
+		{
+			m_Serect = true;
+			m_cnt = 0;
+		}
 	}
+
 
 	m_cnt++;
 
