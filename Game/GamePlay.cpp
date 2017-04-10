@@ -273,6 +273,15 @@ void GamePlay::Render()
 			g_tip[i].grp_h = CHIP_SIZE;
 		}
 
+		if (g_map[i / MAP_H][i % MAP_W] == 16)
+		{
+			g_tip[i].grp_x = 416;
+			g_tip[i].grp_y = 32;
+			g_tip[i].grp_w = CHIP_SIZE;
+			g_tip[i].grp_h = CHIP_SIZE;
+		}
+
+		
 		if (g_tip[i].state)
 		{
 			rect = { g_tip[i].grp_x, g_tip[i].grp_y,

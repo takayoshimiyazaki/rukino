@@ -392,7 +392,7 @@ void Player::PlayerControl(void)
 				SetDir(RIGHT);
 			}
 			
-			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8|| *mapdata == 12 || *mapdata == 13)//移動可能マップチップ
+			if (*mapdata == 0 || *mapdata == 2 ||  *mapdata == 4|| *mapdata == 6 || *mapdata == 8|| *mapdata == 12 || *mapdata == 13 || *mapdata == 16)//移動可能マップチップ
 			{
 				SetSpdX(spd);
 				SetClimb(FALSE);
@@ -411,8 +411,8 @@ void Player::PlayerControl(void)
 			int* mapdata = &g_map[index_y - 1][index_x];//プレイヤーの左のマップチップ判定
 
 			
-
-			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 12 || *mapdata == 13)
+		
+			if (*mapdata == 0 || *mapdata == 2 || *mapdata == 4 || *mapdata == 6 || *mapdata == 8 || *mapdata == 12 || *mapdata == 13 || *mapdata == 16)
 			{
 
 				SetSpdX(-spd);

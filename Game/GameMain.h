@@ -33,7 +33,7 @@
 // 定数の定義 ==============================================================
 
 // ゲームタイトル
-#define GAME_TITLE "AAA"
+#define GAME_TITLE "ゆめ☆ぴん"
 
 // ゲーム画面
 #define SCREEN_WIDTH  640    // 幅[pixel]
@@ -98,8 +98,8 @@ void DrawNum(int x, int y, int n);
 // グローバル変数の定義 ===================================================
 EXTERN Texture *g_StageImage;			//　ステージ画像
 EXTERN Texture *g_BlackImage;			// フェード用黒画像
-EXTERN Texture *g_BackImage;			// 背景用画像
-EXTERN Texture *g_BackImage2;			// 背景用画像
+EXTERN Texture *g_BackImage;			// 塔背景用画像
+EXTERN Texture *g_BackImage2;			// 森背景用画像
 
 // ステージセレクト用画像
 
@@ -114,13 +114,13 @@ EXTERN Texture *g_SBImage;			//ばさみ画像
 EXTERN Texture *g_Spider;			//蜘蛛画像
 EXTERN Texture *g_TitleImage;			// タイトル画面
 EXTERN Texture *g_ClearImage;			//クリア画像
-EXTERN Texture *g_LogoImage;			//クリア画像
-EXTERN Texture *g_OverImage;			//クリア画像
-EXTERN Texture *g_StateImage;			//クリア画像
+EXTERN Texture *g_LogoImage;			//ロゴ画像
+EXTERN Texture *g_OverImage;			//ゲームオーバー画像
+EXTERN Texture *g_StateImage;			//状態画像
 
 EXTERN Texture *g_FaceImage;			//クリア画像
-EXTERN Texture *g_RopeImage ;//ロープ画像
-EXTERN Texture *g_SpaceImage;//スペースボタンクリック画像
+EXTERN Texture *g_RopeImage ;			//ロープ画像
+EXTERN Texture *g_SpaceImage;			//スペースボタンクリック画像
 
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
@@ -132,6 +132,6 @@ EXTERN int g_NextScene;				//次のシーン
 EXTERN int g_init;					//初期化管理
 EXTERN int g_mousePoint;
 
-EXTERN int serectMap;
-EXTERN int g_ScrollMap_x; //画面スクロール量（X）
-EXTERN int g_ScrollMap_y;//画面スクロール量（Y）
+EXTERN int serectMap;				//洗濯マップ
+EXTERN int g_ScrollMap_x;			//画面スクロール量（X）
+EXTERN int g_ScrollMap_y;			//画面スクロール量（Y）
