@@ -68,6 +68,7 @@ void InitializeGame(void)
 	g_PlayerClothesPins = new Texture(L"Resources\\Images\\Clothes_pins.png");//プレイヤの洗濯ばさみ画像
 	g_Spider = new Texture(L"Resources\\Images\\Spider.png");//蜘蛛画像
 	g_TitleImage = new Texture(L"Resources\\Images\\title.png");//タイトル画像
+	g_SpaceImage = new Texture(L"Resources\\Images\\PleaseSpace.png");//スペースボタンクリック画像
 	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ロゴ画像
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像

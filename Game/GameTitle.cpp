@@ -19,44 +19,56 @@ using namespace DirectX;
 
 void GameTitle::Update()
 {
-	
-	/*if (g_keyTracker->pressed.Up)
+	if (m_Serect == true)
 	{
-		flag = 0;
+		if (((m_cnt / 10) % 2) == 0)
+		{
+			FlashCheck = true;
+		}
+		else
+		{
+			FlashCheck = false;
+		}
+
+		if (m_cnt == 129)
+		{
+			g_NextScene = SERECT;
+		}
 	}
-	else if (g_keyTracker->pressed.Down)
+	else
 	{
-		flag = 1;
-	}*/
+		if (((m_cnt / 20) % 2) == 0)
+		{
+			FlashCheck = true;
+		}
+		else
+		{
+			FlashCheck = false;
+		}
+	}
 
 	// スペースキーでプレイに遷移
 	if (g_keyTracker->pressed.Space)
 	{
-		
-		/*switch (flag)
-		{
-		case 0:
-			g_NextScene = SERECT;
-			break;
-
-		case 1:
-			
-			break;
-		}*/
-			
-		g_NextScene = SERECT;
-
+		m_Serect = true;
+		m_cnt = 0;
 	}
+
+	m_cnt++;
 
 }
 void GameTitle::Render()
 {
-	RECT rect;			// 絵の左上の座標と右下の座標編集用
 	wchar_t buf[256];	// 文字列編集用
 	
 	// タイトル画像
-	rect = { 0,0,640,480 };
 	g_spriteBatch->Draw(g_TitleImage->m_pTexture, Vector2(0, 0));
+
+	if (FlashCheck == true)
+	{
+		g_spriteBatch->Draw(g_SpaceImage->m_pTexture, Vector2(0, 0));
+	}
+
 
 }
 GameTitle::GameTitle()
@@ -66,7 +78,10 @@ GameTitle::GameTitle()
 		g_init = 1;
 	}
 
+	m_cnt = 0;
 	flag = 0;
+	FlashCheck = true;
+	m_Serect = false;
 }
 
 GameTitle::~GameTitle()
