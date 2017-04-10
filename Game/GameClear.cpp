@@ -46,8 +46,15 @@ void GameClear::Render()
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
 	//クリア画像の描画
-	rect = { 0, 0,640,480 };	
-	g_spriteBatch->Draw(g_ClearImage->m_pTexture,Vector2(0, 0));
+	rect = { 0, 0,640,480 };
+	if (serectMap == 1)
+	{
+		g_spriteBatch->Draw(g_TowerClearImage->m_pTexture, Vector2(0, 0));
+	}
+	else if (serectMap == 2)
+	{
+		g_spriteBatch->Draw(g_ForestClearImage->m_pTexture, Vector2(0, 0));
+	}
 	
 }
 
