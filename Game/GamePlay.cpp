@@ -37,12 +37,14 @@ GamePlay::GamePlay()
 	// マップの設定
 	if (serectMap == 1)
 	{
+		cnt = 60;//塔ステージ制限時間の設定
 		enemyNum = 12;
 		importData("map1.csv");//マップデータの読み込み
 
 	}
 	else if (serectMap == 2)
 	{
+		cnt = 40;//森ステージの制限時間の設定
 		enemyNum = 1;
 		importData("map2.csv");//マップデータの読み込み
 	}
@@ -379,7 +381,6 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 	map_y = (int)floor(bottom / CHIP_SIZE);
 
 
-	
 	// 床壁だったら
 	if (g_map[map_y][map_x] == 1||g_map[map_y][map_x] == 9 || g_map[map_y][map_x] == 14)
 	{
@@ -514,8 +515,8 @@ void  GamePlay::Collisionfloor(ObjectBase* obj)
 					obj->SetPosY((map_y - 1) * CHIP_SIZE - 32.0f);
 				}
 			}
+
 			// 速度を0にする
-			
 			obj->SetSpdY(0.0f);
 			obj->SetJump(FALSE);
 			obj->SetJumpPower(0.0f);
@@ -578,7 +579,6 @@ void GamePlay::timeOver()
 			g_NextScene = OVER;	//	ゲームオーバーする
 		}
 	}
-
 }
 
 

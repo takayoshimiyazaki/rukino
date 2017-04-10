@@ -34,7 +34,7 @@ private:
 	int gimmikCnt = 0;
 	bool mouseState = 0;
 	int m_timeCount = 0;	//	ƒJƒEƒ“ƒg
-	int cnt = 40;			//	ŠÔ
+	int cnt = 0;			//	ŠÔ
 public:
 	GamePlay();
 	void Initialize();//‰Šú‰»
