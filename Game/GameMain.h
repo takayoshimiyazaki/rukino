@@ -112,8 +112,13 @@ EXTERN Texture *g_PlayerImage;			//プレイヤー画像
 EXTERN Texture *g_PlayerClothesPins;	//プレイヤの持つ洗濯ばさみ画像
 EXTERN Texture *g_SBImage;			//ばさみ画像
 EXTERN Texture *g_Spider;			//蜘蛛画像
+
 EXTERN Texture *g_TitleImage;			// タイトル画像
 EXTERN Texture *g_SpaceImage;			//スペースボタンクリック画像
+
+EXTERN Texture *g_RopeImage;        //ロープ
+
+
 EXTERN Texture *g_ClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//ロゴ画像
 EXTERN Texture *g_OverImage;			//オーバー画像
