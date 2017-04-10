@@ -116,6 +116,8 @@ EXTERN Texture *g_ClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//ロゴ画像
 EXTERN Texture *g_OverImage;			//ゲームオーバー画像
 EXTERN Texture *g_StateImage;			//状態画像
+EXTERN Texture *g_JumpImage;
+
 
 EXTERN Texture *g_FaceImage;			//クリア画像
 EXTERN Texture *g_RopeImage ;			//ロープ画像
