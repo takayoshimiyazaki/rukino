@@ -197,6 +197,16 @@ int Gimmik::GetDir()
 
 void Gimmik::Render()
 {
+
+	if (serectMap == 1)
+	{
+		SetGrpX(416);
+		SetGrpY(0);
+		SetGrpW(32);
+		SetGrpH(32);
+	}
+
+
 		// 絵の左上の座標と右下の座標編集用
 	RECT rect;
 
@@ -214,7 +224,7 @@ void Gimmik::Render()
 	switch (serectMap)
 	{
 	case 1:
-		g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
+		g_spriteBatch->Draw(g_StageImage->m_pTexture,
 			Vector2(sx, sy),
 			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
 		break;
