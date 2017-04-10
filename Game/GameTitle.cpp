@@ -50,6 +50,7 @@ void GameTitle::Update()
 	// スペースキーでプレイに遷移
 	if (g_keyTracker->pressed.Space)
 	{
+		ADX2Le::Play(CRI_CUESHEET_0_WELCOM98);
 		m_Serect = true;
 		m_cnt = 0;
 	}

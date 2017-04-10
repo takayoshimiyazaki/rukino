@@ -29,6 +29,12 @@
 #include "..\DirectXTK.h"
 #include "..\Texture.h"
 
+#include "..\ADX2Le.h"
+#include "CueSheet_0.h"
+
+#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+
+
 
 // ’è”‚Ì’è‹` ==============================================================
 

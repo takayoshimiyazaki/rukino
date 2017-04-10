@@ -18,6 +18,7 @@
 #include"GameTitle.h"
 #include"GameSerect.h"
 
+
 #include<fstream>
 #include<iostream>
 #include<string>
@@ -26,6 +27,7 @@
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
+
 
 // プロトタイプ宣言 ====================================================
 void importData(string filename);
@@ -50,6 +52,9 @@ GameBase* base;
 void InitializeGame(void)
 {
 	base = new GameTitle();
+
+	ADX2Le::Initialize("NewProject3.acf");
+	ADX2Le::LoadAcb("CueSheet_0.acb", "CueSheet_0.awb");
 
 	// 画像の読み込み 
 	g_StageImage = new Texture(L"Resources\\Images\\StageImage.png");//ステージ画像
@@ -98,6 +103,8 @@ void InitializeGame(void)
 //----------------------------------------------------------------------
 void UpdateGame(void)
 {
+	ADX2Le::Update();
+
 	// シーン管理
 	if (g_scene != g_NextScene)
 	{
@@ -160,6 +167,8 @@ void RenderGame(void)
 //----------------------------------------------------------------------
 void FinalizeGame(void)
 {
+	ADX2Le::Finalize();
+
 	/*ADX2Le::Finalize();*/
 }
 
