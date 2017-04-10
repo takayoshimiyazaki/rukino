@@ -18,7 +18,6 @@
 #include"GameTitle.h"
 #include"GameSerect.h"
 
-
 #include<fstream>
 #include<iostream>
 #include<string>
@@ -164,13 +163,9 @@ void RenderGame(void)
 //----------------------------------------------------------------------
 void FinalizeGame(void)
 {
-<<<<<<< HEAD
 	ADX2Le::Finalize();
 
 	/*ADX2Le::Finalize();*/
-=======
-	
->>>>>>> 7e6031fac0ee50ec1295eb02d13cf132befcf0b9
 }
 
 
