@@ -67,7 +67,7 @@ void InitializeGame(void)
 	g_PlayerImage = new Texture(L"Resources\\Images\\player.png");//プレイヤー画像
 	g_PlayerClothesPins = new Texture(L"Resources\\Images\\Clothes_pins.png");//プレイヤの洗濯ばさみ画像
 	g_Spider = new Texture(L"Resources\\Images\\Spider.png");//蜘蛛画像
-	g_RopeImage = new Texture(L"Resources\\Images\\long_rope.png");//蜘蛛画像
+	g_RopeImage = new Texture(L"Resources\\Images\\long_rope.png");//ロープ画像
 	g_TitleImage = new Texture(L"Resources\\Images\\title.png");//タイトル画像
 	g_SpaceImage = new Texture(L"Resources\\Images\\PleaseSpace.png");//スペースボタンクリック画像
 	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像
@@ -75,9 +75,9 @@ void InitializeGame(void)
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像
 
 	//UI
-	g_StateImage = new Texture(L"Resources\\Images\\state.png");//クリア画像
-	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//クリア画像
-	g_FaceImage = new Texture(L"Resources\\Images\\Face.png");
+	g_StateImage = new Texture(L"Resources\\Images\\state.png");//UI画像
+	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//洗濯ばさみ画像
+	g_FaceImage = new Texture(L"Resources\\Images\\Face.png");//キャラ顔画像
 
 	//ステージのセレクト時の画像
 	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");
