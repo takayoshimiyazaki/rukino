@@ -43,6 +43,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\cri\pc\include;C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
+<<<<<<< HEAD
+    <LibraryPath>C:\cri\pc\libs\x86;C:\DirectXTK\Bin\Desktop_2015\Win32\Debug;C:\DirectXTK\Bin\Desktop_2015\Win32\Release;$(LibraryPath)</LibraryPath>
+=======
+>>>>>>> 7e6031fac0ee50ec1295eb02d13cf132befcf0b9
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -84,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ADX2Le.cpp" />
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectXTK.cpp" />
     <ClCompile Include="Game\Enemy.cpp" />
@@ -102,8 +107,10 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADX2Le.h" />
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectXTK.h" />
+    <ClInclude Include="Game\CueSheet_0.h" />
     <ClInclude Include="Game\Enemy.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />
