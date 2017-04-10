@@ -97,9 +97,9 @@ void GameSerect::Render()
 {
 	RECT rect = { 0,0,320,480 };
 
-	wchar_t buf[256];	// 文字列編集用						
-	wchar_t buf2[256];	// 文字列編集用
-	wchar_t buf3[256];	// 文字列編集用
+	//wchar_t buf[256];	// 文字列編集用						
+	//wchar_t buf2[256];	// 文字列編集用
+	//wchar_t buf3[256];	// 文字列編集用
 
 	//森選択の描画
 		g_spriteBatch->Draw(g_ForestStageImage->m_pTexture, Vector2(0,0),
@@ -128,11 +128,11 @@ void GameSerect::Render()
 		}
 
 
-	swprintf_s(buf, 16, L"X ,%d", serectMap);
+	/*swprintf_s(buf, 16, L"X ,%d", serectMap);*/
 	/*swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
 	swprintf_s(buf3, 16, L"T ,%d", cnt);*/
 
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
+	/*g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));*/
 	/*g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(0, 32));*/
 

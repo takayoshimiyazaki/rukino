@@ -233,8 +233,8 @@ void GamePlay::Render()
 	/*ShowCursor(FALSE);*/
 
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-	wchar_t buf[256];	// 文字列編集用						
-	wchar_t buf2[256];	// 文字列編集用
+	//wchar_t buf[256];	// 文字列編集用						
+	//wchar_t buf2[256];	// 文字列編集用
 	wchar_t buf3[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
@@ -338,12 +338,12 @@ void GamePlay::Render()
 	
 
 	//デバッグ用文字
-	swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
-	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());
+	/*swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
+	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());*/
 	swprintf_s(buf3, 16, L"TIME ,%d", cnt);
 
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));
+	/*g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));*/
 	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(300 ,400));
 }
 
