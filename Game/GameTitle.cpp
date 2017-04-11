@@ -12,10 +12,29 @@
 #include "GameMain.h"
 #include "GameTitle.h"
 
+#include "../ADX2Le.h"
+#include "../CueSheet_0.h"
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
+GameTitle::GameTitle()
+{
 
+	ADX2Le::LoadAcb("Resources\\Sounds\\CueSheet_0.acb");
+
+	ADX2Le::Play(BGM_TITLE);
+	if (g_init == 0)
+	{
+		g_init = 1;
+	}
+
+
+	m_cnt = 0;
+	flag = 0;
+	FlashCheck = true;
+	m_Serect = false;
+}
 
 void GameTitle::Update()
 {
@@ -52,12 +71,11 @@ void GameTitle::Update()
 		// スペースキーでプレイに遷移
 		if (g_keyTracker->pressed.Space)
 		{
+			ADX2Le::Play(Enter);
 			m_Serect = true;
 			m_cnt = 0;
 		}
-		ADX2Le::Play(CRI_CUESHEET_0_WELCOM98);
-		m_Serect = true;
-		m_cnt = 0;
+
 	}
 
 
@@ -78,20 +96,8 @@ void GameTitle::Render()
 
 
 }
-GameTitle::GameTitle()
-{
-	//ADX2Le::Play(CRI_CUESHEET_0_SE_MAOUDAMASHII_ONEPOINT33);
-	if (g_init == 0)
-	{
-		g_init = 1;
-	}
 
-	m_cnt = 0;
-	flag = 0;
-	FlashCheck = true;
-	m_Serect = false;
-}
 
 GameTitle::~GameTitle()
 {
-}
+ }

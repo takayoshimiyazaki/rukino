@@ -11,6 +11,7 @@
 // ヘッダファイルの読み込み ================================================
 #include "GameMain.h"
 #include "GameSerect.h"
+#include "../ADX2Le.h"
 
 
 using namespace DirectX::SimpleMath;
@@ -19,7 +20,8 @@ using namespace DirectX;
 GameSerect::GameSerect()
 {
 	m_cnt = 0;
-
+	m_fade = 0;
+	m_flashCnt = 0;
 	serectCheck = false;
 	serectMap = 0;
 
@@ -34,37 +36,38 @@ GameSerect::GameSerect()
 
 GameSerect::~GameSerect()
 {
-
+	ADX2Le::Stop();
 }
 
 void GameSerect::Update()
 {
-	//ステージを決定していないとき
+	m_flashCnt++;
+
+	//ステージを決定したら
 	if (serectCheck == true)
 	{
+		m_cnt++;
+		m_fade += 0.01f;
+
 		if (m_cnt == 120)
 		{
 			g_NextScene = PLAY;
 		}
-
-		m_cnt++;
 	}
 	else
 	{
-		//マウスとステージセレクト（森）が当たってたら
-		//if (CheckVecMouse(SerectForestPos, forestRect, g_mouse) == true)
 		//	左キーが押されたら
 		if (g_keyTracker->pressed.Left)
 		{
+			ADX2Le::Play(Select);
 			forestCheck = true;
 			towerCheck = false;
 		}
 
-		//マウスとステージセレクト（塔）が当たったら
-		//if (CheckVecMouse(SerectTowerPos, towerRect, g_mouse) == true)
 		//	右キーが押されたら
 		if (g_keyTracker->pressed.Right)
 		{
+			ADX2Le::Play(Select);
 			towerCheck = true;
 			forestCheck = false;
 		}
@@ -74,6 +77,7 @@ void GameSerect::Update()
 		//	スペースキーが押されたら
 		if (g_keyTracker->pressed.Space)
 		{
+			ADX2Le::Play(Enter);
 			//マウスとステージセレクト（塔）が当たったら
 			if (towerCheck == true)
 			{
@@ -111,21 +115,53 @@ void GameSerect::Render()
 
 		if (forestCheck == true)
 		{
-			if (serectCheck == false || ((m_cnt / 10) % 2 == 0))
+			if (serectCheck == false)
 			{
-				g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, 0),
-					&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				if ((m_flashCnt / 20) % 2 == 0)
+				{
+					g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, 0),
+						&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				}
+			}
+			else
+			{
+				if ((m_flashCnt / 10) % 2 == 0)
+				{
+					g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(0, 0),
+						&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				}
 			}
 
 		}
 		else
 		{
-			if (serectCheck == false || ((m_cnt / 10) % 2 == 0))
+			if (serectCheck == false)
 			{
-				g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, 0),
-					&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				if ((m_flashCnt / 20) % 2 == 0)
+				{
+					g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, 0),
+						&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				}
+			}
+			else
+			{
+				if ((m_flashCnt / 10) % 2 == 0)
+				{
+					g_spriteBatch->Draw(g_StageSerect->m_pTexture, Vector2(320, 0),
+						&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+				}
 			}
 		}
+
+		rect = { 0,0,250,100 };
+
+		if (serectCheck == false)
+		{
+			g_spriteBatch->Draw(g_DreamSelectImage->m_pTexture, Vector2(200, 20),
+				&rect, Colors::White, 0.0f, Vector2(0, 0), Vector2(1, 1));
+		}
+		//暗転用黒背景
+		g_spriteBatch->Draw(g_BlackImage->m_pTexture, Vector2(0, 0), Vector4(255, 255, 255, m_fade));
 
 
 	/*swprintf_s(buf, 16, L"X ,%d", serectMap);*/

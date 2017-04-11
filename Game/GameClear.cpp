@@ -12,6 +12,8 @@
 #include "GameMain.h"
 #include "GameClear.h"
 
+#include "../ADX2Le.h"
+
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -19,18 +21,16 @@ using namespace DirectX;
 
 GameClear::GameClear()
 {
-
-	
+	ADX2Le::Stop();
+	m_fade = 0;
+	m_cnt = 0;
+	m_flag = 0;
+	ADX2Le::Play(BGM_CLEAR);
 }
-
 void GameClear::Update()
 {
-	if (g_init == 0)
-	{
-		g_init = 1;
-		m_cnt = 0;
-	}
-
+	
+	m_cnt++;
 
 	// スペースキーが押されたら
 	if (g_keyTracker->pressed.Space)
@@ -38,6 +38,26 @@ void GameClear::Update()
 		//タイトルへ行く
 		g_NextScene = TITLE;
 
+	}
+
+	
+
+
+	if (m_cnt >= 480)
+	{
+		m_flag = 1;
+		
+	}
+
+	if (m_flag == 1)
+	{
+		m_fade += 0.01f;
+	}
+
+	if (m_cnt >= 600)
+	{
+		//タイトルへ行く
+		g_NextScene = TITLE;
 	}
 }
 
@@ -56,6 +76,8 @@ void GameClear::Render()
 		g_spriteBatch->Draw(g_ForestClearImage->m_pTexture, Vector2(0, 0));
 	}
 	
+	g_spriteBatch->Draw(g_BlackImage->m_pTexture, Vector2(0, 0), Vector4(255, 255, 255, m_fade));
+
 }
 
 GameClear::~GameClear()

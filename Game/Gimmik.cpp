@@ -1,9 +1,7 @@
 #include "Gimmik.h"
-#include"Game\GameMain.h"
-#include<string>
+#include "Game\GameMain.h"
+#include <string>
 
-//#include "..ADX2Le.h"
-//#include "..\CueSheet_0.h"
 
 
 using namespace DirectX::SimpleMath;
@@ -27,25 +25,23 @@ Gimmik::Gimmik()
 	SetJump(FALSE);
 	SetClimb(FALSE);
 	SetHold(FALSE);
-
 }
 
 
 Gimmik::~Gimmik()
 {
+
 }
 
 
 void Gimmik::SetHandle(Texture* h)
 {
 	handle = h;
-
 }
 
 Texture* Gimmik::GetHandle()
 {
 	return handle;
-
 }
 
 
@@ -199,29 +195,48 @@ int Gimmik::GetDir()
 
 void Gimmik::Render()
 {
-	RECT rect;			// 絵の左上の座標と右下の座標編集用
 
-
-	if (GetState() == 1)
+	if (serectMap == 1)
 	{
-		rect = { GetGrpX(),GetGrpY(),GetGrpX() + GetGrpW() ,
-			GetGrpY() + GetGrpH() };
+		SetGrpX(416);
+		SetGrpY(0);
+		SetGrpW(32);
+		SetGrpH(32);
 	}
+
+
+		// 絵の左上の座標と右下の座標編集用
+	RECT rect;
+
+	rect =
+	{
+		GetGrpX(),
+		GetGrpY(),
+		GetGrpX() + GetGrpW() ,
+		GetGrpY() + GetGrpH()
+	};
 
 	float sx = GetPosX() - g_ScrollMap_x;
 	float sy = GetPosY() - g_ScrollMap_y;
 
-
-	g_spriteBatch->Draw(g_PlayerImage->m_pTexture,
-		Vector2(sx, sy),
-		&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+	switch (serectMap)
+	{
+	case 1:
+		g_spriteBatch->Draw(g_StageImage->m_pTexture,
+			Vector2(sx, sy),
+			&rect, Colors::White, 0.0f, Vector2(0, 0), 1.0f);
+		break;
+	case 2:
+		g_spriteBatch->Draw(g_RopeImage->m_pTexture, Vector2(sx, sy -298));
+		break;
+	}
+	
 
 }
 
 //プレイヤー操作
 void Gimmik::GimmikControl()
 {
-
 	if (GetState() != 0)
 	{
 		//座標変更処理/////////////////////////////
@@ -229,5 +244,3 @@ void Gimmik::GimmikControl()
 		SetPosY(GetPosY() + GetSpdY() + GetJumpPower());
 	}
 }
-
-

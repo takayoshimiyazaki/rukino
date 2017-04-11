@@ -30,7 +30,7 @@
 #include "..\Texture.h"
 
 #include "..\ADX2Le.h"
-#include "CueSheet_0.h"
+#include "../CueSheet_0.h"
 
 #pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
@@ -123,12 +123,16 @@ EXTERN Texture *g_LogoImage;			//ロゴ画像
 EXTERN Texture *g_OverImage;			//ゲームオーバー画像
 EXTERN Texture *g_StateImage;			//状態画像
 EXTERN Texture *g_JumpImage;
+EXTERN Texture *g_YumePinImage;
+EXTERN Texture *g_DreamSelectImage;
+
+
 
 
 EXTERN Texture *g_FaceImage;			//クリア画像
 EXTERN Texture *g_RopeImage ;			//ロープ画像
 EXTERN Texture *g_SpaceImage;			//スペースボタンクリック画像
-
+EXTERN Texture *g_TimeImage;//残り時間
 
 EXTERN int g_map[MAP_H][MAP_W];			//	マップデータ// 塔[*5][等倍]
 EXTERN OBJECT g_tip[MAX_TIP];		//　マップチップ

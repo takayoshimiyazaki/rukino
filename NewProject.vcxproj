@@ -105,9 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADX2Le.h" />
+    <ClInclude Include="CueSheet_0.h" />
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectXTK.h" />
-    <ClInclude Include="Game\CueSheet_0.h" />
     <ClInclude Include="Game\Enemy.h" />
     <ClInclude Include="Game\GameBase.h" />
     <ClInclude Include="Game\GameClear.h" />
