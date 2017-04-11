@@ -55,6 +55,9 @@ void GameTitle::Update()
 			m_Serect = true;
 			m_cnt = 0;
 		}
+		ADX2Le::Play(CRI_CUESHEET_0_WELCOM98);
+		m_Serect = true;
+		m_cnt = 0;
 	}
 
 
@@ -77,6 +80,7 @@ void GameTitle::Render()
 }
 GameTitle::GameTitle()
 {
+	//ADX2Le::Play(CRI_CUESHEET_0_SE_MAOUDAMASHII_ONEPOINT33);
 	if (g_init == 0)
 	{
 		g_init = 1;

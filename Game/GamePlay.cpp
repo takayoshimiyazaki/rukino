@@ -16,13 +16,20 @@
 #include<fstream>
 #include<iostream>
 
+#include "..\ADX2Le.h"
+#include "CueSheet_0.h"
+
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
+#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
+
+
 //	コンストラクタ
 GamePlay::GamePlay()
 {
+
 	//デバッグ用ステージ設定
 	//serectMap = 1;//塔
 
@@ -155,14 +162,17 @@ void GamePlay::Update()
 			player->SetJump(FALSE);
 			player->SetJumpPower(0.0f);
 
-			if (player->GetDir() == LEFT  )
+			if (player->GetDir() == LEFT || serectMap == 1 )
 			{
 				
 				player->SetPosX(lift->GetPosX() + player->GetGrpW()-2.0f);
+				if(serectMap == 1)
+				{
+					player->SetDir(LEFT);
+				}
 			}
 			else if (player->GetDir() == RIGHT)
 			{
-				
 				player->SetPosX(lift->GetPosX() - player->GetGrpW()+2.0f);
 			}
 			player->SetPosY(lift->GetPosY());
@@ -232,9 +242,10 @@ void GamePlay::Render()
 	//マウスカーソル隠し
 	/*ShowCursor(FALSE);*/
 
+
 	RECT rect;			// 絵の左上の座標と右下の座標編集用
-	//wchar_t buf[256];	// 文字列編集用						
-	//wchar_t buf2[256];	// 文字列編集用
+	wchar_t buf[256];	// 文字列編集用						
+	wchar_t buf2[256];	// 文字列編集用
 	wchar_t buf3[256];	// 文字列編集用
 
 	rect = { 0, 0,640,480 };
@@ -253,14 +264,19 @@ void GamePlay::Render()
 	
 	//ステージ描画
 	for (int i = 0; i < MAX_TIP; i++)
-	{
-
-
-		
+	{	
 		if (g_map[i / MAP_H][i % MAP_W] == 1 && serectMap == 2)
 		{
 			g_tip[i].grp_x = 32;
 			g_tip[i].grp_y = 32;
+			g_tip[i].grp_w = CHIP_SIZE;
+			g_tip[i].grp_h = CHIP_SIZE;
+		}
+
+		if (g_map[i / MAP_H][i % MAP_W] == 2 && serectMap == 1)
+		{
+			g_tip[i].grp_x = 160;
+			g_tip[i].grp_y = 0;
 			g_tip[i].grp_w = CHIP_SIZE;
 			g_tip[i].grp_h = CHIP_SIZE;
 		}
@@ -327,9 +343,18 @@ void GamePlay::Render()
 		Vector2(40, 480 - 84),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
+
+
+	rect = { 0, 0,64,84 };
+	g_spriteBatch->Draw(g_JumpImage->m_pTexture,
+		Vector2(250, 480 - 84),
+		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
+
+
+
 	rect = { 0, 0,96,96 };
 	g_spriteBatch->Draw(g_FaceImage->m_pTexture,
-		Vector2(550, 480 - 84),
+		Vector2(550, 480 - 86),
 		&rect, Colors::White, 0.0f, Vector2(0, 0), 0.8f);
 
 
@@ -338,13 +363,22 @@ void GamePlay::Render()
 	
 
 	//デバッグ用文字
-	/*swprintf_s(buf, 16, L"X ,%d", (int)player->GetPosX());
-	swprintf_s(buf2, 16, L"Y ,%d", (int)player->GetPosY());*/
-	swprintf_s(buf3, 16, L"TIME ,%d", cnt);
+	swprintf_s(buf, 16, L"ZKEY ");
+	swprintf_s(buf2, 16, L"SPEACE");
+	swprintf_s(buf3, 16, L"TIME  %d",cnt);
 
-	/*g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(0, 0));
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(0, 16));*/
-	g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(300 ,400));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf, Vector2(120, 390),Color(0, 0, 0));
+	g_spriteFont->DrawString(g_spriteBatch.get(), buf2, Vector2(320, 390),Color(0, 0, 0));
+	
+	
+	if (player->GetState() == 1)
+	{
+		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 430), Color(0, 0, 0));
+	}
+	else if (player->GetState() == 2)
+	{
+		g_spriteFont->DrawString(g_spriteBatch.get(), buf3, Vector2(420, 430), Color(255, 0, 0));
+	}
 }
 
 //マップの読み込み
@@ -592,8 +626,9 @@ void GamePlay::timeOver()
 		cnt--;
 
 		//	カウントが０未満になったら
-		if (cnt < 0)
+		if (cnt <= 0)
 		{
+			cnt = 0;
 			g_NextScene = OVER;	//	ゲームオーバーする
 		}
 	}

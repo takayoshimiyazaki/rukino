@@ -1,0 +1,9 @@
+diff a/Game/GameTitle.cpp b/Game/GameTitle.cpp	(rejected hunks)
+@@ -49,6 +49,7 @@
+ 
+ 	if (m_Serect == false)
+ 	{
++<<<<<<< HEAD
+ 		// �X�y�[�X�L�[�Ńv���C�ɑJ��
+ 		if (g_keyTracker->pressed.Space)
+ 		{

@@ -29,6 +29,10 @@
 #include "..\DirectXTK.h"
 #include "..\Texture.h"
 
+#include "..\ADX2Le.h"
+#include "CueSheet_0.h"
+
+#pragma comment(lib, "cri_ware_pcx86_LE_import.lib")
 
 // 定数の定義 ==============================================================
 
@@ -113,10 +117,13 @@ EXTERN Texture *g_PlayerClothesPins;	//プレイヤの持つ洗濯ばさみ画像
 EXTERN Texture *g_SBImage;			//ばさみ画像
 EXTERN Texture *g_Spider;			//蜘蛛画像
 EXTERN Texture *g_TitleImage;			// タイトル画面
-EXTERN Texture *g_ClearImage;			//クリア画像
+EXTERN Texture *g_TowerClearImage;			//クリア画像
+EXTERN Texture *g_ForestClearImage;			//クリア画像
 EXTERN Texture *g_LogoImage;			//ロゴ画像
 EXTERN Texture *g_OverImage;			//ゲームオーバー画像
 EXTERN Texture *g_StateImage;			//状態画像
+EXTERN Texture *g_JumpImage;
+
 
 EXTERN Texture *g_FaceImage;			//クリア画像
 EXTERN Texture *g_RopeImage ;			//ロープ画像

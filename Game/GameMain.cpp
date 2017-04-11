@@ -23,19 +23,13 @@
 #include<string>
 #include<sstream>
 
-
-
-
-
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
 using namespace std;
 
 
-
 // プロトタイプ宣言 ====================================================
 void importData(string filename);
-
 
 // グローバル変数の定義 ====================================================
 GameLogo logo;
@@ -57,7 +51,9 @@ GameBase* base;
 void InitializeGame(void)
 {
 	base = new GameTitle();
-	
+
+	ADX2Le::Initialize("NewProject3.acf");
+	ADX2Le::LoadAcb("CueSheet_0.acb", "CueSheet_0.awb");
 
 	// 画像の読み込み 
 	g_StageImage = new Texture(L"Resources\\Images\\StageImage.png");//ステージ画像
@@ -70,25 +66,26 @@ void InitializeGame(void)
 	g_RopeImage = new Texture(L"Resources\\Images\\long_rope.png");//ロープ画像
 	g_TitleImage = new Texture(L"Resources\\Images\\title.png");//タイトル画像
 	g_SpaceImage = new Texture(L"Resources\\Images\\PleaseSpace.png");//スペースボタンクリック画像
-	g_ClearImage = new Texture(L"Resources\\Images\\CLEAR.png");//クリア画像
+	g_TowerClearImage = new Texture(L"Resources\\Images\\Tower_Clear.png");//クリア画像
+	g_ForestClearImage = new Texture(L"Resources\\Images\\Forest_Clear.png");//クリア画像
 	g_LogoImage = new Texture(L"Resources\\Images\\logo.png");//ロゴ画像
 	g_OverImage = new Texture(L"Resources\\Images\\OVER.png");//クリア画像
 
 	//UI
 	g_StateImage = new Texture(L"Resources\\Images\\state.png");//UI画像
 	g_SBImage = new Texture(L"Resources\\Images\\SB.png");//洗濯ばさみ画像
+	g_JumpImage = new Texture(L"Resources\\Images\\JumpImage.png");//洗濯ばさみ画像
 	g_FaceImage = new Texture(L"Resources\\Images\\Face.png");//キャラ顔画像
 
 	//ステージのセレクト時の画像
-	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");
-	g_TowerStageImage = new Texture(L"Resources\\Images\\TowerStage.png");
-
-	g_StageSerect = new Texture(L"Resources\\Images\\StageSerect.png");
+	g_ForestStageImage = new Texture(L"Resources\\Images\\ForestStage.png");//森
+	g_TowerStageImage = new Texture(L"Resources\\Images\\TowerStage.png");//塔
+	g_StageSerect = new Texture(L"Resources\\Images\\StageSerect.png");//ステージ選択画面
 
 	// 音の読み込み
-	
-	
-	//g_NextScene = g_scene;//シーン遷移
+
+
+
 	g_init = 0;
 }
 
@@ -103,6 +100,8 @@ void InitializeGame(void)
 //----------------------------------------------------------------------
 void UpdateGame(void)
 {
+	ADX2Le::Update();
+
 	// シーン管理
 	if (g_scene != g_NextScene)
 	{
@@ -165,6 +164,8 @@ void RenderGame(void)
 //----------------------------------------------------------------------
 void FinalizeGame(void)
 {
+	ADX2Le::Finalize();
+
 	/*ADX2Le::Finalize();*/
 }
 
